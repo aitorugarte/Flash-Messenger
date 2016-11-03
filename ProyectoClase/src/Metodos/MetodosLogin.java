@@ -11,5 +11,9 @@ public class MetodosLogin {
 
 	// pool para que tengamos una conexion con el servidor bases de datos
 	Pool MetodosPool = new Pool();
+	private void syso() {
+		// TODO Auto-generated method stub
+
+	}
 
 }
