@@ -8,7 +8,7 @@ import javax.swing.JOptionPane;
 /*
  * Hilo del cliente encargado de los mensajes
  */
-class HiloCliente extends Thread{
+public class HiloCliente extends Thread{
 	
 	   private DataInputStream entrada;
 	   private MiFrameCliente frame;
@@ -20,7 +20,7 @@ class HiloCliente extends Thread{
 	   
 	   public void run(){
 		   
-	      String mensaje = " ";
+	      String mensaje = "";
 	      int opcion = 0;
 	      
 	      while(true){         

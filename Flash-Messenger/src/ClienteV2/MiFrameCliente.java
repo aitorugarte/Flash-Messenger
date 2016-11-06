@@ -21,6 +21,8 @@ import java.awt.Color;
 
 public class MiFrameCliente extends JFrame {
 
+	
+	private static final long serialVersionUID = 1458864985101903804L;
 	private JPanel contentPane;
 	private JSplitPane splitPane;
 	private JPanel panUsus, panChat;

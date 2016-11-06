@@ -1,8 +1,6 @@
 package ClienteV2;
 
 import java.awt.Cursor;
-import java.awt.Dimension;
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -10,13 +8,14 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JProgressBar;
 import javax.swing.JLabel;
 import java.awt.Font;
-import java.awt.Toolkit;
 
 /*
  * Clase de la barra de progreso
  */
 public class BarraProgreso extends JFrame {
 
+	
+	private static final long serialVersionUID = 1942123323831883070L;
 	private JPanel contentPane;
 	private JProgressBar progressBar;
 	private JLabel lblCargando;

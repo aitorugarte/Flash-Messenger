@@ -15,6 +15,9 @@ import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.JButton;
 
+/*
+ * Clase principal del cliente
+ */
 public class Principal_Cliente extends JFrame {
 
 	

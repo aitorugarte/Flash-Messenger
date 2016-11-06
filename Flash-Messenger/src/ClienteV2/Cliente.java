@@ -9,12 +9,12 @@ import javax.swing.JOptionPane;
 
 /*
  * Clase del cliente que gestiona la conexión
- */
+ */ 
 public class Cliente {
 
 	   public static String Ip_Servidor; //Dirección ip del servidor
 	   private String nombre; //Nombre del usuario
-	   private MiFrameCliente frame;
+	   private MiFrameCliente frame; //GUI del cliente
 	   private DataOutputStream salida;
 	   private DataOutputStream salidaNick;
 	   private DataInputStream entrada;
