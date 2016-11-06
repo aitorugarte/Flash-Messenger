@@ -1,9 +1,5 @@
 package ServidorV2;
 
-import java.awt.BorderLayout;
-import java.awt.Component;
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -12,19 +8,16 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.Font;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.swing.JList;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 import java.awt.event.ActionEvent;
 
 public class ListaActivos extends JFrame {
 
+	
+	private static final long serialVersionUID = 8993508281880165735L;
 	private JPanel contentPane;
 	private JLabel lblUsuariosActivos;
 	private JList<String> listaNombres;
@@ -34,9 +27,10 @@ public class ListaActivos extends JFrame {
 
 	
 	public ListaActivos() {
+		setResizable(false);
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 241, 300);
+		setBounds(100, 100, 233, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -94,12 +88,17 @@ public class ListaActivos extends JFrame {
 	}
 	public void eliminarNombre(){
 		
-		 HiloServidor user = null;
-		int indice = listaNombres.getSelectedIndex();
+		HiloServidor user = null;
+		Integer indice = listaNombres.getSelectedIndex();
 		
+		try{
 		modelo.removeElementAt(indice); //Borramos al usuario de la lista
 		user = HiloServidor.clientesActivos.get(indice);
-		user.desconectar(); //Echamos al usuario del servidor :)
+		user.desconectar(); //Echamos al usuario del servidor :)	
+		}catch(IndexOutOfBoundsException e){
+			
+		}
+		
 		
 	/*Falta que se cierre la ventana del usuario */
 	}

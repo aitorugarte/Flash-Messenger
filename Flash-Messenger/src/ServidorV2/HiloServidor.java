@@ -1,22 +1,18 @@
 package ServidorV2;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.net.InetAddress;
 import java.net.Socket;
 import java.util.Vector;
 
-import javax.rmi.ssl.SslRMIClientSocketFactory;
-import javax.swing.JOptionPane;
-
+/*
+ * Clase del hilo del servidor
+ */
 public class HiloServidor extends Thread {
 
 	private Socket Scli; // Socket de entrada de mensajes
-	private Socket Suser; // Socket por donde se envían los nombres de los
-							// usuarios
+	private Socket Suser; // Socket por donde se envían los nombres de los usuarios
 	private Socket Scli2; // Socket de salida de mensajes
 	private DataInputStream entradaNick;
 	private DataInputStream entrada;
@@ -85,7 +81,7 @@ public class HiloServidor extends Thread {
 				// En un futuro se añadirán más casos
 				}
 			} catch (IOException e) {
-				System.out.println(e);
+			
 				break;
 			}
 		}

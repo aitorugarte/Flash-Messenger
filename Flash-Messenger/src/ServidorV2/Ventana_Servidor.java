@@ -1,8 +1,5 @@
 package ServidorV2;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -21,9 +18,12 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.awt.event.ActionEvent;
 
+/*
+ * Clase principal del Servidor
+ */
 public class Ventana_Servidor extends JFrame {
 
-
+ 
 	private static final long serialVersionUID = 930849024921895057L;
 	private JPanel contentPane;
 	private JLabel lblPanelDeControl;
@@ -60,6 +60,7 @@ public class Ventana_Servidor extends JFrame {
 		btnUsuarios = new JButton("Usuarios activos");
 		btnUsuarios.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 				ListaActivos lista = new ListaActivos();
 				lista.agregarNombre();
 				lista.setVisible(true);
@@ -69,6 +70,11 @@ public class Ventana_Servidor extends JFrame {
 		contentPane.add(btnUsuarios);
 		
 		btnRegistroDeMensajes = new JButton("Log");
+		btnRegistroDeMensajes.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				JOptionPane.showMessageDialog(null,"Próximamente...", "Not today", JOptionPane.INFORMATION_MESSAGE);
+			}
+		});
 		btnRegistroDeMensajes.setBounds(163, 75, 89, 48);
 		contentPane.add(btnRegistroDeMensajes);
 

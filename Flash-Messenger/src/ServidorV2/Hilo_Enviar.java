@@ -12,10 +12,13 @@ import java.nio.charset.Charset;
 
 import javax.swing.JOptionPane;
 
+/*
+ * Clase encargada de enviar la ip del servidor cada 4 segundos
+ */
 public class Hilo_Enviar extends Thread {
 
 	
-	public static void Enviar_Ip() throws IOException{
+	public void Enviar_Ip() throws IOException{
 		
 		while(true){
 				
@@ -25,7 +28,6 @@ public class Hilo_Enviar extends Thread {
 			
 		}
 		String Ip_Servidor = Inet4Address.getLocalHost().getHostAddress();
-//		System.out.println("Mi ip: " + Ip_Servidor);
 		
 		//Convertimos los char en bytes
 		byte[] b = Ip_Servidor.getBytes(Charset.forName("UTF-8"));
@@ -47,7 +49,7 @@ public class Hilo_Enviar extends Thread {
 		try {
 			Enviar_Ip();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+		
 			e.printStackTrace();
 		}
 	}
