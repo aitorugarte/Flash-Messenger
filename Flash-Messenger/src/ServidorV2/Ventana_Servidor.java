@@ -9,6 +9,9 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
+import javax.swing.UIManager;
+import javax.swing.UIManager.LookAndFeelInfo;
+
 import java.awt.Font;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -20,6 +23,8 @@ import java.awt.event.ActionEvent;
 
 public class Ventana_Servidor extends JFrame {
 
+
+	private static final long serialVersionUID = 930849024921895057L;
 	private JPanel contentPane;
 	private JLabel lblPanelDeControl;
 	private JButton btnDesconectar, btnUsuarios, btnRegistroDeMensajes;
@@ -110,7 +115,18 @@ public class Ventana_Servidor extends JFrame {
 	}
 	
 	public static void main(String[] args) throws IOException {
-		
+		// https://docs.oracle.com/javase/tutorial/uiswing/lookandfeel/nimbus.html
+				try {
+					for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+						if ("Nimbus".equals(info.getName())) {
+							UIManager.setLookAndFeel(info.getClassName());
+							break;
+						}
+					}
+				} catch (Exception e) {
+					// If Nimbus is not available, you can set the GUI to another look
+					// and feel.
+				}
 		Hilo_Enviar hilo = new Hilo_Enviar();
 		hilo.start();
 		

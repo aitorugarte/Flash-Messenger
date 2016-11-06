@@ -12,6 +12,9 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.Toolkit;
 
+/*
+ * Clase de la barra de progreso
+ */
 public class BarraProgreso extends JFrame {
 
 	private JPanel contentPane;

@@ -11,14 +11,18 @@ import java.net.UnknownHostException;
 import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
+import javax.swing.UIManager;
+import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.JButton;
 
 public class Principal_Cliente extends JFrame {
 
+	
+	private static final long serialVersionUID = 9107088636470185138L;
 	private JScrollPane scrollpane;
 	private JList<Object> list;
 	private JButton btnIngresar;
-	public static String Ip_Servidor = "";
+	public static String Ip_Servidor;
 	
 	public Principal_Cliente() throws UnknownHostException, IOException {
 		super("Lista");
@@ -28,7 +32,7 @@ public class Principal_Cliente extends JFrame {
 	    setLocationRelativeTo(null);
 	    setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-	    String ips[] = { DireccionIp()}; //Próximamente aparecerá una lista con más de una posibilidad
+	    String ips[] = {DireccionIp()}; //TODO (listado de + de 1 ip)
 	    
 	   list = new JList<Object>(ips);
 	    
@@ -44,10 +48,7 @@ public class Principal_Cliente extends JFrame {
 
 	  	dispose();
 	  	Ip_Servidor = ""+list.getSelectedValue();
-	/*
-	 * CUIDADO, si la ip no es la correcta, no salta ningún error
-	 * Arreglar eso
-	 */
+	
 	  	MiFrameCliente frame = new MiFrameCliente();
 	  	frame.setVisible(true);
 	  	
@@ -59,11 +60,14 @@ public class Principal_Cliente extends JFrame {
 
 	}
 	
-
 	public static String DireccionIp() throws UnknownHostException, IOException{
+		//Reseteamos las variables para evitar acumulaciones
+		String ip = "";
+		DatagramPacket dgp = null;
+		
 		// El mismo puerto que se uso en la parte de enviar.
 		MulticastSocket escucha = new MulticastSocket(50000);
-
+		
 		// Nos ponemos a la escucha de la misma IP de Multicast que se uso en la parte de enviar.
 		escucha.joinGroup(InetAddress.getByName("230.0.0.1"));
 							
@@ -71,25 +75,35 @@ public class Principal_Cliente extends JFrame {
 		byte [] dato = new byte [15];
 
 		// Se espera la recepción. La llamada a receive() se queda bloqueada hasta que llegue un mesnaje.
-		DatagramPacket dgp = new DatagramPacket(dato, dato.length);
+		dgp = new DatagramPacket(dato, dato.length);
 		escucha.receive(dgp);
 		dato = dgp.getData();
 		
-		String ip = new String(dato, "UTF-8");
-	//	System.out.println("Ip recibida: " + ip);
+		ip = new String(dato, "UTF-8");
 		
 		return ip;
 	}
 	
 	public static void main(String args[]) throws IOException {
-	
+		// https://docs.oracle.com/javase/tutorial/uiswing/lookandfeel/nimbus.html
+		try {
+			for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+				if ("Nimbus".equals(info.getName())) {
+					UIManager.setLookAndFeel(info.getClassName());
+					break;
+				}
+			}
+		} catch (Exception e) {
+			// If Nimbus is not available, you can set the GUI to another look
+			// and feel.
+		}
 		BarraProgreso barra = new BarraProgreso();
 		barra.setVisible(true);
-	
-		DireccionIp(); 
-		
+
+		DireccionIp();
+
 		barra.dispose();
-		
+
 		Principal_Cliente busqueda = new Principal_Cliente();
 		busqueda.setVisible(true);
 

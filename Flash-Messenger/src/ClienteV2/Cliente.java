@@ -1,68 +1,71 @@
 package ClienteV2;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
-import java.util.Vector;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.swing.JOptionPane;
 
+/*
+ * Clase del cliente que gestiona la conexión
+ */
 public class Cliente {
 
-	   public static String IP_SERVIDOR;
+	   public static String Ip_Servidor; //Dirección ip del servidor
+	   private String nombre; //Nombre del usuario
 	   private MiFrameCliente frame;
-	   private DataInputStream entrada;
 	   private DataOutputStream salida;
 	   private DataOutputStream salidaNick;
-	   private DataInputStream entrada2;
-	   private Socket comunicacion;//para la conectarse
+	   private DataInputStream entrada;
+	   private Socket comunicacion; //para la conectarse
 	   private Socket Snick; //Para mandar el nick
 	   private Socket comunicacion2;//para recibir el mensaje
-	   private String nombre;
-	   
+	
 	   //Crea una nueva instancia del cliente
 	   public Cliente(MiFrameCliente frame) throws IOException{      
-	     
 		   this.frame = frame;
 	   }
 	   
 	   public void conexion() throws IOException{
-		   IP_SERVIDOR = Principal_Cliente.Ip_Servidor;
+		   Ip_Servidor = Principal_Cliente.Ip_Servidor;
 		   
 	      try {
-	         comunicacion = new Socket(Cliente.IP_SERVIDOR, 8080);
-	         Snick = new Socket(Cliente.IP_SERVIDOR, 8081);
-	         comunicacion2 = new Socket(Cliente.IP_SERVIDOR, 8083);
+	         comunicacion = new Socket(Cliente.Ip_Servidor, 8080);
+	         Snick = new Socket(Cliente.Ip_Servidor, 8081);
+	         comunicacion2 = new Socket(Cliente.Ip_Servidor, 8083);
 	         
-	         entrada = new DataInputStream(comunicacion.getInputStream());
 	         salidaNick = new DataOutputStream(Snick.getOutputStream());
 	         salida = new DataOutputStream(comunicacion.getOutputStream());
-	         entrada2 = new DataInputStream(comunicacion2.getInputStream());
-	         
-	         //Pide el nombre del usuario
-	         nombre = JOptionPane.showInputDialog("Introduzca su nombre :");
-	         frame.setNombreUser(nombre);         
+	         entrada = new DataInputStream(comunicacion2.getInputStream());
+
+			// Pide el nombre del usuario evitando que no escriba nada
+			try {
+				do {
+					nombre = JOptionPane.showInputDialog("Introduzca su nombre :");
+
+				} while (nombre.trim().equals(""));
+			} catch (NullPointerException e) {
+
+			}
+
+			 frame.setNombreUser(nombre);         
 	         salidaNick.writeUTF(nombre);
 	         salidaNick.flush();
-	       //Se cierra la petición de conexión llamada socket
+	         
+	         //Se cierra la petición de conexión llamada socket
 	         try{
 	          Snick.close();
-	          //Mirar si hay más usuarios
-	         } catch (Exception ex){}
+	         
+	         }catch (Exception ex){}
 	         
 	   
-	      } catch (IOException e) {
-	         System.out.println("		----------------------------");
-	         System.out.println("		El servidor no está activado");
-	         System.out.println("		----------------------------");
+	      }catch (IOException e) {
+	    	
+	    	  JOptionPane.showMessageDialog(frame,"Ningún servidor activado", "Error de conexión", JOptionPane.ERROR_MESSAGE);
 	      }
 	      
-	      new HiloCliente(entrada2, frame).start();
+	      new HiloCliente(entrada, frame).start();
 	   }
 	   
 	   public String getNombre(){
@@ -71,12 +74,11 @@ public class Cliente {
 	   
 	   public void flujo(String txt){
 	      try {             
-	         System.out.println("El mensaje enviado desde el cliente es: "
-	             + txt);
+	     //    System.out.println("El mensaje enviado desde el cliente es: " + txt);
 	         salida.writeInt(1);
 	         salida.writeUTF(txt);
 	      } catch (IOException e) {
-	         System.out.println("Error...." + e);
+	    	  JOptionPane.showMessageDialog(frame,"Error al enviar el mensaje", "Error", JOptionPane.ERROR_MESSAGE);
 	      }
 	   }
 	  

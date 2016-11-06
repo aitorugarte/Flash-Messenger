@@ -3,19 +3,21 @@ package ClienteV2;
 import java.io.DataInputStream;
 import java.io.IOException;
 
-import javax.swing.JEditorPane;
+import javax.swing.JOptionPane;
 
+/*
+ * Hilo del cliente encargado de los mensajes
+ */
 class HiloCliente extends Thread{
 	
-
 	   private DataInputStream entrada;
-	  // private V_Cliente Vcli;
 	   private MiFrameCliente frame;
 	   
 	   public HiloCliente (DataInputStream entrada, MiFrameCliente frame) throws IOException{
 	      this.entrada = entrada;
 	      this.frame = frame;
 	   }
+	   
 	   public void run(){
 		   
 	      String mensaje = " ";
@@ -29,8 +31,8 @@ class HiloCliente extends Thread{
 	            
 	               case 1://mensage enviado
 	            	   mensaje = entrada.readUTF();
-	                 System.out.println("ECO del servidor:" + mensaje);
-	                 frame.mostrarMsg(mensaje);            
+	          //       System.out.println("ECO del servidor:" + mensaje);
+	            	   frame.mostrarMsg(mensaje);            
 	                  break;
 	               case 2://se agrega
 	            	   mensaje = entrada.readUTF();                
@@ -38,12 +40,11 @@ class HiloCliente extends Thread{
 	            }
 	         }
 	         catch (IOException e){
-	            System.out.println("Error en la comunicación");
+	        	 JOptionPane.showMessageDialog(frame,"El servidor ha sido desconectado", "Desconexión", JOptionPane.ERROR_MESSAGE);
+	        	 frame.dispose(); //Se cierra la ventana del cliente
 	            break;
 	         }
 	      }
-	      System.out.println("Se desconectó el servidor");
 	   }
-	   
 }
 	   
