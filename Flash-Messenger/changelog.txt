@@ -9,13 +9,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Librería que mejora la visualización de las GUI
 - Los errores se muestran mediante ventanas
 - Serial version UID
+- Opción para visualizar los usuarios conectados desde el servidor
+- 
 
 ### Changed
 - Mejorada la GUI del cliente
+- Mejorada la GUI del servidor
 
 ### Fixed
 - Descuido que permitía enviar mensajes en blanco
 - Descuido que permitía dejar el nombre del usuario en blanco
 
 ### Removed
-- Código innecesario de las clases del Cliente
+- Restos de código de métodos depecrated
