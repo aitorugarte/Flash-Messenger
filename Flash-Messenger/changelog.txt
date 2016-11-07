@@ -10,7 +10,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Los errores se muestran mediante ventanas
 - Serial version UID
 - Opción para visualizar los usuarios conectados desde el servidor
-- 
+- Ya se puede echar a cualquier cliente desde el servidor
 
 ### Changed
 - Mejorada la GUI del cliente
