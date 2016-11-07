@@ -38,8 +38,7 @@ public class HiloCliente extends Thread{
 	            	   mensaje = entrada.readUTF();                
 	                  break;
 	            }
-	         }
-	         catch (IOException e){
+	         }catch (IOException e){
 	        	 JOptionPane.showMessageDialog(frame,"El servidor ha sido desconectado", "Desconexión", JOptionPane.ERROR_MESSAGE);
 	        	 frame.dispose(); //Se cierra la ventana del cliente
 	            break;

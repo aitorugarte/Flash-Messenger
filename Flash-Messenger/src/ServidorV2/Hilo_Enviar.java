@@ -2,15 +2,10 @@ package ServidorV2;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
-import java.net.DatagramSocket;
 import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.MulticastSocket;
-import java.net.SocketException;
-import java.net.UnknownHostException;
 import java.nio.charset.Charset;
-
-import javax.swing.JOptionPane;
 
 /*
  * Clase encargada de enviar la ip del servidor cada 4 segundos

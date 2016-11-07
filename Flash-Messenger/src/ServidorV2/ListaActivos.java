@@ -82,9 +82,6 @@ public class ListaActivos extends JFrame {
 				modelo.addElement(datos);
 				listaNombres.setModel(modelo);
 			}
-		 
-	
-		
 	}
 	public void eliminarNombre(){
 		

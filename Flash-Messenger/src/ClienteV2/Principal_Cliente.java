@@ -7,12 +7,17 @@ import java.net.DatagramPacket;
 import java.net.InetAddress;
 import java.net.MulticastSocket;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
+import java.util.Vector;
 
 import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
+
+import ServidorV2.HiloServidor;
+
 import javax.swing.JButton;
 
 /*
@@ -62,7 +67,7 @@ public class Principal_Cliente extends JFrame {
 	   
 
 	}
-	
+
 	public static String DireccionIp() throws UnknownHostException, IOException{
 		//Reseteamos las variables para evitar acumulaciones
 		String ip = "";

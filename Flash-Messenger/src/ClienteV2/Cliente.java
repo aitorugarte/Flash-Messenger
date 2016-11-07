@@ -3,7 +3,11 @@ package ClienteV2;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.net.DatagramPacket;
+import java.net.InetAddress;
+import java.net.MulticastSocket;
 import java.net.Socket;
+import java.net.UnknownHostException;
 
 import javax.swing.JOptionPane;
 
@@ -21,6 +25,7 @@ public class Cliente {
 	   private Socket comunicacion; //para la conectarse
 	   private Socket Snick; //Para mandar el nick
 	   private Socket comunicacion2;//para recibir el mensaje
+	   private HiloCliente hilo;
 	
 	   //Crea una nueva instancia del cliente
 	   public Cliente(MiFrameCliente frame) throws IOException{      
@@ -64,8 +69,9 @@ public class Cliente {
 	    	
 	    	  JOptionPane.showMessageDialog(frame,"Ningún servidor activado", "Error de conexión", JOptionPane.ERROR_MESSAGE);
 	      }
-	      
-	      new HiloCliente(entrada, frame).start();
+	     
+	      hilo =  new HiloCliente(entrada, frame);
+	      hilo.start();
 	   }
 	   
 	   public String getNombre(){
@@ -78,8 +84,37 @@ public class Cliente {
 	         salida.writeInt(1);
 	         salida.writeUTF(txt);
 	      } catch (IOException e) {
-	    	  JOptionPane.showMessageDialog(frame,"Error al enviar el mensaje", "Error", JOptionPane.ERROR_MESSAGE);
+	    	  JOptionPane.showMessageDialog(frame,"Has sido expulsado del servidor.", "Error", JOptionPane.ERROR_MESSAGE);
+	    	  frame.dispose();
+	    	  hilo.interrupt();
+	    	 
 	      }
 	   }
-	  
+	  public void expulsado(){
+		  
+		 
+	  }
+	  public static String DireccionIp() throws UnknownHostException, IOException{
+			//Reseteamos las variables para evitar acumulaciones
+			String ip = "";
+			DatagramPacket dgp = null;
+			
+			// El mismo puerto que se uso en la parte de enviar.
+			MulticastSocket escucha = new MulticastSocket(50000);
+			
+			// Nos ponemos a la escucha de la misma IP de Multicast que se uso en la parte de enviar.
+			escucha.joinGroup(InetAddress.getByName("230.0.0.1"));
+								
+			// Un array de bytes con tamaño suficiente para recoger el mensaje enviado
+			byte [] dato = new byte [15];
+
+			// Se espera la recepción. La llamada a receive() se queda bloqueada hasta que llegue un mesnaje.
+			dgp = new DatagramPacket(dato, dato.length);
+			escucha.receive(dgp);
+			dato = dgp.getData();
+			
+			ip = new String(dato, "UTF-8");
+			
+			return ip;
+		}
 }

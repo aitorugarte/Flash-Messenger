@@ -1,16 +1,21 @@
 package ClienteV2;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+
+import ServidorV2.HiloServidor;
+
 import javax.swing.JSplitPane;
 import javax.swing.JTextArea;
 
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.util.Vector;
 import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
 import javax.swing.JList;
@@ -31,6 +36,7 @@ public class MiFrameCliente extends JFrame {
 	private JTextArea PanMsg;
 	private JLabel lblUsuariosConectados, lblConver;
 	private JList list;
+	private DefaultListModel<String> modelo;
 	private JMenuBar menuBar;
 	private JMenu MenuInicio, MenuAyuda, MenuAcercaD; 
 	private JMenuItem mntmInicio, mntmDesarrollador;

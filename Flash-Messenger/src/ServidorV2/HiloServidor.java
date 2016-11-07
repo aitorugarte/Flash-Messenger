@@ -48,6 +48,12 @@ public class HiloServidor extends Thread {
 	}
 	public void desconectar(){
 		clientesActivos.removeElement(this);
+		try {
+			Scli.close();
+		} catch (IOException e) {
+			
+			e.printStackTrace();
+		}
 	}
 	
 	public void run() {
