@@ -2,6 +2,7 @@ package Metodos;
 
 import java.sql.*;
 
+//Prueba
 public class BaseDeDatos {
 
 	// atributos conexion y sentencia
