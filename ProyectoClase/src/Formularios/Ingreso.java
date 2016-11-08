@@ -21,8 +21,8 @@ public class Ingreso extends JFrame {
 	private JTextField txtNombredeusuario;
 	private JPasswordField txtContraseña;
 	private JTextField txtCorreoElectronico;
-	
-	//creamos el fichero
+
+	// creamos el fichero
 	File fichero = new File("c:\\temp\\lineadecodigo\\fichero.txt");
 	private JPasswordField passwordField;
 
@@ -47,7 +47,9 @@ public class Ingreso extends JFrame {
 	 */
 	public Ingreso() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 580, 457);
+		setBounds(100, 100, 501, 397);
+		// ajustar la imagen a la ventana
+
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -96,11 +98,11 @@ public class Ingreso extends JFrame {
 		});
 		btnCancelar.setBounds(319, 343, 131, 31);
 		contentPane.add(btnCancelar);
-		
+
 		JLabel lblRepitaContrasea = new JLabel("Repita contrase\u00F1a:");
 		lblRepitaContrasea.setBounds(45, 199, 158, 23);
 		contentPane.add(lblRepitaContrasea);
-		
+
 		passwordField = new JPasswordField();
 		passwordField.setBounds(271, 196, 168, 29);
 		contentPane.add(passwordField);
