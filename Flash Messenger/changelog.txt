@@ -1,0 +1,24 @@
+# Change Log
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](http://keepachangelog.com/) 
+and this project adheres to [Semantic Versioning](http://semver.org/).
+
+## [2.0.0] - 2016-11-06
+### Added
+- Librería que mejora la visualización de las GUI
+- Los errores se muestran mediante ventanas
+- Serial version UID
+- Opción para visualizar los usuarios conectados desde el servidor
+- Ya se puede echar a cualquier cliente desde el servidor
+
+### Changed
+- Mejorada la GUI del cliente
+- Mejorada la GUI del servidor
+
+### Fixed
+- Descuido que permitía enviar mensajes en blanco
+- Descuido que permitía dejar el nombre del usuario en blanco
+
+### Removed
+- Restos de código de métodos depecrated
