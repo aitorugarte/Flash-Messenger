@@ -15,37 +15,20 @@ import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 
 public class Imagen extends Envio {
+	
+		
+	  public static void captura(String fileName) throws Exception{
+		  Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
+		  Rectangle screenRectangle = new Rectangle(screenSize);
+		  Robot robot = new Robot();
+		  BufferedImage image = robot.createScreenCapture(screenRectangle);
+		  ImageIO.write(image, "png", new File(fileName));
+	  	 }
 
-		public void Enviar(){
-				try {		
-		            BufferedImage bufferedImage = ImageIO.read(new File("/home/leyer/lsm.png"));
-		            ImageIO.write(bufferedImage, "png", salida);
-		            salida.flush();
-		        }catch (Exception e) {
-		            e.printStackTrace();
-		        }
-			}
-		
-		
-	  public void captura(){
-	  Rectangle rectangleTam = new Rectangle(Toolkit.getDefaultToolkit().getScreenSize());
-	   try {
-	   Robot robot = new Robot();
-	   BufferedImage bufferedImage = robot.createScreenCapture(rectangleTam);
-	   ByteArrayOutputStream salidaImagen = new ByteArrayOutputStream();
-	   ImageIO.write(bufferedImage, "jpg", salidaImagen);
-	   byte[] bytesImage = salidaImagen.toByteArray();
-	   DatagramPacket dgp = new DatagramPacket(bytesImage, bytesImage.length, InetAddress.getByName("230.0.0.1"), 50000);	
-	   MulticastSocket enviador = new MulticastSocket();
-	   enviador.send(dgp);
-	   System.out.println( "Se ha enviado la imagen" );
-	   } 
-	   catch (AWTException e) {
-		   e.printStackTrace();
-	   } // procesar los problemas que pueden ocurrir al enviar el objeto
-	  catch ( IOException excepcionES ) {
-		   System.out.println( "\nError al escribir el objeto" );
-	  }
-	  
-	 }
+	  public static void main(String[] args) throws Exception {
+		  String FILENAME="C:/Users/Javier/Pictures/capturaRobot.png";
+		  Imagen.captura(FILENAME);
+		  System.out.println("[ Captura finalizada ]");
+		  }
+
 }
