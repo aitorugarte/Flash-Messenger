@@ -18,7 +18,7 @@ public class BaseDeDatos {
 		System.out.println("La base de datos se ha conectado");
 
 		// creamos la tabla cliente
-		String sql = "CREATE TABLE CLIENTE (ID_CLIENTE INT NOT NULL PRIMARY KEY, Usuario TEXT NOT NULL, Contraseña text NOT NULL, Correo text NOT NULL, Telefono int NOT NULL);";
+		String sql = "CREATE TABLE CLIENTE (ID_CLIENTE INT NOT NULL PRIMARY KEY, Usuario TEXT NOT NULL, Contraseña text NOT NULL, Correo text NOT NULL);";
 
 		try {
 			prueba.getStatement().executeUpdate(sql);
@@ -61,6 +61,64 @@ public class BaseDeDatos {
 	public Statement getStatement() {
 		return sentencia;
 
+	}
+
+	/*
+	 * Host: sql7.freesqldatabase.com Database name: sql7143766 Database user:
+	 * sql7143766 Database password: sNeuAEMbIX
+	 */
+	private String host = "";
+	private String nombre = "";
+	private String usuario = "";
+	private String pass = "";
+
+	public Connection getConexionMYSQL() {
+		try {
+			Class.forName("com.mysql.jdbc.Driver").newInstance();
+			String servidor = "jdbc:mysql://" + host + "/" + nombre;
+			conexion = DriverManager.getConnection(servidor, usuario, pass);
+			return conexion;
+		} catch (Exception e) {
+			return conexion;
+		}
+	}
+
+	// metodo que crea el usuario y lo introduce en la base de datos
+	public int IngresarUsuario(String Usuario, String Contraseña, String Correo) {
+
+		int resultado = 0;
+
+		Connection con = null;
+
+		String SSQL = "INSERT INTO CLIENTE (Usuario, Contraseña, CorreoElectronico)" + "VALUES (?, ?, ?)";
+		try {
+
+			con = getConexionMYSQL();
+
+			PreparedStatement psql = (PreparedStatement) con.prepareStatement(SSQL);
+			psql.setString(1, Usuario);
+			psql.setString(2, Correo);
+			psql.setString(3, Contraseña);
+
+			resultado = psql.executeUpdate();
+
+			psql.close();
+
+		} catch (SQLException e) {
+		} finally {
+
+			try {
+
+				if (con != null) {
+					con.close();
+				}
+
+			} catch (SQLException ex) {
+
+			}
+
+		}
+		return resultado;
 	}
 
 }
