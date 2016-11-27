@@ -74,25 +74,7 @@ public class Login extends JFrame {
 		btnIniciar = new JButton("Entrar");
 		btnIniciar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				char clave[] = textPassword.getPassword();
-				String clavedef = new String(clave);
-
-				if (textUsuario.getText().equals("Administrador") && clavedef.equals("12345")) {
-
-					Registro frame = new Registro();
-					frame.setVisible(true);
-					dispose();
-
-					JOptionPane.showMessageDialog(null, "Bienvenido\n" + "Has ingresado satisfactoriamente al sistema",
-							"Mensaje de bienvenida", JOptionPane.INFORMATION_MESSAGE);
-
-				} else {
-
-					JOptionPane.showMessageDialog(null,
-							"Acceso denegado:\n" + "Por favor ingrese un usuario y/o contraseña correctos",
-							"Acceso denegado", JOptionPane.ERROR_MESSAGE);
-
-				}
+				
 			}
 		});
 		btnIniciar.setBounds(36, 137, 86, 31);
@@ -103,7 +85,7 @@ public class Login extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				Registro registro = new Registro();
 				registro.setVisible(true);
-				dispose();
+			
 			}
 		});
 		btnIngresar.setBounds(36, 179, 185, 23);

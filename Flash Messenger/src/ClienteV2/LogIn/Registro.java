@@ -26,15 +26,15 @@ public class Registro extends JFrame {
 	private JTextField txtCorreoElectronico;
 	private JLabel lblNombredeusuario, lblContraseña, lblCorreoElectrnico, lblRepita, lblIntroduzca;
 	private JButton btnAceptar, btnCancelar;
-	private static BD_Local local = new BD_Local();
-	private static Statement stat = null;
-	private static Connection con = null;
+//	private static BD_Local local = new BD_Local();
+//	private static Statement stat = null;
+//	private static Connection con = null;
 
 	
 	public static void main(String[] args) {
 		//Iniciamos la base de datos
-			con = local.initBD();
-			stat = local.usarCrearTablasBD(con);
+	//		con = local.initBD();
+	//		stat = local.usarCrearTablasBD(con);
 			
 			Registro frame = new Registro();
 			frame.setVisible(true);
@@ -43,7 +43,7 @@ public class Registro extends JFrame {
 	
 	public Registro() {
 		setResizable(false);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 347, 281);
 
 		contentPane = new JPanel();
@@ -87,13 +87,13 @@ public class Registro extends JFrame {
 				if (txtNombredeusuario.getText() != null) {
 					if (txtCorreoElectronico.getText() != null) {
 						if (comprobarPass() == true) {
-							String nombre = txtNombredeusuario.getText();
+						/*	String nombre = txtNombredeusuario.getText();
 							char clave[] = txtContraseña.getPassword();
 							String contraseña = new String(clave);
-							String correo = txtCorreoElectronico.getText();
+							String correo = txtCorreoElectronico.getText();*/
 
-							local.clienteInsert(stat, nombre, contraseña, correo);
-							local.mostrarContenido(stat, con);
+						//	local.clienteInsert(stat, nombre, contraseña, correo);
+						//	local.mostrarContenido(stat, con);
 							JOptionPane.showMessageDialog(null, "Registro completo.");
 							limpiar(1);
 
@@ -118,7 +118,7 @@ public class Registro extends JFrame {
 		btnCancelar = new JButton("Cancelar");
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.exit(0);
+				dispose();
 			}
 		});
 		btnCancelar.setBounds(179, 200, 97, 31);
