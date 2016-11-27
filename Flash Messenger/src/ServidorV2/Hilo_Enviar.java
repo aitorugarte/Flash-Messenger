@@ -6,6 +6,10 @@ import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.MulticastSocket;
 import java.nio.charset.Charset;
+import java.util.logging.Level;
+
+import javax.swing.JButton;
+
 
 /*
  * Clase encargada de enviar la ip del servidor cada 4 segundos
@@ -20,9 +24,10 @@ public class Hilo_Enviar extends Thread {
 		try{
 			Thread.sleep(4000);
 		}catch (Exception e) {
-			
+			Registro.log( Level.SEVERE, "Error en la espera de los 4 segundos. ", e );
 		}
 		String Ip_Servidor = Inet4Address.getLocalHost().getHostAddress();
+		
 		
 		//Convertimos los char en bytes
 		byte[] b = Ip_Servidor.getBytes(Charset.forName("UTF-8"));
@@ -44,7 +49,7 @@ public class Hilo_Enviar extends Thread {
 		try {
 			Enviar_Ip();
 		} catch (IOException e) {
-		
+			Registro.log( Level.SEVERE, "Error al iniciar el hilo. ", e );
 			e.printStackTrace();
 		}
 	}

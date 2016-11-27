@@ -12,6 +12,9 @@ import javax.swing.JSplitPane;
 import javax.swing.JTextArea;
 
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.IOException;
 import java.util.Vector;
 import java.awt.event.ActionEvent;
@@ -22,7 +25,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import java.awt.Color;
 
-public class MiFrameCliente extends JFrame {
+public class MiFrameCliente extends JFrame implements KeyListener, ActionListener {
 
 	
 	private static final long serialVersionUID = 1458864985101903804L;
@@ -105,7 +108,6 @@ public class MiFrameCliente extends JFrame {
 		panChat.setLayout(null);
 		
 		
-		
 		textEnviar = new JTextField();
 		textEnviar.setBounds(20, 308, 387, 23);
 		panChat.add(textEnviar);
@@ -113,18 +115,9 @@ public class MiFrameCliente extends JFrame {
 		
 		btnEnviar = new JButton("Enviar");
 		btnEnviar.setBounds(417, 308, 89, 23);
-		btnEnviar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			
-			String mensaje = textEnviar.getText();
-			if(!mensaje.trim().equals("")){
-				cliente.flujo(mensaje);
-				// Limpiamos el cuadro de texto del mensaje
-				textEnviar.setText("");
-			}
-			}
-		});
 		
+		btnEnviar.addKeyListener(this);
+		btnEnviar.addActionListener(this);
 		panChat.add(btnEnviar);
 		
 		lblConver = new JLabel("Usuario ");
@@ -153,5 +146,44 @@ public class MiFrameCliente extends JFrame {
 	}
 	public void setNombreUser(String user) {
 		lblConver.setText("Usuario " + user);
+	}
+
+
+	@Override
+	public void keyReleased(KeyEvent e2) {
+
+	}
+
+	@Override
+	public void keyTyped(KeyEvent arg0) {
+	
+		
+	}
+
+	@Override
+	public void keyPressed(KeyEvent key) {
+		
+		if (key.VK_ENTER==key.getKeyCode()){
+			String mensaje = textEnviar.getText();
+			if(!mensaje.trim().equals("")){
+				cliente.flujo(mensaje);
+				// Limpiamos el cuadro de texto del mensaje
+				textEnviar.setText("");
+			}
+        }
+		
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+
+		if(e.getSource().equals(btnEnviar)){
+			String mensaje = textEnviar.getText();
+			if(!mensaje.trim().equals("")){
+				cliente.flujo(mensaje);
+				// Limpiamos el cuadro de texto del mensaje
+				textEnviar.setText("");
+			}
+		}
 	}
 }

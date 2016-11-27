@@ -12,6 +12,7 @@ import javax.swing.JList;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.util.logging.Level;
 import java.awt.event.ActionEvent;
 
 public class ListaActivos extends JFrame {
@@ -93,7 +94,7 @@ public class ListaActivos extends JFrame {
 		user = HiloServidor.clientesActivos.get(indice);
 		user.desconectar(); //Echamos al usuario del servidor :)	
 		}catch(IndexOutOfBoundsException e){
-			
+			Registro.log( Level.SEVERE, "Error al eliminar al usuario. ", e );
 		}
 		
 		

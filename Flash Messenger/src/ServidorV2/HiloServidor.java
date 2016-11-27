@@ -5,6 +5,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.Vector;
+import java.util.logging.Level;
 
 /*
  * Clase del hilo del servidor
@@ -12,9 +13,7 @@ import java.util.Vector;
 public class HiloServidor extends Thread {
 
 	private Socket Scli; // Socket de entrada de mensajes
-	private Socket Suser; // Socket por donde se envían los nombres de los usuarios
 	private Socket Scli2; // Socket de salida de mensajes
-	private DataInputStream entradaNick;
 	private DataInputStream entrada;
 	private DataOutputStream salida2;
 	public static Vector<HiloServidor> clientesActivos = new Vector<HiloServidor>();
@@ -22,10 +21,9 @@ public class HiloServidor extends Thread {
 	private Ventana_Servidor servi;
 	private String direccion;
 
-	public HiloServidor(Socket Scliente, Socket SNick, Socket Scliente2, Ventana_Servidor servi, String ip) {
+	public HiloServidor(Socket Scliente, Socket Scliente2, Ventana_Servidor servi, String ip) {
 
 		Scli = Scliente;
-		Suser = SNick;
 		Scli2 = Scliente2;
 		this.servi = servi;
 		nombre = "";
@@ -60,15 +58,16 @@ public class HiloServidor extends Thread {
 
 		try {
 		
-			entradaNick = new DataInputStream(Suser.getInputStream());
 			entrada = new DataInputStream(Scli.getInputStream());
 			salida2 = new DataOutputStream(Scli2.getOutputStream());
-			this.setNombUser(entradaNick.readUTF()); // Escribe el nombre del usuario
-														 
-			// servi.mostrar("Cliente agregado: " + getNombUser());
-			System.out.println("Número de clientes actualmente: " + clientesActivos.size());
+			this.setNombUser(entrada.readUTF()); // Escribe el nombre del usuario
+		
+			Registro.log(Level.CONFIG, "Cliente agregado: " + getNombUser(), null);
+			Registro.log(Level.CONFIG, "Número de clientes actualmente: " + clientesActivos.size(), null);
+
 		
 		} catch (IOException e) {
+			Registro.log( Level.SEVERE, "Error en los Streams. ", e );
 			e.printStackTrace();
 		}
 
@@ -87,19 +86,19 @@ public class HiloServidor extends Thread {
 				// En un futuro se añadirán más casos
 				}
 			} catch (IOException e) {
-			
+				Registro.log( Level.SEVERE, "Error en la lectura de la opción. ", e );
 				break;
 			}
 		}
-		System.out.println("El usuario " + getNombUser() + " se fue.");
+		Registro.log(Level.CONFIG, "El usuario " + getNombUser() + " se fue.", null);
 		desconectar();
-		System.out.println("Número de clientes actualmente: " + clientesActivos.size());
+		Registro.log(Level.CONFIG, "Número de clientes actualmente: " + clientesActivos.size(), null);
 		
 		try {
-			System.out.println("Socket del cliente cerrado.");
 			Scli.close();
+			Registro.log(Level.CONFIG, "Socket del cliente cerrado.", null);
 		} catch (Exception et) {
-			System.out.println("No se puede cerrar el socket del cliente.");
+			Registro.log( Level.SEVERE, "No se puede cerrar el socket del cliente. ", et );
 		}
 	}
 
@@ -114,8 +113,10 @@ public class HiloServidor extends Thread {
 				user = clientesActivos.get(i);
 				user.salida2.writeInt(1);// opción de mensaje
 				user.salida2.writeUTF("" + this.getNombUser() + " :" + txt);
+				Registro.log(Level.INFO, "" + this.getNombUser() + " :" + txt, null);
 
 			} catch (IOException e) {
+				Registro.log( Level.SEVERE, "Error al enviar el mensaje. ", e );
 				e.printStackTrace();
 			}
 		}

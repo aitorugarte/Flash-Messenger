@@ -29,6 +29,7 @@ public class Principal_Cliente extends JFrame {
 	private JList<Object> list;
 	private JButton btnIngresar;
 	public static String Ip_Servidor;
+	private static String ip = "";
 	
 	public Principal_Cliente() throws UnknownHostException, IOException {
 		super("Lista");
@@ -38,7 +39,7 @@ public class Principal_Cliente extends JFrame {
 	    setLocationRelativeTo(null);
 	    setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-	    String ips[] = {DireccionIp()}; //TODO (listado de + de 1 ip)
+	    String ips[] = {DireccionIp()};
 	    
 	   list = new JList<Object>(ips);
 	    
@@ -68,7 +69,6 @@ public class Principal_Cliente extends JFrame {
 
 	public static String DireccionIp() throws UnknownHostException, IOException{
 		//Reseteamos las variables para evitar acumulaciones
-		String ip = "";
 		DatagramPacket dgp = null;
 		
 		// El mismo puerto que se uso en la parte de enviar.
@@ -86,10 +86,20 @@ public class Principal_Cliente extends JFrame {
 		dato = dgp.getData();
 		
 		ip = new String(dato, "UTF-8");
+		setIp(ip);
 		
 		return ip;
+		
 	}
-	
+
+	public String getIp() {
+		return ip;
+	}
+
+	public static void setIp(String ip) {
+		Principal_Cliente.ip = ip;
+	}
+
 	public static void main(String args[]) throws IOException {
 		// https://docs.oracle.com/javase/tutorial/uiswing/lookandfeel/nimbus.html
 		try {

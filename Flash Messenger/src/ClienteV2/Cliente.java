@@ -20,10 +20,8 @@ public class Cliente {
 	   private String nombre; //Nombre del usuario
 	   private MiFrameCliente frame; //GUI del cliente
 	   private DataOutputStream salida;
-	   private DataOutputStream salidaNick;
 	   private DataInputStream entrada;
 	   private Socket comunicacion; //para la conectarse
-	   private Socket Snick; //Para mandar el nick
 	   private Socket comunicacion2;//para recibir el mensaje
 	   private HiloCliente hilo;
 	
@@ -37,10 +35,8 @@ public class Cliente {
 		   
 	      try {
 	         comunicacion = new Socket(Cliente.Ip_Servidor, 8080);
-	         Snick = new Socket(Cliente.Ip_Servidor, 8081);
 	         comunicacion2 = new Socket(Cliente.Ip_Servidor, 8083);
 	         
-	         salidaNick = new DataOutputStream(Snick.getOutputStream());
 	         salida = new DataOutputStream(comunicacion.getOutputStream());
 	         entrada = new DataInputStream(comunicacion2.getInputStream());
 
@@ -54,15 +50,15 @@ public class Cliente {
 
 			}
 
-			 frame.setNombreUser(nombre);         
-	         salidaNick.writeUTF(nombre);
-	         salidaNick.flush();
-	         
+			 frame.setNombreUser(nombre);      
+			 salida.writeUTF(nombre);
+	         salida.flush();
+	        /* 
 	         //Se cierra la petición de conexión llamada socket
 	         try{
-	          Snick.close();
+	          salida.close();
 	         
-	         }catch (Exception ex){}
+	         }catch (Exception ex){}*/
 	         
 	   
 	      }catch (IOException e) {

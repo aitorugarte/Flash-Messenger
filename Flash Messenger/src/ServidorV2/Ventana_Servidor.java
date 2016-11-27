@@ -14,8 +14,10 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.Inet4Address;
+import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.logging.Level;
 import java.awt.event.ActionEvent;
 
 /*
@@ -82,46 +84,46 @@ public class Ventana_Servidor extends JFrame {
 	public void runServer() {
 
 		ServerSocket servidor1 = null;// para establecer la conexión
-		ServerSocket servNick = null; // Para enviar el nombre
 		ServerSocket servidor2 = null;// para enviar mensajes
 		boolean activo = true;
 		
 		try {
 			
 			servidor1 = new ServerSocket(8080);
-			servNick = new ServerSocket(8081);
 			servidor2 = new ServerSocket(8083);
 			
 			while (activo) {
 			
 				Socket socket1 = null;
-				Socket socketNick = null;
 				Socket socket2 = null;
 			
 				try {
 				
 					socket1 = servidor1.accept();
-					socketNick = servNick.accept();
 					socket2 = servidor2.accept();
 				} catch (IOException e) {
+					Registro.log( Level.SEVERE, "Error al unirse al servidor: " + e.getMessage(), e );
 				    JOptionPane.showInputDialog("Error al unirse al servidor : " + e.getMessage());
 					continue;
 				}
-				// Activa el servidor
-				ip = Inet4Address.getLocalHost().getHostAddress();
-				System.out.println("La ip del servidor es: " + ip);
-				HiloServidor user = new HiloServidor(socket1, socketNick, socket2, this, ip);
+		
+				ip = (((InetSocketAddress)socket1.getRemoteSocketAddress()).getAddress()).toString().replace("/","");
+				System.out.println("La ip del cliente es: " + ip);
+				
+				//Activamos el usuario
+				HiloServidor user = new HiloServidor(socket1, socket2, this, ip);
 				user.start();
 			}
 
 		} catch (IOException e) {
+			Registro.log( Level.SEVERE, "Error " + e.getMessage(), e );
 			JOptionPane.showInputDialog("Error: " + e.getMessage());
 		}
 	}
 	
 	public static void main(String[] args) throws IOException {
-		// https://docs.oracle.com/javase/tutorial/uiswing/lookandfeel/nimbus.html
-				try {
+
+			try {
 					for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
 						if ("Nimbus".equals(info.getName())) {
 							UIManager.setLookAndFeel(info.getClassName());
@@ -129,6 +131,7 @@ public class Ventana_Servidor extends JFrame {
 						}
 					}
 				} catch (Exception e) {
+					Registro.log( Level.SEVERE, "Nimbus no está operativo.", e );
 					// If Nimbus is not available, you can set the GUI to another look
 					// and feel.
 				}
