@@ -18,7 +18,8 @@ public class Cliente {
 
 	   public static String Ip_Servidor; //Dirección ip del servidor
 	   private String nombre; //Nombre del usuario
-	   private MiFrameCliente frame; //GUI del cliente
+	   private String contraseña; //Contraseña del usuario
+	   private GUI_Cliente frame; //GUI del cliente
 	   private DataOutputStream salida;
 	   private DataInputStream entrada;
 	   private Socket comunicacion; //para la conectarse
@@ -26,7 +27,7 @@ public class Cliente {
 	   private HiloCliente hilo;
 	
 	   //Crea una nueva instancia del cliente
-	   public Cliente(MiFrameCliente frame) throws IOException{      
+	   public Cliente(GUI_Cliente frame) throws IOException{      
 		   this.frame = frame;
 	   }
 	   

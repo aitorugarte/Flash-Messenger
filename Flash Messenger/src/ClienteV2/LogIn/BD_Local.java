@@ -1,4 +1,4 @@
-package ServidorV2.BD;
+package ClienteV2.LogIn;
 
 import java.sql.*;
 import java.util.*; 
@@ -54,7 +54,8 @@ public class BD_Local {
 			statement.setQueryTimeout(30);  // poner timeout 30 msg
 			try {
 				statement.executeUpdate("create table cliente " +
-					"(id_cliente int not null primary key, usuario text not null,"
+					"(id_cliente integer primary key autoincrement,"
+					+ "usuario text not null,"
 					+ " contraseña text not null, correo text not null)");
 			} catch (SQLException e) {} // Tabla ya existe. Nada que hacer		
 			System.out.println("Conectado con base de datos local.");
@@ -112,12 +113,11 @@ public class BD_Local {
 	 * @param correo correo a añadir en la base de datos
 	 * @return	true si la inserción es correcta, false en caso contrario
 	 */
-	public static boolean clienteInsert( Statement st, HiloServidor h, String contraseña, String correo ) {
+	public boolean clienteInsert(Statement st, String nombre, String contraseña, String correo) {
 		String sentSQL = "";
 		try {
-			sentSQL = "insert into cliente values(" +
-					"1," +
-					"'" + secu(h.getNombUser()) + "'," +
+			sentSQL = "insert into cliente (usuario, contraseña, correo) values(" +
+					"'" + secu(nombre) + "'," +
 					"'" + secu(contraseña) + "'," +
 					"'" + secu(correo) +  "')";
 			int val = st.executeUpdate( sentSQL );
@@ -131,48 +131,21 @@ public class BD_Local {
 			return false;
 		}
 	}
-
-	/** Realiza una consulta a la tabla abierta de clientes de la BD, usando la sentencia SELECT de SQL
-	 * @param st	Sentencia ya abierta de Base de Datos (con la estructura de tabla correspondiente al usuario)
-	 * @param h	cliente (no null)
-	 * @param contraseña contraseña del cliente
-	 * @param correo email del cliente
-	 * @param codigoSelect	Sentencia correcta de WHERE (sin incluirlo) para filtrar la búsqueda (vacía si no se usa)
-	 * @return	lista de clientes cargados desde la base de datos, null si hay cualquier error
-	 */
-	public static ArrayList<String> clienteSelect( Statement st, HiloServidor h, String contraseña, String correo, String codigoSelect ) {
-		if (h==null) return null;
-		String sentSQL = "";
-		ArrayList<String> ret = new ArrayList<>();
+	public void mostrarContenido(Statement st, Connection con){
+	
 		try {
-			sentSQL = "select * from cliente";
-			if (h!=null) {
-				String where = "cliente_id=" + 1 
-						+ "cliente_nombre='" + h.getNombUser() + "'"
-						+ "cliente_contraseña='" + contraseña + "'"
-						+ "cliente_correo='" + correo + "'";
-				if (codigoSelect!=null && !codigoSelect.equals(""))
-					sentSQL = sentSQL + " where " + where + " AND " + codigoSelect;
-				else
-					sentSQL = sentSQL + " where " + where;
-			}
-			if (codigoSelect!=null && !codigoSelect.equals(""))
-				sentSQL = sentSQL + " where " + codigoSelect;
-			// System.out.println( sentSQL );  // Para ver lo que se hace en consola
-			ResultSet rs = st.executeQuery( sentSQL );
+			ResultSet rs = st.executeQuery("select * from cliente");
 			while (rs.next()) {
-				ret.add( rs.getString( "id_cliente" ) );
-				ret.add( rs.getString( "usuario"));
-				ret.add( rs.getString( "contraseña"));
-				ret.add( rs.getString( "correo"));
-			}
-			rs.close();
-			return ret;
+				  String nombre = rs.getString("usuario");
+				  String contraseña = rs.getString("contraseña");
+				  String correo = rs.getString("correo");
+				  
+				  System.out.println(nombre + " " + contraseña + " " + correo);
+				}
 		} catch (SQLException e) {
-			lastError = e;
 			e.printStackTrace();
-			return null;
 		}
+		
 	}
 
 	// Devuelve el string "securizado" para volcarlo en SQL

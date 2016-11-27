@@ -1,7 +1,5 @@
 package ClienteV2.LogIn;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -15,6 +13,9 @@ import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
 import java.awt.Font;
 
+/*
+ * Clase que se encarga de iniciar sesión en la cuenta del cliente
+ */
 public class Login extends JFrame {
 
 	private static final long serialVersionUID = 951887658616701680L;
@@ -26,16 +27,10 @@ public class Login extends JFrame {
 
 	
 	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Login frame = new Login();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+
+		Login frame = new Login();
+		frame.setVisible(true);
+
 	}
 
 	
@@ -59,11 +54,11 @@ public class Login extends JFrame {
 		textUsuario.setColumns(10);
 
 		lblContraseña = new JLabel("Contrase\u00F1a:");
-		lblContraseña.setBounds(20, 88, 73, 23);
+		lblContraseña.setBounds(20, 74, 73, 23);
 		contentPane.add(lblContraseña);
 
 		textPassword = new JPasswordField();
-		textPassword.setBounds(95, 91, 101, 20);
+		textPassword.setBounds(95, 74, 101, 20);
 		contentPane.add(textPassword);
 
 
@@ -84,7 +79,7 @@ public class Login extends JFrame {
 
 				if (textUsuario.getText().equals("Administrador") && clavedef.equals("12345")) {
 
-					Ingreso frame = new Ingreso();
+					Registro frame = new Registro();
 					frame.setVisible(true);
 					dispose();
 
@@ -106,7 +101,9 @@ public class Login extends JFrame {
 		btnIngresar = new JButton("Registrarse");
 		btnIngresar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
+				Registro registro = new Registro();
+				registro.setVisible(true);
+				dispose();
 			}
 		});
 		btnIngresar.setBounds(36, 179, 185, 23);

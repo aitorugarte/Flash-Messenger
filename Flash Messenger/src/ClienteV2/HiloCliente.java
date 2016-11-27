@@ -11,9 +11,9 @@ import javax.swing.JOptionPane;
 public class HiloCliente extends Thread{
 	
 	   private DataInputStream entrada;
-	   private MiFrameCliente frame;
+	   private GUI_Cliente frame;
 	   
-	   public HiloCliente (DataInputStream entrada, MiFrameCliente frame) throws IOException{
+	   public HiloCliente (DataInputStream entrada, GUI_Cliente frame) throws IOException{
 	      this.entrada = entrada;
 	      this.frame = frame;
 	   }

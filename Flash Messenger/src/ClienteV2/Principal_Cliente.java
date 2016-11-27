@@ -16,6 +16,8 @@ import javax.swing.JScrollPane;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 
+import ClienteV2.LogIn.Login;
+
 import javax.swing.JButton;
 
 /*
@@ -56,8 +58,10 @@ public class Principal_Cliente extends JFrame {
 	  	dispose();
 	  	Ip_Servidor = ""+list.getSelectedValue();
 	
-	  	MiFrameCliente frame = new MiFrameCliente();
-	  	frame.setVisible(true);
+	  	Login inicio = new Login();
+	  	inicio.setVisible(true);
+	/*  	MiFrameCliente frame = new MiFrameCliente();
+	  	frame.setVisible(true);*/
 	  	
 	   	}
 	   });

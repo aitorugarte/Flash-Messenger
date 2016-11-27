@@ -25,7 +25,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import java.awt.Color;
 
-public class MiFrameCliente extends JFrame implements KeyListener, ActionListener {
+public class GUI_Cliente extends JFrame implements KeyListener, ActionListener {
 
 	
 	private static final long serialVersionUID = 1458864985101903804L;
@@ -45,7 +45,7 @@ public class MiFrameCliente extends JFrame implements KeyListener, ActionListene
 	private Cliente cliente;
 	
 	
-	public MiFrameCliente() {
+	public GUI_Cliente() {
 		setTitle("GUI cliente");
 		setResizable(false);
 		IniciarFrame();

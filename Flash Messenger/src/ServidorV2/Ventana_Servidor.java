@@ -3,6 +3,10 @@ package ServidorV2;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import ServidorV2.BD.BD_Local;
+import ServidorV2.BD.BD_Remota;
+
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
@@ -17,6 +21,8 @@ import java.net.Inet4Address;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.sql.Connection;
+import java.sql.Statement;
 import java.util.logging.Level;
 import java.awt.event.ActionEvent;
 
@@ -28,7 +34,7 @@ public class Ventana_Servidor extends JFrame {
  
 	private static final long serialVersionUID = 930849024921895057L;
 	private JPanel contentPane;
-	private JLabel lblPanelDeControl;
+	private JLabel lblPanelDeControl, lblEstado;
 	private JButton btnDesconectar, btnUsuarios, btnRegistroDeMensajes;
 	private String ip;
 
@@ -79,6 +85,10 @@ public class Ventana_Servidor extends JFrame {
 		});
 		btnRegistroDeMensajes.setBounds(163, 75, 89, 48);
 		contentPane.add(btnRegistroDeMensajes);
+		
+		lblEstado = new JLabel("Conectado a internet => " + Test());
+		lblEstado.setBounds(60, 164, 166, 23);
+		contentPane.add(lblEstado);
 
 	}
 	public void runServer() {
@@ -121,6 +131,21 @@ public class Ventana_Servidor extends JFrame {
 		}
 	}
 	
+	public boolean Test(){
+		
+		BD_Remota remota = new BD_Remota();
+		BD_Local local = new BD_Local();
+		
+		if(remota.TestInternet() == true){
+			remota.Conectar();
+			return true;
+		}else{
+			Connection con = local.initBD();
+			Statement stat = local.usarCrearTablasBD(con);
+			return false;
+		}
+		
+	}
 	public static void main(String[] args) throws IOException {
 
 			try {
@@ -142,5 +167,4 @@ public class Ventana_Servidor extends JFrame {
 		servidor.setVisible(true);
 		servidor.runServer();
 	}
-
 }

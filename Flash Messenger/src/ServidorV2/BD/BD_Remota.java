@@ -15,11 +15,6 @@ import javax.swing.JOptionPane;
  */
 public class BD_Remota {
 
-	
-	public static void main(String[] args) {
-		
-		Conectar();
-	}
 	/*
 	 * Detalles de la Base de datos:
 	 * 	Host: sql7.freesqldatabase.com
@@ -58,7 +53,7 @@ public class BD_Remota {
 	 * 
 	 * @return
 	 */
-	public static boolean Conectar() {
+	public boolean Conectar() {
 		// Declaramos un objeto de la clase Conexion
 		BD_Remota con = new BD_Remota();
 		// Llamamos al metodo que nos crea la conexion
@@ -72,7 +67,7 @@ public class BD_Remota {
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
-			System.out.println("Conectado");
+				System.out.println("Conectado con base de datos remota.");
 			return true;
 		}
 	}
@@ -85,20 +80,21 @@ public class BD_Remota {
 
 		String web = "www.google.es";
 		int puerto = 80;
-		boolean internet = false;
+		boolean hayinternet = false;
 		Socket test = null;
 		try {
 			test = new Socket(web, puerto);
 			if (test.isConnected()) {
 				// Si hay internet comprobamos el puerto 3306
 				if (TestPuerto() == true) {
-					internet = true;
+					hayinternet = true;
 				}else{
 					JOptionPane.showMessageDialog(null, "Dispone de conexión a internet pero el puerto 3306 está cerrado");	
 				}
 			}
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "No dispone de conexión a internet");
+			return false;
 		}
 		//Cerramos el puerto
 		try {
@@ -106,7 +102,7 @@ public class BD_Remota {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return internet;
+		return hayinternet;
 	}
 
 	/*
@@ -127,8 +123,10 @@ public class BD_Remota {
 			s.close();
 		} catch (UnknownHostException e) {
 			e.printStackTrace();
+			return false;
 		} catch (IOException e) {
 			e.printStackTrace();
+			return false;
 		}
 
 		return abierto;

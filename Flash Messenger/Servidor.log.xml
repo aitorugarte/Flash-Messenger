@@ -114,3 +114,174 @@
   <message>Socket del cliente cerrado.</message>
 </record>
 </log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2016-11-27T11:05:58</date>
+  <millis>1480241158293</millis>
+  <sequence>0</sequence>
+  <logger>ServidorV2.Registro</logger>
+  <level>SEVERE</level>
+  <class>ServidorV2.Registro</class>
+  <method>log</method>
+  <thread>17</thread>
+  <message>Error en los Streams. </message>
+  <exception>
+    <message>java.net.SocketException: Connection reset</message>
+    <frame>
+      <class>java.net.SocketInputStream</class>
+      <method>read</method>
+    </frame>
+    <frame>
+      <class>java.net.SocketInputStream</class>
+      <method>read</method>
+    </frame>
+    <frame>
+      <class>java.net.SocketInputStream</class>
+      <method>read</method>
+    </frame>
+    <frame>
+      <class>java.io.DataInputStream</class>
+      <method>readUnsignedShort</method>
+    </frame>
+    <frame>
+      <class>java.io.DataInputStream</class>
+      <method>readUTF</method>
+    </frame>
+    <frame>
+      <class>java.io.DataInputStream</class>
+      <method>readUTF</method>
+    </frame>
+    <frame>
+      <class>ServidorV2.HiloServidor</class>
+      <method>run</method>
+      <line>63</line>
+    </frame>
+  </exception>
+</record>
+<record>
+  <date>2016-11-27T11:05:58</date>
+  <millis>1480241158338</millis>
+  <sequence>1</sequence>
+  <logger>ServidorV2.Registro</logger>
+  <level>SEVERE</level>
+  <class>ServidorV2.Registro</class>
+  <method>log</method>
+  <thread>17</thread>
+  <message>Error en la lectura de la opción. </message>
+  <exception>
+    <message>java.net.SocketException: Connection reset</message>
+    <frame>
+      <class>java.net.SocketInputStream</class>
+      <method>read</method>
+    </frame>
+    <frame>
+      <class>java.net.SocketInputStream</class>
+      <method>read</method>
+    </frame>
+    <frame>
+      <class>java.net.SocketInputStream</class>
+      <method>read</method>
+    </frame>
+    <frame>
+      <class>java.io.DataInputStream</class>
+      <method>readInt</method>
+    </frame>
+    <frame>
+      <class>ServidorV2.HiloServidor</class>
+      <method>run</method>
+      <line>79</line>
+    </frame>
+  </exception>
+</record>
+<record>
+  <date>2016-11-27T11:05:58</date>
+  <millis>1480241158340</millis>
+  <sequence>2</sequence>
+  <logger>ServidorV2.Registro</logger>
+  <level>CONFIG</level>
+  <class>ServidorV2.Registro</class>
+  <method>log</method>
+  <thread>17</thread>
+  <message>El usuario  se fue.</message>
+</record>
+<record>
+  <date>2016-11-27T11:05:58</date>
+  <millis>1480241158341</millis>
+  <sequence>3</sequence>
+  <logger>ServidorV2.Registro</logger>
+  <level>CONFIG</level>
+  <class>ServidorV2.Registro</class>
+  <method>log</method>
+  <thread>17</thread>
+  <message>Número de clientes actualmente: 0</message>
+</record>
+<record>
+  <date>2016-11-27T11:05:58</date>
+  <millis>1480241158341</millis>
+  <sequence>4</sequence>
+  <logger>ServidorV2.Registro</logger>
+  <level>CONFIG</level>
+  <class>ServidorV2.Registro</class>
+  <method>log</method>
+  <thread>17</thread>
+  <message>Socket del cliente cerrado.</message>
+</record>
+</log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2016-11-27T11:11:47</date>
+  <millis>1480241507111</millis>
+  <sequence>0</sequence>
+  <logger>ServidorV2.Registro</logger>
+  <level>SEVERE</level>
+  <class>ServidorV2.Registro</class>
+  <method>log</method>
+  <thread>1</thread>
+  <message>Error Address already in use: JVM_Bind</message>
+  <exception>
+    <message>java.net.BindException: Address already in use: JVM_Bind</message>
+    <frame>
+      <class>java.net.DualStackPlainSocketImpl</class>
+      <method>bind0</method>
+    </frame>
+    <frame>
+      <class>java.net.DualStackPlainSocketImpl</class>
+      <method>socketBind</method>
+    </frame>
+    <frame>
+      <class>java.net.AbstractPlainSocketImpl</class>
+      <method>bind</method>
+    </frame>
+    <frame>
+      <class>java.net.PlainSocketImpl</class>
+      <method>bind</method>
+    </frame>
+    <frame>
+      <class>java.net.ServerSocket</class>
+      <method>bind</method>
+    </frame>
+    <frame>
+      <class>java.net.ServerSocket</class>
+      <method>&lt;init&gt;</method>
+    </frame>
+    <frame>
+      <class>java.net.ServerSocket</class>
+      <method>&lt;init&gt;</method>
+    </frame>
+    <frame>
+      <class>ServidorV2.Ventana_Servidor</class>
+      <method>runServer</method>
+      <line>92</line>
+    </frame>
+    <frame>
+      <class>ServidorV2.Ventana_Servidor</class>
+      <method>main</method>
+      <line>143</line>
+    </frame>
+  </exception>
+</record>
+</log>
