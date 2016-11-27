@@ -8,7 +8,7 @@ import ServidorV2.HiloServidor;
 /*
  * Clase de la gestión de la BD local 
  */
-public class BD {
+public class BD_Local {
 
 	private static Exception lastError = null;  // Información de último error SQL ocurrido
 	
@@ -16,8 +16,8 @@ public class BD {
 	public static void main(String[] args) {
 		
 	
-		Connection con = BD.initBD();
-		Statement stat = BD.usarCrearTablasBD( con );
+		Connection con = BD_Local.initBD();
+		Statement stat = BD_Local.usarCrearTablasBD( con );
 	}
 	/** Inicializa una BD SQLITE y devuelve una conexión con ella
 	 * @param nombreBD	Nombre de fichero de la base de datos
