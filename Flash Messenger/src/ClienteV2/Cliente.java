@@ -42,16 +42,17 @@ public class Cliente {
 	         entrada = new DataInputStream(comunicacion2.getInputStream());
 
 			// Pide el nombre del usuario evitando que no escriba nada
-			try {
+			/*try {
 				do {
 					nombre = JOptionPane.showInputDialog("Introduzca su nombre :");
 
 				} while (nombre.trim().equals(""));
 			} catch (NullPointerException e) {
 
-			}
-
-			 frame.setNombreUser(nombre);      
+			}*/
+	         
+			// frame.setNombreUser(nombre); 
+	         nombre = frame.getName();
 			 salida.writeUTF(nombre);
 	         salida.flush();
 	        /* 

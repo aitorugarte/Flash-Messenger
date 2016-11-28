@@ -59,10 +59,7 @@ public class Principal_Cliente extends JFrame {
 	  	Ip_Servidor = ""+list.getSelectedValue();
 	
 	  	Login inicio = new Login();
-	  	inicio.setVisible(true);
-	/*  	MiFrameCliente frame = new MiFrameCliente();
-	  	frame.setVisible(true);*/
-	  	
+	  	inicio.setVisible(true);  	
 	   	}
 	   });
 	   btnIngresar.setBounds(54, 127, 84, 33);
@@ -88,10 +85,10 @@ public class Principal_Cliente extends JFrame {
 		dgp = new DatagramPacket(dato, dato.length);
 		escucha.receive(dgp);
 		dato = dgp.getData();
-		
+		//escucha.close();
 		ip = new String(dato, "UTF-8");
 		setIp(ip);
-		
+			
 		return ip;
 		
 	}
@@ -105,7 +102,6 @@ public class Principal_Cliente extends JFrame {
 	}
 
 	public static void main(String args[]) throws IOException {
-		// https://docs.oracle.com/javase/tutorial/uiswing/lookandfeel/nimbus.html
 		try {
 			for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
 				if ("Nimbus".equals(info.getName())) {

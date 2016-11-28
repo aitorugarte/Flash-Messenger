@@ -3,20 +3,28 @@ package ClienteV2.LogIn;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import ClienteV2.Principal_Cliente;
+
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
-import java.sql.Connection;
-import java.sql.Statement;
+import java.io.IOException;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
+import java.net.SocketException;
+import java.net.UnknownHostException;
+import java.nio.charset.Charset;
 import java.util.Arrays;
 import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
 import java.awt.Font;
 
-public class Registro extends JFrame {
+public class Registrarse extends JFrame {
 
 	
 	private static final long serialVersionUID = -6374924705506212721L;
@@ -26,22 +34,9 @@ public class Registro extends JFrame {
 	private JTextField txtCorreoElectronico;
 	private JLabel lblNombredeusuario, lblContraseña, lblCorreoElectrnico, lblRepita, lblIntroduzca;
 	private JButton btnAceptar, btnCancelar;
-//	private static BD_Local local = new BD_Local();
-//	private static Statement stat = null;
-//	private static Connection con = null;
+	private String Ip_Servidor;
 
-	
-	public static void main(String[] args) {
-		//Iniciamos la base de datos
-	//		con = local.initBD();
-	//		stat = local.usarCrearTablasBD(con);
-			
-			Registro frame = new Registro();
-			frame.setVisible(true);
-	}
-
-	
-	public Registro() {
+	public Registrarse() {
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 347, 281);
@@ -83,20 +78,22 @@ public class Registro extends JFrame {
 		btnAceptar = new JButton("Aceptar");
 		btnAceptar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
-				if (txtNombredeusuario.getText() != null) {
-					if (txtCorreoElectronico.getText() != null) {
+				String nombre = txtNombredeusuario.getText();
+				char clave[] = txtContraseña.getPassword();	
+				String contraseña = new String(clave);
+				String correo = txtCorreoElectronico.getText();
+				
+				if (!nombre.trim().equals("")) {
+					if (!correo.trim().equals("")) {
 						if (comprobarPass() == true) {
-						/*	String nombre = txtNombredeusuario.getText();
-							char clave[] = txtContraseña.getPassword();
-							String contraseña = new String(clave);
-							String correo = txtCorreoElectronico.getText();*/
-
-						//	local.clienteInsert(stat, nombre, contraseña, correo);
-						//	local.mostrarContenido(stat, con);
+							
+							try {
+								enviarRegistro(nombre, contraseña, correo);
+							} catch (SocketException | UnknownHostException e1) {
+								e1.printStackTrace();
+							}
 							JOptionPane.showMessageDialog(null, "Registro completo.");
 							limpiar(1);
-
 						} else {
 							JOptionPane.showMessageDialog(null, "Error, las contraseñas no coindicen.", "Error",
 									JOptionPane.ERROR_MESSAGE);
@@ -163,5 +160,26 @@ public class Registro extends JFrame {
 			txtContraseña.setText("");
 			txtRepitaContr.setText("");
 		}
+	}
+	
+	public void enviarRegistro(String nombre, String contraseña, String correo) throws SocketException, UnknownHostException{
+		
+		Ip_Servidor = Principal_Cliente.Ip_Servidor;
+		 String credenciales = nombre + " " + contraseña + " " + correo;
+		
+		 byte[] b = credenciales.getBytes(Charset.forName("UTF-8"));
+			
+			DatagramSocket socket = new DatagramSocket(5001 ,InetAddress.getByName("localhost"));
+			DatagramPacket dato = new DatagramPacket(b, b.length,InetAddress.getByName("localhost"), 5000); 
+
+			try {
+				System.out.println("Enviando datos...");
+				socket.send(dato);
+				System.out.println("Enviados.");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+				socket.close();
+		
 	}
 }
