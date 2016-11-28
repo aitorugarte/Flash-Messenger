@@ -95,28 +95,28 @@ public class Login extends JFrame {
 				char clave[] = textPassword.getPassword();
 				String contraseña = new String(clave);
 				
-				/*try {
+				try {
 					enviarDatos(nombre, contraseña);
 				} catch (SocketException | UnknownHostException e1) {
 					e1.printStackTrace();
-				}*/
+				}
 				
-			//	try {
+				try {
 					//ExisteUsuario devuelve un false siempre
-				//	if(	existeUsuario() == true){
+					if(	existeUsuario() == true){
 						GUI_Cliente gui = new GUI_Cliente();
 						gui.setNombreUser(nombre);
 						gui.setVisible(true);
 						dispose();
 						
-				/*	}else{
+					}else{
 						textPassword.setText("");
 						JOptionPane.showMessageDialog(null, "Error, usuario y/o contraseña incorrectos.", "Error",
 								JOptionPane.ERROR_MESSAGE);
 					}
 				} catch (SocketException | UnknownHostException e1) {
 					e1.printStackTrace();
-				}*/
+				}
 	
 			}
 		});
@@ -169,7 +169,9 @@ public class Login extends JFrame {
 	 */
 	public static boolean existeUsuario() throws SocketException, UnknownHostException{
 		
-		byte [] b = new byte [15];
+		byte [] b = new byte [2];
+		byte[] b2 = "si".getBytes(Charset.forName("UTF-8"));
+		
 		DatagramSocket socket = new DatagramSocket(5000, InetAddress.getByName("localhost"));
 		DatagramPacket dato = new DatagramPacket(b, b.length);
 		
@@ -188,8 +190,14 @@ public class Login extends JFrame {
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
-		System.out.println(existe); //Muestra un sí -_-
-		if(existe.equals("si")){ //Pero aquí falla
+		for (int i = 0; i < b.length; i++) {
+					System.out.print(b[i]);
+		}
+		System.out.println();
+		for (int i = 0; i < b2.length; i++) {
+			 		System.out.print(b2[i]);
+		}
+		if(existe.equals("si")){ 
 			return true;
 		}else{
 			return false;
