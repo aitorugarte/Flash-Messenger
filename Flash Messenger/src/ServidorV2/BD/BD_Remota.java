@@ -1,6 +1,7 @@
 package ServidorV2.BD;
 
 import java.io.IOException;
+import java.net.ConnectException;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.sql.Connection;
@@ -88,12 +89,9 @@ public class BD_Remota {
 				// Si hay internet comprobamos el puerto 3306
 				if (TestPuerto() == true) {
 					hayinternet = true;
-				}else{
-					JOptionPane.showMessageDialog(null, "Dispone de conexión a internet pero el puerto 3306 está cerrado");	
 				}
 			}
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null, "No dispone de conexión a internet");
 			return false;
 		}
 		//Cerramos el puerto
@@ -112,12 +110,14 @@ public class BD_Remota {
 	 * @return false si está cerrado
 	 */
 	private boolean TestPuerto() {
-		boolean abierto = false;
+		boolean abierto = true;
 		try {
+			Socket s = null;
+			try{
 			//Comprobamos con nuestro host
-			Socket s = new Socket("www.phpmyadmin.co", 3306);
-			if (s.getPort() == 3306) {
-				abierto = true;
+			s = new Socket("www.phpmyadmin.co", 3306);
+			}catch(ConnectException e){
+				abierto = false;
 			}
 			//Cerramos el puerto
 			s.close();
@@ -128,7 +128,6 @@ public class BD_Remota {
 			e.printStackTrace();
 			return false;
 		}
-
 		return abierto;
 	}
 

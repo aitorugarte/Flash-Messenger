@@ -102,7 +102,6 @@ public class Login extends JFrame {
 				}
 				
 				try {
-					//ExisteUsuario devuelve un false siempre
 					if(	existeUsuario() == true){
 						GUI_Cliente gui = new GUI_Cliente();
 						gui.setNombreUser(nombre);
