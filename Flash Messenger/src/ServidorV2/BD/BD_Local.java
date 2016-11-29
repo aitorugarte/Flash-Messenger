@@ -145,6 +145,26 @@ public class BD_Local {
 		
 	}
 
+	public boolean existeUsuario(String usuario, Statement st, Connection con){
+		
+		try {
+			ResultSet rs = st.executeQuery("select usuario, contraseña from cliente");
+			while (rs.next()) {
+				  String nombre = rs.getString("usuario");
+				  String contraseña = rs.getString("contraseña");
+				  String juntado = nombre + " " + contraseña;
+				  
+				  if(usuario.equals(juntado)){
+					  return true;
+				  }
+				}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	
+		return false;
+		
+	}
 	// Devuelve el string "securizado" para volcarlo en SQL
 	// (Implementación 1) Sustituye ' por '' y quita saltos de línea
 	// (Implementación 2) Mantiene solo los caracteres seguros en español

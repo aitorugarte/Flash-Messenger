@@ -17,10 +17,17 @@ import java.awt.Font;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
 import java.net.Inet4Address;
+import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketException;
+import java.net.UnknownHostException;
+import java.nio.charset.Charset;
 import java.sql.Connection;
 import java.sql.Statement;
 import java.util.logging.Level;
@@ -37,6 +44,10 @@ public class Ventana_Servidor extends JFrame {
 	private JLabel lblPanelDeControl, lblEstado;
 	private JButton btnDesconectar, btnUsuarios, btnRegistroDeMensajes;
 	private String ip;
+	BD_Remota remota = new BD_Remota();
+	BD_Local local = new BD_Local();
+	Connection con = null;
+	Statement stat = null;
 
 
 	public Ventana_Servidor() {
@@ -91,6 +102,61 @@ public class Ventana_Servidor extends JFrame {
 		contentPane.add(lblEstado);
 
 	}
+	
+	public String recibirDatos() throws SocketException, UnknownHostException{
+		
+		byte [] b = new byte [15];
+		DatagramSocket socket = new DatagramSocket(5000, InetAddress.getByName("localhost"));
+		DatagramPacket dato = new DatagramPacket(b, b.length);
+		
+		
+		try {
+			System.out.println("Esperando dato...");
+			socket.receive(dato);
+			System.out.println("Dato recibido");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		socket.close();
+		String usuario = " ";
+		try {
+			usuario = new String(b, "UTF-8");
+			System.out.println(usuario);
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+			return usuario;
+	}
+	//Método que busca el usuario y la contraseña en la BD
+	public boolean buscarUsuario(String usuario){
+		
+		boolean hay = local.existeUsuario(usuario, stat, con);
+		
+		return hay;
+	}
+	public static void responder(boolean hay) throws SocketException, UnknownHostException{
+		String existe = " ";
+		
+		if(hay == true){
+			existe = "si";
+		}else{
+			existe = "no";
+		}
+		byte[] b = existe.getBytes(Charset.forName("UTF-8"));
+		
+		DatagramSocket socket = new DatagramSocket(5001 ,InetAddress.getByName("localhost"));
+		DatagramPacket dato = new DatagramPacket(b, b.length,InetAddress.getByName("localhost"), 5000); 
+
+		try {
+			System.out.println("Enviando respuesta...");
+			socket.send(dato);
+			System.out.println("Respuesta enviada");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+			socket.close();
+		
+	}
 	public void runServer() {
 
 		ServerSocket servidor1 = null;// para establecer la conexión
@@ -133,15 +199,12 @@ public class Ventana_Servidor extends JFrame {
 	
 	public boolean Test(){
 		
-		BD_Remota remota = new BD_Remota();
-		BD_Local local = new BD_Local();
-		
 		if(remota.TestInternet() == true){
 			remota.Conectar();
 			return true;
 		}else{
-			Connection con = local.initBD();
-			Statement stat = local.usarCrearTablasBD(con);
+			con = local.initBD();
+			stat = local.usarCrearTablasBD(con);
 			return false;
 		}
 		
@@ -165,6 +228,15 @@ public class Ventana_Servidor extends JFrame {
 		
 		Ventana_Servidor servidor = new Ventana_Servidor();
 		servidor.setVisible(true);
-		servidor.runServer();
+		
+		String datos = " ";
+		try {
+			datos = servidor.recibirDatos();
+		} catch (SocketException | UnknownHostException e) {
+			e.printStackTrace();
+		}
+		boolean existe = servidor.buscarUsuario(datos);
+		responder(existe);
+		//servidor.runServer();
 	}
 }

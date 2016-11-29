@@ -169,7 +169,6 @@ public class Login extends JFrame {
 	public static boolean existeUsuario() throws SocketException, UnknownHostException{
 		
 		byte [] b = new byte [2];
-		byte[] b2 = "si".getBytes(Charset.forName("UTF-8"));
 		
 		DatagramSocket socket = new DatagramSocket(5000, InetAddress.getByName("localhost"));
 		DatagramPacket dato = new DatagramPacket(b, b.length);
@@ -183,18 +182,11 @@ public class Login extends JFrame {
 		}
 		socket.close();
 		
-		String existe = "si";
+		String existe = " ";
 		try {
 			existe = new String(b, "UTF-8");
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
-		}
-		for (int i = 0; i < b.length; i++) {
-					System.out.print(b[i]);
-		}
-		System.out.println();
-		for (int i = 0; i < b2.length; i++) {
-			 		System.out.print(b2[i]);
 		}
 		if(existe.equals("si")){ 
 			return true;
