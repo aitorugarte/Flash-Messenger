@@ -127,7 +127,8 @@ public class Login extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				Registrarse registro = new Registrarse();
 				registro.setVisible(true);
-			
+				textUsuario.setText("");
+				textPassword.setText("");
 			}
 		});
 		btnIngresar.setBounds(36, 179, 185, 23);

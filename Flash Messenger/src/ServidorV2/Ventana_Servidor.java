@@ -98,8 +98,18 @@ public class Ventana_Servidor extends JFrame {
 		contentPane.add(btnRegistroDeMensajes);
 		
 		lblEstado = new JLabel("Conectado a internet => " + Test());
-		lblEstado.setBounds(60, 164, 166, 23);
+		lblEstado.setBounds(55, 183, 166, 23);
 		contentPane.add(lblEstado);
+		
+		JButton btnBD = new JButton("Base de datos");
+		btnBD.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				
+			}
+		});
+		btnBD.setBounds(74, 134, 136, 38);
+		contentPane.add(btnBD);
 
 	}
 	
@@ -156,6 +166,75 @@ public class Ventana_Servidor extends JFrame {
 		}
 			socket.close();
 		
+	}
+	
+	public void recibirRegistro() throws SocketException, UnknownHostException{
+		
+		//local.clienteInsert(stat, nombre, contraseña, correo);
+		byte [] b = new byte [15];
+		DatagramSocket socket = new DatagramSocket(5001, InetAddress.getByName("localhost"));
+		DatagramPacket dato = new DatagramPacket(b, b.length);
+		
+		
+		try {
+			System.out.println("Esperando dato...");
+			socket.receive(dato);
+			System.out.println("Dato recibido");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		socket.close();
+		String registro = " ";
+		try {
+			registro = new String(b, "UTF-8");
+			System.out.println(registro);
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		dividir(registro);
+	}
+	
+	public void dividir(String algo){
+		
+		String nombre = "";
+		String contraseña = "";
+		String correo = "";
+		
+		//Encontar la posición de los espacios
+		int espacio = 0;
+		int espacio2 = 0;
+		
+		for (int i = 0; i < algo.length(); i++) {
+
+			if (algo.charAt(i) == ' ') {
+				if(espacio == 0){
+					espacio= i;
+				}else{
+					espacio2 = i;
+				}		
+			}
+		}
+		//Formamos las palabras
+		int x = 0;
+		while(x < espacio){
+			
+			nombre = nombre + algo.charAt(x);
+			x++;
+		}
+		espacio = espacio + 1;
+		while(espacio < espacio2){
+			
+			contraseña = contraseña + algo.charAt(espacio);
+			espacio++;
+		}
+		espacio2 = espacio2 + 1;
+		while(espacio2 < algo.length()){
+			
+			correo = correo + algo.charAt(espacio2);
+			espacio2++;
+		}
+		
+		local.clienteInsert(stat, nombre, contraseña, correo);		
 	}
 	public void runServer() {
 
