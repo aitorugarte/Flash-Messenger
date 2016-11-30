@@ -22,12 +22,12 @@ public class FileChooser extends JPanel implements ActionListener{
                 fileChooser = new JFileChooser();
                 Buscar = new JButton("Buscar");
                
-                setPreferredSize(new Dimension(278, 179));
+                setPreferredSize(new Dimension(200, 200));
                 setLayout(null);
                
                 add(Buscar);
                
-                Buscar.setBounds(84, 145, 100, 25);
+                Buscar.setBounds(50, 80, 100, 25);
                 Buscar.addActionListener(this);
         }
        
