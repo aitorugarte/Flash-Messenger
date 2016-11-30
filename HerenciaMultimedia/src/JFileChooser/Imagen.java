@@ -9,12 +9,12 @@ import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 
-public class Principal extends JFrame {
+public class Imagen extends JFrame {
  
  JPanel pdatos;
  JLabel limagen,lnom,lpeso;
  
- public Principal(){
+ public Imagen(){
   JPanel parriba=new JPanel();
   parriba.add(new JLabel("Seleccione una Imagen: "));
   JButton btnabrir=new JButton("Abrir");
@@ -63,7 +63,7 @@ public class Principal extends JFrame {
  }
  
  public static void main(String arg[]){
-  Principal p=new Principal();
+  Imagen p=new Imagen();
   p.setBounds(400, 400, 400, 400);
   p.setVisible(true);
   p.setLocationRelativeTo(null);

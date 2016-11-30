@@ -10,7 +10,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
  
-public class FileChooser extends JPanel implements ActionListener{
+public class TXT extends JPanel implements ActionListener{
         private JFileChooser fileChooser;
         private JButton Buscar;
         private BufferedReader br;
@@ -18,7 +18,7 @@ public class FileChooser extends JPanel implements ActionListener{
         int returnVar;
         String currentLine;
        
-        public FileChooser(){
+        public TXT(){
                 fileChooser = new JFileChooser();
                 Buscar = new JButton("Buscar");
                
