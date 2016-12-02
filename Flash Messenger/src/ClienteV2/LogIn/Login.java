@@ -96,16 +96,15 @@ public class Login extends JFrame {
 				char clave[] = textPassword.getPassword();
 				String contraseña = new String(clave);
 				
-				
 					try {
-						enviarDatos(nombre, contraseña);
+						enviarLogIn(nombre, contraseña);
 						
-						if(existeUsuario() == true){
+						if(respuestaExiste() == true){
+							dispose();
 							GUI_Cliente gui = new GUI_Cliente();
 							gui.setNombreUser(nombre);
 							gui.setVisible(true);
-							dispose();
-
+						
 						}else{
 							textPassword.setText("");
 							JOptionPane.showMessageDialog(null, "Error, usuario y/o contraseña incorrectos.", "Error",
@@ -141,7 +140,7 @@ public class Login extends JFrame {
 	/*
 	 * Método que envía el nombre y la contaseña al servidor
 	 */
-	public void enviarDatos(String nombre, String contraseña) throws SocketException, UnknownHostException{
+	public void enviarLogIn(String nombre, String contraseña) throws SocketException, UnknownHostException{
 		 Ip_Servidor = Principal_Cliente.Ip_Servidor;
 		 String credenciales = nombre + " " + contraseña;
 		
@@ -165,7 +164,7 @@ public class Login extends JFrame {
 	 * @param true si el usuario existe
 	 * @param false si el usuario no existe
 	 */
-	public static boolean existeUsuario() throws SocketException, UnknownHostException{
+	public static boolean respuestaExiste() throws SocketException, UnknownHostException{
 		
 		byte [] b = new byte [2];
 		

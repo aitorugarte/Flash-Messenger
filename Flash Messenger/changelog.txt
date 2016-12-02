@@ -22,3 +22,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Removed
 - Restos de código de métodos depecrated
+
+## [3.0.0] - 2016-12-02
+### Added
+- Base de datos local y remota
+- LogIn y registro de usuario
+- Cifrado César o AES para los mensajes
+- 

@@ -6,8 +6,6 @@ import java.sql.*;
  * Clase de la gestión de la BD local 
  */
 public class BD_Local {
-
-	private static Exception lastError = null;  // Información de último error SQL ocurrido
 	
 	/** Inicializa una BD SQLITE y devuelve una conexión con ella
 	 * @param nombreBD	Nombre de fichero de la base de datos
@@ -19,7 +17,6 @@ public class BD_Local {
 		    Connection con = DriverManager.getConnection("jdbc:sqlite:ProyectoFlash.db");
 		    return con;
 		} catch (ClassNotFoundException | SQLException e) {
-			lastError = e;
 			e.printStackTrace();
 			return null;
 		}
@@ -35,7 +32,6 @@ public class BD_Local {
 			statement.setQueryTimeout(30);  // poner timeout 30 msg
 			return statement;
 		} catch (SQLException e) {
-			lastError = e;
 			e.printStackTrace();
 			return null;
 		}
@@ -58,7 +54,6 @@ public class BD_Local {
 			System.out.println("Conectado con base de datos local.");
 			return statement;
 		} catch (SQLException e) {
-			lastError = e;
 			e.printStackTrace();
 			return null;
 		}
@@ -76,7 +71,6 @@ public class BD_Local {
 			statement.executeUpdate("drop table if exists cliente");
 			return usarCrearTablasBD( con );
 		} catch (SQLException e) {
-			lastError = e;
 			e.printStackTrace();
 			return null;
 		}
@@ -91,18 +85,11 @@ public class BD_Local {
 			if (st!=null) st.close();
 			if (con!=null) con.close();
 		} catch (SQLException e) {
-			lastError = e;
 			e.printStackTrace();
 		}
 	}
 	
-	/** Devuelve la información de excepción del último error producido por cualquiera 
-	 * de los métodos de gestión de base de datos
-	 */
-	public static Exception getLastError() {
-		return lastError;
-	}
-	
+
 	/** Añade un cliente a la tabla abierta de BD, usando la sentencia INSERT de SQL
 	 * @param st Sentencia ya abierta de Base de Datos (con la estructura de tabla correspondiente a la habitación)
 	 * @param h	cliente
@@ -123,7 +110,6 @@ public class BD_Local {
 			}
 			return true;
 		} catch (SQLException e) {
-			lastError = e;
 			e.printStackTrace();
 			return false;
 		}
@@ -153,7 +139,7 @@ public class BD_Local {
 				  String nombre = rs.getString("usuario");
 				  String contraseña = rs.getString("contraseña");
 				  String juntado = nombre + " " + contraseña;
-				  
+				  System.out.println(juntado);
 				  if(usuario.equals(juntado)){
 					  return true;
 				  }

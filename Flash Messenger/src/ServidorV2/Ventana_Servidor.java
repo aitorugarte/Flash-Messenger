@@ -44,10 +44,10 @@ public class Ventana_Servidor extends JFrame {
 	private JLabel lblPanelDeControl, lblEstado;
 	private JButton btnDesconectar, btnUsuarios, btnRegistroDeMensajes;
 	private String ip;
-	BD_Remota remota = new BD_Remota();
-	BD_Local local = new BD_Local();
-	Connection con = null;
-	Statement stat = null;
+	private BD_Remota remota = new BD_Remota();
+	private BD_Local local = new BD_Local();
+	private Connection con = null;
+	private Statement stat = null;
 
 
 	public Ventana_Servidor() {
@@ -113,30 +113,6 @@ public class Ventana_Servidor extends JFrame {
 
 	}
 	
-	/*public String recibirDatos() throws SocketException, UnknownHostException{
-		
-		byte [] b = new byte [15];
-		DatagramSocket socket = new DatagramSocket(5000, InetAddress.getByName("localhost"));
-		DatagramPacket dato = new DatagramPacket(b, b.length);
-		
-		
-		try {
-			System.out.println("Esperando dato...");
-			socket.receive(dato);
-			System.out.println("Dato recibido");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		socket.close();
-		String usuario = " ";
-		try {
-			usuario = new String(b, "UTF-8");
-			System.out.println(usuario);
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
-			return usuario;
-	}*/
 	//Método que busca el usuario y la contraseña en la BD
 	public boolean buscarUsuario(String usuario){
 		
@@ -194,6 +170,9 @@ public class Ventana_Servidor extends JFrame {
 		dividir(registro);
 	}
 	
+	/*
+	 * Método que divide la cadena del usuario
+	 */
 	public void dividir(String algo){
 		
 		String nombre = "";
@@ -307,7 +286,7 @@ public class Ventana_Servidor extends JFrame {
 					// If Nimbus is not available, you can set the GUI to another look
 					// and feel.
 				}
-		Hilo_Enviar enviar = new Hilo_Enviar();
+		Hilo_EnviarIp enviar = new Hilo_EnviarIp();
 		enviar.start();
 		
 		Ventana_Servidor servidor = new Ventana_Servidor();

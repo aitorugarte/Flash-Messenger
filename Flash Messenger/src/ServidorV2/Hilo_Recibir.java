@@ -8,6 +8,9 @@ import java.net.InetAddress;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 
+/*
+ * Clase encargada de recibir el re
+ */
 public class Hilo_Recibir extends Thread {
 
 	private Ventana_Servidor servidor = new Ventana_Servidor();

@@ -24,6 +24,9 @@ import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
 import java.awt.Font;
 
+/*
+ * Clase del registro del usuario
+ */
 public class Registrarse extends JFrame {
 
 	
@@ -165,7 +168,7 @@ public class Registrarse extends JFrame {
 	public void enviarRegistro(String nombre, String contraseña, String correo) throws SocketException, UnknownHostException{
 		
 		Ip_Servidor = Principal_Cliente.Ip_Servidor;
-		 String credenciales = nombre + " " + contraseña + " " + correo;
+		String credenciales = nombre + " " + contraseña + " " + correo;
 		
 		 byte[] b = credenciales.getBytes(Charset.forName("UTF-8"));
 			

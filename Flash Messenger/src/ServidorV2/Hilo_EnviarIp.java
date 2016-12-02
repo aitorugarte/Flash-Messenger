@@ -10,11 +10,10 @@ import java.util.logging.Level;
 
 import javax.swing.JButton;
 
-
 /*
  * Clase encargada de enviar la ip del servidor cada 4 segundos
  */
-public class Hilo_Enviar extends Thread {
+public class Hilo_EnviarIp extends Thread {
 
 	
 	public void Enviar_Ip() throws IOException{
