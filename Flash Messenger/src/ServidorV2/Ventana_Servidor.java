@@ -259,8 +259,6 @@ public class Ventana_Servidor extends JFrame {
 		
 		if(remota.TestInternet() == true){
 		//	remota.Conectar();
-			con = local.initBD();
-			stat = local.usarCrearTablasBD(con);
 			return true;
 		}else{
 			con = local.initBD();
