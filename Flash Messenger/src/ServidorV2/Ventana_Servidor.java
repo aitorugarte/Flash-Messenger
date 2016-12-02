@@ -113,7 +113,7 @@ public class Ventana_Servidor extends JFrame {
 
 	}
 	
-	public String recibirDatos() throws SocketException, UnknownHostException{
+	/*public String recibirDatos() throws SocketException, UnknownHostException{
 		
 		byte [] b = new byte [15];
 		DatagramSocket socket = new DatagramSocket(5000, InetAddress.getByName("localhost"));
@@ -136,15 +136,16 @@ public class Ventana_Servidor extends JFrame {
 			e.printStackTrace();
 		}
 			return usuario;
-	}
+	}*/
 	//Método que busca el usuario y la contraseña en la BD
 	public boolean buscarUsuario(String usuario){
 		
 		boolean hay = local.existeUsuario(usuario, stat, con);
+		System.out.println("Hay : " + hay);
 		
 		return hay;
 	}
-	public static void responder(boolean hay) throws SocketException, UnknownHostException{
+	public void responder(boolean hay) throws SocketException, UnknownHostException{
 		String existe = " ";
 		
 		if(hay == true){
@@ -170,7 +171,6 @@ public class Ventana_Servidor extends JFrame {
 	
 	public void recibirRegistro() throws SocketException, UnknownHostException{
 		
-		//local.clienteInsert(stat, nombre, contraseña, correo);
 		byte [] b = new byte [15];
 		DatagramSocket socket = new DatagramSocket(5001, InetAddress.getByName("localhost"));
 		DatagramPacket dato = new DatagramPacket(b, b.length);
@@ -279,7 +279,9 @@ public class Ventana_Servidor extends JFrame {
 	public boolean Test(){
 		
 		if(remota.TestInternet() == true){
-			remota.Conectar();
+		//	remota.Conectar();
+			con = local.initBD();
+			stat = local.usarCrearTablasBD(con);
 			return true;
 		}else{
 			con = local.initBD();
@@ -288,6 +290,9 @@ public class Ventana_Servidor extends JFrame {
 		}
 		
 	}
+	/*
+	 * Main del programa Servidor
+	 */
 	public static void main(String[] args) throws IOException {
 
 			try {
@@ -302,20 +307,15 @@ public class Ventana_Servidor extends JFrame {
 					// If Nimbus is not available, you can set the GUI to another look
 					// and feel.
 				}
-		Hilo_Enviar hilo = new Hilo_Enviar();
-		hilo.start();
+		Hilo_Enviar enviar = new Hilo_Enviar();
+		enviar.start();
 		
 		Ventana_Servidor servidor = new Ventana_Servidor();
 		servidor.setVisible(true);
 		
-		String datos = " ";
-		try {
-			datos = servidor.recibirDatos();
-		} catch (SocketException | UnknownHostException e) {
-			e.printStackTrace();
-		}
-		boolean existe = servidor.buscarUsuario(datos);
-		responder(existe);
-		//servidor.runServer();
+		Hilo_Recibir recibir = new Hilo_Recibir();
+		recibir.start();
+		
+		servidor.runServer();
 	}
 }

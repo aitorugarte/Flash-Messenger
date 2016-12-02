@@ -62,16 +62,16 @@ public class Registrarse extends JFrame {
 		contentPane.add(lblCorreoElectrnico);
 
 		txtNombredeusuario = new JTextField();
-		txtNombredeusuario.setBounds(168, 45, 123, 19);
+		txtNombredeusuario.setBounds(168, 45, 123, 23);
 		contentPane.add(txtNombredeusuario);
 		txtNombredeusuario.setColumns(10);
 
 		txtContraseña = new JPasswordField();
-		txtContraseña.setBounds(168, 76, 123, 19);
+		txtContraseña.setBounds(168, 76, 123, 23);
 		contentPane.add(txtContraseña);
 
 		txtCorreoElectronico = new JTextField();
-		txtCorreoElectronico.setBounds(168, 147, 154, 19);
+		txtCorreoElectronico.setBounds(168, 147, 154, 25);
 		contentPane.add(txtCorreoElectronico);
 		txtCorreoElectronico.setColumns(10);
 
@@ -127,7 +127,7 @@ public class Registrarse extends JFrame {
 		contentPane.add(lblRepita);
 
 		txtRepitaContr = new JPasswordField();
-		txtRepitaContr.setBounds(168, 106, 123, 19);
+		txtRepitaContr.setBounds(168, 106, 123, 23);
 		contentPane.add(txtRepitaContr);
 		
 		lblIntroduzca = new JLabel("Introduzca los datos para registrarse: ");

@@ -28,6 +28,7 @@ import java.nio.charset.Charset;
 import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
 import java.awt.Font;
+import java.awt.HeadlessException;
 
 /*
  * Clase que se encarga de iniciar sesión en la cuenta del cliente
@@ -95,28 +96,25 @@ public class Login extends JFrame {
 				char clave[] = textPassword.getPassword();
 				String contraseña = new String(clave);
 				
-				try {
-					enviarDatos(nombre, contraseña);
-				} catch (SocketException | UnknownHostException e1) {
-					e1.printStackTrace();
-				}
 				
-				try {
-					if(	existeUsuario() == true){
-						GUI_Cliente gui = new GUI_Cliente();
-						gui.setNombreUser(nombre);
-						gui.setVisible(true);
-						dispose();
+					try {
+						enviarDatos(nombre, contraseña);
 						
-					}else{
-						textPassword.setText("");
-						JOptionPane.showMessageDialog(null, "Error, usuario y/o contraseña incorrectos.", "Error",
-								JOptionPane.ERROR_MESSAGE);
+						if(existeUsuario() == true){
+							GUI_Cliente gui = new GUI_Cliente();
+							gui.setNombreUser(nombre);
+							gui.setVisible(true);
+							dispose();
+
+						}else{
+							textPassword.setText("");
+							JOptionPane.showMessageDialog(null, "Error, usuario y/o contraseña incorrectos.", "Error",
+									JOptionPane.ERROR_MESSAGE);
+						}
+					} catch (SocketException | UnknownHostException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
 					}
-				} catch (SocketException | UnknownHostException e1) {
-					e1.printStackTrace();
-				}
-	
 			}
 		});
 		btnIniciar.setBounds(36, 137, 86, 31);

@@ -8,6 +8,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import ServidorV2.Ventana_Servidor;
+
 import javax.swing.JSplitPane;
 import javax.swing.JTextArea;
 
@@ -112,11 +114,10 @@ public class GUI_Cliente extends JFrame implements KeyListener, ActionListener {
 		textEnviar.setBounds(20, 308, 387, 23);
 		panChat.add(textEnviar);
 		textEnviar.setColumns(10);
+		textEnviar.addKeyListener(this);
 		
 		btnEnviar = new JButton("Enviar");
 		btnEnviar.setBounds(417, 308, 89, 23);
-		
-		btnEnviar.addKeyListener(this);
 		btnEnviar.addActionListener(this);
 		panChat.add(btnEnviar);
 		
@@ -169,6 +170,7 @@ public class GUI_Cliente extends JFrame implements KeyListener, ActionListener {
 				cliente.flujo(mensaje);
 				// Limpiamos el cuadro de texto del mensaje
 				textEnviar.setText("");
+				System.out.println("Hola");
 			}
         }
 		
