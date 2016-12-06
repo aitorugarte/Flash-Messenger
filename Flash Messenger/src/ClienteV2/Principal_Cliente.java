@@ -58,7 +58,12 @@ public class Principal_Cliente extends JFrame {
 	  	dispose();
 	  	Ip_Servidor = ""+list.getSelectedValue();
 	
-	  	Login inicio = new Login();
+	  	Login inicio = null;
+		try {
+			inicio = new Login();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	  	inicio.setVisible(true);  	
 	   	}
 	   });

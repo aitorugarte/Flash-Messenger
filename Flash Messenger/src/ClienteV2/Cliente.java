@@ -39,29 +39,7 @@ public class Cliente {
 	         comunicacion2 = new Socket(Cliente.Ip_Servidor, 8083);
 	         
 	         salida = new DataOutputStream(comunicacion.getOutputStream());
-	         entrada = new DataInputStream(comunicacion2.getInputStream());
-
-			// Pide el nombre del usuario evitando que no escriba nada
-			/*try {
-				do {
-					nombre = JOptionPane.showInputDialog("Introduzca su nombre :");
-
-				} while (nombre.trim().equals(""));
-			} catch (NullPointerException e) {
-
-			}*/
-	         
-			// frame.setNombreUser(nombre); 
-	         nombre = frame.getName();
-			 salida.writeUTF(nombre);
-	         salida.flush();
-	        /* 
-	         //Se cierra la petición de conexión llamada socket
-	         try{
-	          salida.close();
-	         
-	         }catch (Exception ex){}*/
-	         
+	         entrada = new DataInputStream(comunicacion2.getInputStream());     
 	   
 	      }catch (IOException e) {
 	    	

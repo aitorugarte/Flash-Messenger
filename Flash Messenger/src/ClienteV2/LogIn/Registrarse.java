@@ -40,6 +40,7 @@ public class Registrarse extends JFrame {
 	private String Ip_Servidor;
 
 	public Registrarse() {
+	
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 347, 281);
@@ -90,11 +91,7 @@ public class Registrarse extends JFrame {
 					if (!correo.trim().equals("")) {
 						if (comprobarPass() == true) {
 							
-							try {
-								enviarRegistro(nombre, contraseña, correo);
-							} catch (SocketException | UnknownHostException e1) {
-								e1.printStackTrace();
-							}
+							//TODO método que envíe el registro
 							JOptionPane.showMessageDialog(null, "Registro completo.");
 							limpiar(1);
 						} else {
@@ -163,26 +160,5 @@ public class Registrarse extends JFrame {
 			txtContraseña.setText("");
 			txtRepitaContr.setText("");
 		}
-	}
-	
-	public void enviarRegistro(String nombre, String contraseña, String correo) throws SocketException, UnknownHostException{
-		
-		Ip_Servidor = Principal_Cliente.Ip_Servidor;
-		String credenciales = nombre + " " + contraseña + " " + correo;
-		
-		 byte[] b = credenciales.getBytes(Charset.forName("UTF-8"));
-			
-			DatagramSocket socket = new DatagramSocket(5001 ,InetAddress.getByName("localhost"));
-			DatagramPacket dato = new DatagramPacket(b, b.length,InetAddress.getByName("localhost"), 5000); 
-
-			try {
-				System.out.println("Enviando datos...");
-				socket.send(dato);
-				System.out.println("Enviados.");
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-				socket.close();
-		
 	}
 }

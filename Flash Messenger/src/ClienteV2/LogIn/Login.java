@@ -38,7 +38,7 @@ public class Login extends JFrame {
 	private static final long serialVersionUID = 951887658616701680L;
 	private JPanel contentPane;
 	private JTextField textUsuario;
-	private JPasswordField textPassword;
+	protected JPasswordField textPassword;
 	private JLabel lblUsuario, lblContraseña, lblLogin;
 	private JButton btnSalir, btnIniciar, btnIngresar;
 	public static String Ip_Servidor; //Dirección ip del servidor
@@ -46,12 +46,19 @@ public class Login extends JFrame {
 	
 	public static void main(String[] args) {
 
-		Login frame = new Login();
+		Login frame = null;
+		try {
+			frame = new Login();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		frame.setVisible(true);
 
 	}
 
-	public Login() {
+	public Login() throws IOException {
+		Comunicador comunicarse = new Comunicador(this);
 		
 		setTitle("Inicio sesi\u00F3n");
 		setResizable(false);
@@ -92,28 +99,17 @@ public class Login extends JFrame {
 		btnIniciar = new JButton("Entrar");
 		btnIniciar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+			
 				String nombre = textUsuario.getText();
 				char clave[] = textPassword.getPassword();
 				String contraseña = new String(clave);
 				
-					try {
-						enviarLogIn(nombre, contraseña);
-						
-						if(respuestaExiste() == true){
-							dispose();
-							GUI_Cliente gui = new GUI_Cliente();
-							gui.setNombreUser(nombre);
-							gui.setVisible(true);
-						
-						}else{
-							textPassword.setText("");
-							JOptionPane.showMessageDialog(null, "Error, usuario y/o contraseña incorrectos.", "Error",
-									JOptionPane.ERROR_MESSAGE);
-						}
-					} catch (SocketException | UnknownHostException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
+				try {
+					comunicarse.conexion(nombre, contraseña);
+					System.out.println("LogIn sin fallos");
+				} catch (IOException e2) {
+				System.out.println(e2);
+				}			
 			}
 		});
 		btnIniciar.setBounds(36, 137, 86, 31);
@@ -122,6 +118,7 @@ public class Login extends JFrame {
 		btnIngresar = new JButton("Registrarse");
 		btnIngresar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				
 				Registrarse registro = new Registrarse();
 				registro.setVisible(true);
 				textUsuario.setText("");
@@ -136,60 +133,6 @@ public class Login extends JFrame {
 		lblLogin.setHorizontalAlignment(SwingConstants.CENTER);
 		lblLogin.setBounds(20, 11, 201, 18);
 		contentPane.add(lblLogin);
-	}
-	/*
-	 * Método que envía el nombre y la contaseña al servidor
-	 */
-	public void enviarLogIn(String nombre, String contraseña) throws SocketException, UnknownHostException{
-		 Ip_Servidor = Principal_Cliente.Ip_Servidor;
-		 String credenciales = nombre + " " + contraseña;
-		
-		 byte[] b = credenciales.getBytes(Charset.forName("UTF-8"));
-			
-			DatagramSocket socket = new DatagramSocket(5001 ,InetAddress.getByName("localhost"));
-			DatagramPacket dato = new DatagramPacket(b, b.length,InetAddress.getByName("localhost"), 5000); 
 
-			try {
-				System.out.println("Enviando nombre y contraseña...");
-				socket.send(dato);
-				System.out.println("Enviado.");
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-				socket.close();
-	      
-	}
-	/*
-	 * Método que devuelve
-	 * @param true si el usuario existe
-	 * @param false si el usuario no existe
-	 */
-	public static boolean respuestaExiste() throws SocketException, UnknownHostException{
-		
-		byte [] b = new byte [2];
-		
-		DatagramSocket socket = new DatagramSocket(5000, InetAddress.getByName("localhost"));
-		DatagramPacket dato = new DatagramPacket(b, b.length);
-		
-		try {
-			System.out.println("Esperando respuesta...");
-			socket.receive(dato);
-			System.out.println("Respuesta recibida");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		socket.close();
-		
-		String existe = " ";
-		try {
-			existe = new String(b, "UTF-8");
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
-		if(existe.equals("si")){ 
-			return true;
-		}else{
-			return false;
-		}
 	}
 }

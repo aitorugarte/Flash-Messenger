@@ -23,7 +23,7 @@ public class BD_Remota {
 	 *  Contraseña: edl72lc3Wt
 	 *  Número de puerto: 3306
 	 */
-	private String host = "sql7.freesqldatabase.com";
+	private String host = "sql7.freesqldatabase.com"; //+ puerto
 	private String nombre_BD = "sql7143768";
 	private String usuario = "sql7143768";
 	private String pass = "edl72lc3Wt";

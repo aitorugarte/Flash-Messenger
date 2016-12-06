@@ -4,6 +4,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import ClienteV2.Cliente;
 import ServidorV2.BD.BD_Local;
 import ServidorV2.BD.BD_Remota;
 
@@ -16,6 +17,8 @@ import javax.swing.UIManager.LookAndFeelInfo;
 import java.awt.Font;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.DatagramPacket;
@@ -121,110 +124,63 @@ public class Ventana_Servidor extends JFrame {
 		
 		return hay;
 	}
-	public void responder(boolean hay) throws SocketException, UnknownHostException{
-		String existe = " ";
-		
-		if(hay == true){
-			existe = "si";
-		}else{
-			existe = "no";
-		}
-		byte[] b = existe.getBytes(Charset.forName("UTF-8"));
-		
-		DatagramSocket socket = new DatagramSocket(5001 ,InetAddress.getByName("localhost"));
-		DatagramPacket dato = new DatagramPacket(b, b.length,InetAddress.getByName("localhost"), 5000); 
+	
+	public void dividir(String algo) {
 
-		try {
-			System.out.println("Enviando respuesta...");
-			socket.send(dato);
-			System.out.println("Respuesta enviada");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-			socket.close();
-		
-	}
-	
-	public void recibirRegistro() throws SocketException, UnknownHostException{
-		
-		byte [] b = new byte [15];
-		DatagramSocket socket = new DatagramSocket(5001, InetAddress.getByName("localhost"));
-		DatagramPacket dato = new DatagramPacket(b, b.length);
-		
-		
-		try {
-			System.out.println("Esperando dato...");
-			socket.receive(dato);
-			System.out.println("Dato recibido");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		socket.close();
-		String registro = " ";
-		try {
-			registro = new String(b, "UTF-8");
-			System.out.println(registro);
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
-		dividir(registro);
-	}
-	
-	/*
-	 * Método que divide la cadena del usuario
-	 */
-	public void dividir(String algo){
-		
 		String nombre = "";
 		String contraseña = "";
 		String correo = "";
-		
-		//Encontar la posición de los espacios
+
+		// Encontar la posición de los espacios
 		int espacio = 0;
 		int espacio2 = 0;
-		
+
 		for (int i = 0; i < algo.length(); i++) {
 
 			if (algo.charAt(i) == ' ') {
-				if(espacio == 0){
-					espacio= i;
-				}else{
+				if (espacio == 0) {
+					espacio = i;
+				} else {
 					espacio2 = i;
-				}		
+				}
 			}
 		}
-		//Formamos las palabras
+		// Formamos las palabras
 		int x = 0;
-		while(x < espacio){
-			
+		while (x < espacio) {
+
 			nombre = nombre + algo.charAt(x);
 			x++;
 		}
 		espacio = espacio + 1;
-		while(espacio < espacio2){
-			
+
+		while (espacio < espacio2) {
+
 			contraseña = contraseña + algo.charAt(espacio);
 			espacio++;
 		}
 		espacio2 = espacio2 + 1;
-		while(espacio2 < algo.length()){
-			
+		while (espacio2 < algo.length()) {
+
 			correo = correo + algo.charAt(espacio2);
 			espacio2++;
 		}
-		
-		local.clienteInsert(stat, nombre, contraseña, correo);		
+
+		local.clienteInsert(stat, nombre, contraseña, correo);
+
 	}
 	public void runServer() {
 
 		ServerSocket servidor1 = null;// para establecer la conexión
 		ServerSocket servidor2 = null;// para enviar mensajes
+	
 		boolean activo = true;
 		
 		try {
-			
+
 			servidor1 = new ServerSocket(8080);
 			servidor2 = new ServerSocket(8083);
+			
 			
 			while (activo) {
 			
@@ -232,15 +188,16 @@ public class Ventana_Servidor extends JFrame {
 				Socket socket2 = null;
 			
 				try {
-				
+					
 					socket1 = servidor1.accept();
-					socket2 = servidor2.accept();
+					socket2 = servidor2.accept();				
+					
 				} catch (IOException e) {
 					Registro.log( Level.SEVERE, "Error al unirse al servidor: " + e.getMessage(), e );
 				    JOptionPane.showInputDialog("Error al unirse al servidor : " + e.getMessage());
 					continue;
 				}
-		
+				
 				ip = (((InetSocketAddress)socket1.getRemoteSocketAddress()).getAddress()).toString().replace("/","");
 				System.out.println("La ip del cliente es: " + ip);
 				
@@ -258,7 +215,9 @@ public class Ventana_Servidor extends JFrame {
 	public boolean Test(){
 		
 		if(remota.TestInternet() == true){
-		//	remota.Conectar();
+			con = local.initBD();
+			stat = local.usarCrearTablasBD(con);
+			//remota.Conectar();
 			return true;
 		}else{
 			con = local.initBD();
@@ -284,15 +243,15 @@ public class Ventana_Servidor extends JFrame {
 					// If Nimbus is not available, you can set the GUI to another look
 					// and feel.
 				}
-		Hilo_EnviarIp enviar = new Hilo_EnviarIp();
+			
+		H_EnviarIp enviar = new H_EnviarIp();
 		enviar.start();
+	
+		H_Comunicacion comunicarse = new H_Comunicacion();
+		comunicarse.start();
 		
 		Ventana_Servidor servidor = new Ventana_Servidor();
 		servidor.setVisible(true);
-		
-		Hilo_Recibir recibir = new Hilo_Recibir();
-		recibir.start();
-		
 		servidor.runServer();
 	}
 }

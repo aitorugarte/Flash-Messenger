@@ -13,7 +13,7 @@ import javax.swing.JButton;
 /*
  * Clase encargada de enviar la ip del servidor cada 4 segundos
  */
-public class Hilo_EnviarIp extends Thread {
+public class H_EnviarIp extends Thread {
 
 	
 	public void Enviar_Ip() throws IOException{
