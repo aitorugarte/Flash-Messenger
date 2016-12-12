@@ -7,6 +7,7 @@ import javax.swing.border.EmptyBorder;
 import ServidorV2.BD.BD_Local;
 import ServidorV2.BD.BD_Padre;
 import ServidorV2.BD.BD_Remota;
+import ServidorV2.BD.Utilidades_BD;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -35,7 +36,7 @@ public class Ventana_Servidor extends JFrame {
 	private static final long serialVersionUID = 930849024921895057L;
 	private JPanel contentPane;
 	private JLabel lblPanelDeControl, lblEstado;
-	private JButton btnDesconectar, btnUsuarios, btnRegistroDeMensajes;
+	private JButton btnDesconectar, btnUsuarios, btnRegistroDeMensajes, btnBD;
 	private String ip;
 	private BD_Remota remota;
 	private BD_Local local;
@@ -100,11 +101,12 @@ public class Ventana_Servidor extends JFrame {
 		lblEstado.setBounds(55, 183, 166, 23);
 		contentPane.add(lblEstado);
 		
-		JButton btnBD = new JButton("Base de datos");
+		btnBD = new JButton("Base de datos");
 		btnBD.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
-				
+				Utilidades_BD utilidades = new Utilidades_BD();
+				utilidades.setVisible(true);
+				utilidades.setDatos(stat, conex);
 			}
 		});
 		btnBD.setBounds(74, 134, 136, 38);
@@ -114,8 +116,7 @@ public class Ventana_Servidor extends JFrame {
 	
 	//Método que busca el usuario y la contraseña en la BD
 	public static boolean buscarUsuario(String usuario){
-		
-		//boolean hay = local.existeUsuario(usuario, stat, conex);
+	
 		boolean hay = padre.existeUsuario(usuario, stat, conex);
 		System.out.println("Hay : " + hay);
 		
@@ -163,7 +164,6 @@ public class Ventana_Servidor extends JFrame {
 			espacio2++;
 		}
 
-	//	local.clienteInsert(stat, nombre, contraseña, correo);
 		padre.clienteInsert(stat, nombre, contraseña, correo);
 
 	}
@@ -212,20 +212,21 @@ public class Ventana_Servidor extends JFrame {
 	
 	public boolean Test(){
 		
-	/*	if(remota.TestInternet() == true){
-			remota = BD_Remota2.getBD(host, nombre_BD, usuario, pass);
+		if(padre.TestInternet() == true){
+			remota = BD_Remota.getBD();
 			stat = remota.getStat();
 			conex = remota.getConexion();
 			return true;
-		}else{*/
+		}else{
 			local = BD_Local.getBD();
 			local.crearTablasBD();
 			stat = local.getStat();
 			conex = local.getConexion();
 			return false;
-	//	}
+		}
 		
 	}
+	
 	/*
 	 * Main del programa Servidor
 	 */

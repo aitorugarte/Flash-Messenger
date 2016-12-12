@@ -8,11 +8,15 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 public class BD_Padre {
 
 	protected Connection conexion;
 	protected Statement stat;
+	public ArrayList<String> contenido = new ArrayList<String>();
+
 	
 	public BD_Padre(Connection conexion, Statement stat) {
 		this.conexion = conexion;
@@ -58,22 +62,32 @@ public class BD_Padre {
 			return false;
 		}
 	}
-	public void mostrarContenido(Statement st, Connection con){
-		
+
+	/*
+	 * Método que muestra el contenido de la base de datos
+	 * TODO que devuelva un arraylist
+	 */
+
+	public void mostrarContenido() {
+
 		try {
-			ResultSet rs = st.executeQuery("select * from cliente");
+			ResultSet rs = stat.executeQuery("select * from cliente");
 			while (rs.next()) {
-				  String nombre = rs.getString("usuario");
-				  String contraseña = rs.getString("contraseña");
-				  String correo = rs.getString("correo");
-				  
-				  System.out.println(nombre + " " + contraseña + " " + correo);
-				}
+				String nombre = rs.getString("usuario");
+				String contraseña = rs.getString("contraseña");
+				String correo = rs.getString("correo");
+				String cadena = nombre + " " + contraseña + " " + correo;
+
+				contenido.add(cadena);
+				System.out.println(nombre + " " + contraseña + " " + correo);
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
 	}
+	
+
+
 	public boolean existeUsuario(String usuario, Statement st, Connection con){
 		
 		try {

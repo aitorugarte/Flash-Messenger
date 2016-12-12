@@ -55,8 +55,9 @@ public class BD_Local extends BD_Padre{
 			try {
 				stat.executeUpdate("create table cliente " +
 					"(id_cliente integer primary key autoincrement,"
-					+ "usuario text not null,"
-					+ " contraseña text not null, correo text not null)");
+					+ "usuario text not null, "
+					+ "contraseña text not null, "
+					+ "correo text not null)");
 			} catch (SQLException e) {} // Tabla ya existe. Nada que hacer		
 			System.out.println("Conectado con base de datos local.");
 			return stat;

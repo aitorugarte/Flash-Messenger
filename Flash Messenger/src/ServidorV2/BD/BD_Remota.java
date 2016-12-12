@@ -9,10 +9,10 @@ import javax.swing.JOptionPane;
 
 public class BD_Remota extends BD_Padre{
 
-	private static String host;
-	private static String nombre_BD;
-	private static String usuario;
-	private static String pass;
+	private static String host = "sql7.freesqldatabase.com"; //+ puerto
+	private static String nombre_BD = "sql7143768";
+	private static String usuario = "sql7143768";
+	private static String pass = "edl72lc3Wt";
 	private static BD_Remota mybd;
 	
 	public BD_Remota(Connection conexion, Statement stat) {
@@ -20,7 +20,7 @@ public class BD_Remota extends BD_Padre{
 		mybd = this;
 	}
 
-	public static BD_Remota getBD(String host, String nombre, String usuario, String pass){
+	public static BD_Remota getBD(){
 		if(mybd == null){
 			Connection conex = initBD();
 			Statement stat = usarBD(conex);
@@ -43,7 +43,7 @@ public class BD_Remota extends BD_Padre{
 	public static Statement usarBD(Connection con) {
 		try {
 			Statement statement = con.createStatement();
-			statement.setQueryTimeout(30);  // poner timeout 30 msg
+		//	statement.setQueryTimeout(30);  // poner timeout 30 msg
 			return statement;
 		} catch (SQLException e) {
 			e.printStackTrace();
