@@ -8,6 +8,7 @@ import ServidorV2.BD.BD_Local;
 import ServidorV2.BD.BD_Padre;
 import ServidorV2.BD.BD_Remota;
 import ServidorV2.BD.Utilidades_BD;
+import ServidorV2.Logger.Log_errores;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -191,7 +192,7 @@ public class Ventana_Servidor extends JFrame {
 					socket2 = servidor2.accept();				
 					
 				} catch (IOException e) {
-					LoggerServi.log( Level.SEVERE, "Error al unirse al servidor: " + e.getMessage(), e );
+					Log_errores.log( Level.SEVERE, "Error al unirse al servidor: " + e.getMessage(), e );
 				    JOptionPane.showInputDialog("Error al unirse al servidor : " + e.getMessage());
 					continue;
 				}
@@ -205,7 +206,7 @@ public class Ventana_Servidor extends JFrame {
 			}
 
 		} catch (IOException e) {
-			LoggerServi.log( Level.SEVERE, "Error " + e.getMessage(), e );
+			Log_errores.log( Level.SEVERE, "Error " + e.getMessage(), e );
 			JOptionPane.showInputDialog("Error: " + e.getMessage());
 		}
 	}
@@ -240,7 +241,7 @@ public class Ventana_Servidor extends JFrame {
 						}
 					}
 				} catch (Exception e) {
-					LoggerServi.log( Level.SEVERE, "Nimbus no está operativo.", e );
+					Log_errores.log( Level.SEVERE, "Nimbus no está operativo.", e );
 					// If Nimbus is not available, you can set the GUI to another look
 					// and feel.
 				}

@@ -5,6 +5,9 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.EmptyBorder;
+
+import ServidorV2.Logger.Log_errores;
+
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.Font;
@@ -94,7 +97,7 @@ public class ListaActivos extends JFrame {
 		user = H_Servidor.clientesActivos.get(indice);
 		user.desconectar(); //Echamos al usuario del servidor :)	
 		}catch(IndexOutOfBoundsException e){
-			LoggerServi.log( Level.SEVERE, "Error al eliminar al usuario. ", e );
+			Log_errores.log( Level.SEVERE, "Error al eliminar al usuario. ", e );
 		}
 		
 		

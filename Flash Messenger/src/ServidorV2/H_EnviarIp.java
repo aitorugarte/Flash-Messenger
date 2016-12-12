@@ -10,6 +10,8 @@ import java.util.logging.Level;
 
 import javax.swing.JButton;
 
+import ServidorV2.Logger.Log_errores;
+
 /*
  * Clase encargada de enviar la ip del servidor cada 4 segundos
  */
@@ -23,7 +25,7 @@ public class H_EnviarIp extends Thread {
 		try{
 			Thread.sleep(4000);
 		}catch (Exception e) {
-			LoggerServi.log( Level.SEVERE, "Error en la espera de los 4 segundos. ", e );
+			Log_errores.log( Level.SEVERE, "Error en la espera de los 4 segundos. ", e );
 		}
 		String Ip_Servidor = Inet4Address.getLocalHost().getHostAddress();
 		
@@ -48,7 +50,7 @@ public class H_EnviarIp extends Thread {
 		try {
 			Enviar_Ip();
 		} catch (IOException e) {
-			LoggerServi.log( Level.SEVERE, "Error al iniciar el hilo. ", e );
+			Log_errores.log( Level.SEVERE, "Error al iniciar el hilo. ", e );
 			e.printStackTrace();
 		}
 	}

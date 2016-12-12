@@ -1,25 +1,25 @@
-package ServidorV2;
+package ServidorV2.Logger;
 
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /*
- * Clase que guarda los datos en un archivo xml
+ * Clase que recoge los errores en un fichero xml
  */
-public class LoggerServi {
+public class Log_errores {
 
 	private static Logger logger = null;
 
 
 	public static void setLogger(Logger logger) {
-		LoggerServi.logger = logger;
+		Log_errores.logger = logger;
 	}
 
 
 	public static void log(Level level, String msg, Throwable excepcion) {
 		if (logger == null) { 
-			logger = Logger.getLogger(LoggerServi.class.getName()); 
+			logger = Logger.getLogger(Log_errores.class.getName()); 
 			logger.setLevel(Level.ALL); // Loguea todos los niveles
 			try {
 				//Saca el log a fichero xml

@@ -7,6 +7,8 @@ import java.net.Socket;
 import java.util.Vector;
 import java.util.logging.Level;
 
+import ServidorV2.Logger.Log_errores;
+
 /*
  * Clase del hilo del servidor
  */
@@ -62,12 +64,12 @@ public class H_Servidor extends Thread {
 			salida2 = new DataOutputStream(Scli2.getOutputStream());
 			this.setNombUser(entrada.readUTF()); // Escribe el nombre del usuario
 		
-			LoggerServi.log(Level.CONFIG, "Cliente agregado: " + getNombUser(), null);
-			LoggerServi.log(Level.CONFIG, "Número de clientes actualmente: " + clientesActivos.size(), null);
+			Log_errores.log(Level.CONFIG, "Cliente agregado: " + getNombUser(), null);
+			Log_errores.log(Level.CONFIG, "Número de clientes actualmente: " + clientesActivos.size(), null);
 
 		
 		} catch (IOException e) {
-			LoggerServi.log( Level.SEVERE, "Error en los Streams. ", e );
+			Log_errores.log( Level.SEVERE, "Error en los Streams. ", e );
 			e.printStackTrace();
 		}
 
@@ -87,19 +89,19 @@ public class H_Servidor extends Thread {
 				//TODO En un futuro se añadirán más casos
 				}
 			} catch (IOException e) {
-				LoggerServi.log( Level.SEVERE, "Error en la lectura de la opción. ", e );
+				Log_errores.log( Level.SEVERE, "Error en la lectura de la opción. ", e );
 				break;
 			}
 		}
-		LoggerServi.log(Level.CONFIG, "El usuario " + getNombUser() + " se fue.", null);
+		Log_errores.log(Level.CONFIG, "El usuario " + getNombUser() + " se fue.", null);
 		desconectar();
-		LoggerServi.log(Level.CONFIG, "Número de clientes actualmente: " + clientesActivos.size(), null);
+		Log_errores.log(Level.CONFIG, "Número de clientes actualmente: " + clientesActivos.size(), null);
 		
 		try {
 			Scli.close();
-			LoggerServi.log(Level.CONFIG, "Socket del cliente cerrado.", null);
+			Log_errores.log(Level.CONFIG, "Socket del cliente cerrado.", null);
 		} catch (Exception et) {
-			LoggerServi.log( Level.SEVERE, "No se puede cerrar el socket del cliente. ", et );
+			Log_errores.log( Level.SEVERE, "No se puede cerrar el socket del cliente. ", et );
 		}
 	}
 
@@ -114,10 +116,10 @@ public class H_Servidor extends Thread {
 				user = clientesActivos.get(i);
 				user.salida2.writeInt(1);// opción de mensaje
 				user.salida2.writeUTF("" + this.getNombUser() + " :" + txt);
-				LoggerServi.log(Level.INFO, "" + this.getNombUser() + " :" + txt, null);
+				Log_errores.log(Level.INFO, "" + this.getNombUser() + " :" + txt, null);
 
 			} catch (IOException e) {
-				LoggerServi.log( Level.SEVERE, "Error al enviar el mensaje. ", e );
+				Log_errores.log( Level.SEVERE, "Error al enviar el mensaje. ", e );
 				e.printStackTrace();
 			}
 		}
