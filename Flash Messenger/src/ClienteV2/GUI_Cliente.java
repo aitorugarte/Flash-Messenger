@@ -45,6 +45,7 @@ public class GUI_Cliente extends JFrame implements KeyListener, ActionListener {
 	private JMenuItem mntmInicio, mntmDesarrollador;
 	private JMenuItem Ayuda;
 	private Cliente cliente;
+	private String usuario;
 	
 	
 	public GUI_Cliente() {
@@ -121,7 +122,7 @@ public class GUI_Cliente extends JFrame implements KeyListener, ActionListener {
 		btnEnviar.addActionListener(this);
 		panChat.add(btnEnviar);
 		
-		lblConver = new JLabel("Usuario ");
+		lblConver = new JLabel();
 		lblConver.setBounds(10, 11, 496, 17);
 		lblConver.setHorizontalAlignment(SwingConstants.CENTER);
 		panChat.add(lblConver);
@@ -143,12 +144,16 @@ public class GUI_Cliente extends JFrame implements KeyListener, ActionListener {
 	}
 	
 	public void mostrarMsg(String msg) {
-		this.PanMsg.append(msg + "\n");
+		this.PanMsg.append(getUsuario() + " => " + msg + "\n");
+	}
+	
+	public String getUsuario() {
+		return usuario;
 	}
 	public void setNombreUser(String user) {
 		lblConver.setText("Usuario " + user);
+		this.usuario = user;
 	}
-
 
 	@Override
 	public void keyReleased(KeyEvent e2) {
@@ -168,9 +173,9 @@ public class GUI_Cliente extends JFrame implements KeyListener, ActionListener {
 			String mensaje = textEnviar.getText();
 			if(!mensaje.trim().equals("")){
 				cliente.flujo(mensaje);
+				mostrarMsg(mensaje);
 				// Limpiamos el cuadro de texto del mensaje
 				textEnviar.setText("");
-				System.out.println("Hola");
 			}
         }
 		
@@ -182,7 +187,9 @@ public class GUI_Cliente extends JFrame implements KeyListener, ActionListener {
 		if(e.getSource().equals(btnEnviar)){
 			String mensaje = textEnviar.getText();
 			if(!mensaje.trim().equals("")){
+				System.out.println(mensaje);
 				cliente.flujo(mensaje);
+				mostrarMsg(mensaje);
 				// Limpiamos el cuadro de texto del mensaje
 				textEnviar.setText("");
 			}

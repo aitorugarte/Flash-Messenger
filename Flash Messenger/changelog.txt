@@ -23,9 +23,19 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Removed
 - Restos de código de métodos depecrated
 
-## [3.0.0] - 2016-12-02
+## [3.0.0] - 2016-12-10
 ### Added
 - Base de datos local y remota
 - LogIn y registro de usuario
-- Cifrado César o AES para los mensajes
-- 
+- Cifrado César recursivo para los mensajes
+- Registro logger
+- Clases para la comunicación cliente-servidor
+
+### Changed
+-
+
+## Fixed
+-
+
+##Removed
+-

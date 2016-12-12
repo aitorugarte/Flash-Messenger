@@ -7,19 +7,19 @@ import java.util.logging.Logger;
 /*
  * Clase que guarda los datos en un archivo xml
  */
-public class Registro {
+public class LoggerServi {
 
 	private static Logger logger = null;
 
 
 	public static void setLogger(Logger logger) {
-		Registro.logger = logger;
+		LoggerServi.logger = logger;
 	}
 
 
 	public static void log(Level level, String msg, Throwable excepcion) {
 		if (logger == null) { 
-			logger = Logger.getLogger(Registro.class.getName()); 
+			logger = Logger.getLogger(LoggerServi.class.getName()); 
 			logger.setLevel(Level.ALL); // Loguea todos los niveles
 			try {
 				//Saca el log a fichero xml

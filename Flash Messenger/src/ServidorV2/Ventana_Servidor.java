@@ -4,8 +4,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import ClienteV2.Cliente;
 import ServidorV2.BD.BD_Local;
+import ServidorV2.BD.BD_Padre;
 import ServidorV2.BD.BD_Remota;
 
 import javax.swing.JLabel;
@@ -17,20 +17,10 @@ import javax.swing.UIManager.LookAndFeelInfo;
 import java.awt.Font;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.DatagramPacket;
-import java.net.DatagramSocket;
-import java.net.Inet4Address;
-import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.net.SocketException;
-import java.net.UnknownHostException;
-import java.nio.charset.Charset;
 import java.sql.Connection;
 import java.sql.Statement;
 import java.util.logging.Level;
@@ -47,10 +37,16 @@ public class Ventana_Servidor extends JFrame {
 	private JLabel lblPanelDeControl, lblEstado;
 	private JButton btnDesconectar, btnUsuarios, btnRegistroDeMensajes;
 	private String ip;
-	private BD_Remota remota = new BD_Remota();
-	private BD_Local local = new BD_Local();
-	private Connection con = null;
-	private Statement stat = null;
+	private BD_Remota remota;
+	private BD_Local local;
+	private static Connection conex = null;
+	private static Statement stat = null;
+	private static BD_Padre padre = new BD_Padre(conex, stat);
+	private static String host = "sql7.freesqldatabase.com"; //+ puerto
+	private static String nombre_BD = "sql7143768";
+	private static String usuario = "sql7143768";
+	private static String pass = "edl72lc3Wt";
+
 
 
 	public Ventana_Servidor() {
@@ -117,15 +113,16 @@ public class Ventana_Servidor extends JFrame {
 	}
 	
 	//Método que busca el usuario y la contraseña en la BD
-	public boolean buscarUsuario(String usuario){
+	public static boolean buscarUsuario(String usuario){
 		
-		boolean hay = local.existeUsuario(usuario, stat, con);
+		//boolean hay = local.existeUsuario(usuario, stat, conex);
+		boolean hay = padre.existeUsuario(usuario, stat, conex);
 		System.out.println("Hay : " + hay);
 		
 		return hay;
 	}
 	
-	public void dividir(String algo) {
+	public static void dividir(String algo) {
 
 		String nombre = "";
 		String contraseña = "";
@@ -166,7 +163,8 @@ public class Ventana_Servidor extends JFrame {
 			espacio2++;
 		}
 
-		local.clienteInsert(stat, nombre, contraseña, correo);
+	//	local.clienteInsert(stat, nombre, contraseña, correo);
+		padre.clienteInsert(stat, nombre, contraseña, correo);
 
 	}
 	public void runServer() {
@@ -193,7 +191,7 @@ public class Ventana_Servidor extends JFrame {
 					socket2 = servidor2.accept();				
 					
 				} catch (IOException e) {
-					Registro.log( Level.SEVERE, "Error al unirse al servidor: " + e.getMessage(), e );
+					LoggerServi.log( Level.SEVERE, "Error al unirse al servidor: " + e.getMessage(), e );
 				    JOptionPane.showInputDialog("Error al unirse al servidor : " + e.getMessage());
 					continue;
 				}
@@ -202,28 +200,30 @@ public class Ventana_Servidor extends JFrame {
 				System.out.println("La ip del cliente es: " + ip);
 				
 				//Activamos el usuario
-				HiloServidor user = new HiloServidor(socket1, socket2, this, ip);
+				H_Servidor user = new H_Servidor(socket1, socket2, this, ip);
 				user.start();
 			}
 
 		} catch (IOException e) {
-			Registro.log( Level.SEVERE, "Error " + e.getMessage(), e );
+			LoggerServi.log( Level.SEVERE, "Error " + e.getMessage(), e );
 			JOptionPane.showInputDialog("Error: " + e.getMessage());
 		}
 	}
 	
 	public boolean Test(){
 		
-		if(remota.TestInternet() == true){
-			con = local.initBD();
-			stat = local.usarCrearTablasBD(con);
-			//remota.Conectar();
+	/*	if(remota.TestInternet() == true){
+			remota = BD_Remota2.getBD(host, nombre_BD, usuario, pass);
+			stat = remota.getStat();
+			conex = remota.getConexion();
 			return true;
-		}else{
-			con = local.initBD();
-			stat = local.usarCrearTablasBD(con);
+		}else{*/
+			local = BD_Local.getBD();
+			local.crearTablasBD();
+			stat = local.getStat();
+			conex = local.getConexion();
 			return false;
-		}
+	//	}
 		
 	}
 	/*
@@ -239,7 +239,7 @@ public class Ventana_Servidor extends JFrame {
 						}
 					}
 				} catch (Exception e) {
-					Registro.log( Level.SEVERE, "Nimbus no está operativo.", e );
+					LoggerServi.log( Level.SEVERE, "Nimbus no está operativo.", e );
 					// If Nimbus is not available, you can set the GUI to another look
 					// and feel.
 				}

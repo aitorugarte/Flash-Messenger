@@ -8,12 +8,12 @@ import javax.swing.JOptionPane;
 /*
  * Hilo del cliente encargado de los mensajes
  */
-public class HiloCliente extends Thread{
+public class H_Cliente extends Thread{
 	
 	   private DataInputStream entrada;
 	   private GUI_Cliente frame;
 	   
-	   public HiloCliente (DataInputStream entrada, GUI_Cliente frame) throws IOException{
+	   public H_Cliente (DataInputStream entrada, GUI_Cliente frame) throws IOException{
 	      this.entrada = entrada;
 	      this.frame = frame;
 	   }
@@ -22,21 +22,20 @@ public class HiloCliente extends Thread{
 		   
 	      String mensaje = "";
 	      int opcion = 0;
-	      
-	      while(!interrupted()){         
+	      //!interrupted
+	      while(true){         
 	         try{
-	        	
 	            opcion = entrada.readInt();
 	            switch(opcion){
 	            
-	               case 1://mensage enviado
+	               case 1://mensage recibido
 	            	   mensaje = entrada.readUTF();
-	          //       System.out.println("ECO del servidor:" + mensaje);
 	            	   frame.mostrarMsg(mensaje);            
 	                  break;
 	               case 2://se agrega
 	            	   mensaje = entrada.readUTF();                
 	                  break;
+	               case 3: //TODO
 	            }
 	         }catch (IOException e){
 	        	 JOptionPane.showMessageDialog(frame,"El servidor ha sido desconectado", "Desconexión", JOptionPane.ERROR_MESSAGE);

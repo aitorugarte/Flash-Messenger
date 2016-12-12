@@ -10,7 +10,7 @@ import javax.swing.JOptionPane;
 
 import ClienteV2.Cliente;
 import ClienteV2.GUI_Cliente;
-import ClienteV2.HiloCliente;
+import ClienteV2.H_Cliente;
 import ClienteV2.Principal_Cliente;
 
 public class Comunicador {
@@ -23,8 +23,24 @@ public class Comunicador {
 	   public Comunicador(Login login) throws IOException{      
 		   this.login = login;
 	   }
-	   
-	public void conexion(String usuario, String contraseña) throws IOException {
+	   public Comunicador(Registrarse registro){
+		   this.registro = registro;
+	   }
+	   /**
+	    * @param emails como un array
+	    */
+	public void conexion(String usuario, String contraseña, String ...emails) throws IOException {
+		
+		String credenciales;
+		String tipo;
+
+		if(emails.length == 0){
+			credenciales = usuario + " " + contraseña;
+			tipo = "login";
+		}else{
+			credenciales = usuario + " " + contraseña + " " + emails;
+			tipo = "registro";
+		}
 		
 		try {
 			Socket Senviar = new Socket("localhost", 5000);
@@ -34,26 +50,33 @@ public class Comunicador {
 			sc = new ServerSocket(5001);
 			salida = new DataOutputStream(Senviar.getOutputStream());
 
-			String credenciales = usuario + " " + contraseña;
+			//Avisamos de qué tipo van a ser las credenciales
+			salida.writeUTF(tipo);
+			salida.flush();
+			//Enviamos las credenciales
 			salida.writeUTF(credenciales);
 			salida.flush();
 			System.out.println("Enviado correctamente");
 
-			Srecibir = new Socket();
 			Srecibir = sc.accept();
 			
 			DataInputStream entrada = new DataInputStream(Srecibir.getInputStream());
 			String respuesta = entrada.readUTF();
 			System.out.println(respuesta);
+			
 			if(respuesta.equals("ok")){
 				login.dispose();
 				GUI_Cliente gui = new GUI_Cliente();
 				gui.setNombreUser(usuario);
 				gui.setVisible(true);
-			}else{
+			}else if(respuesta.equals("no")){
 				login.textPassword.setText("");
-				JOptionPane.showMessageDialog(null, "Error, usuario y/o contraseña incorrectos.", "Error",
+				JOptionPane.showMessageDialog(login, "Error, usuario y/o contraseña incorrectos.", "Error",
 						JOptionPane.ERROR_MESSAGE);
+			}
+			else if(respuesta.equals("done")){
+				registro.dispose();
+				JOptionPane.showMessageDialog(registro, "Registro completado exitósamente.");
 			}
 			
 			Senviar.close();

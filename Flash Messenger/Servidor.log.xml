@@ -2,146 +2,56 @@
 <!DOCTYPE log SYSTEM "logger.dtd">
 <log>
 <record>
-  <date>2016-12-05T09:22:33</date>
-  <millis>1480926153907</millis>
+  <date>2016-12-12T08:11:03</date>
+  <millis>1481526663130</millis>
   <sequence>0</sequence>
-  <logger>ServidorV2.Registro</logger>
-  <level>SEVERE</level>
-  <class>ServidorV2.Registro</class>
-  <method>log</method>
-  <thread>1</thread>
-  <message>Error Address already in use: JVM_Bind</message>
-  <exception>
-    <message>java.net.BindException: Address already in use: JVM_Bind</message>
-    <frame>
-      <class>java.net.DualStackPlainSocketImpl</class>
-      <method>bind0</method>
-    </frame>
-    <frame>
-      <class>java.net.DualStackPlainSocketImpl</class>
-      <method>socketBind</method>
-    </frame>
-    <frame>
-      <class>java.net.AbstractPlainSocketImpl</class>
-      <method>bind</method>
-    </frame>
-    <frame>
-      <class>java.net.PlainSocketImpl</class>
-      <method>bind</method>
-    </frame>
-    <frame>
-      <class>java.net.ServerSocket</class>
-      <method>bind</method>
-    </frame>
-    <frame>
-      <class>java.net.ServerSocket</class>
-      <method>&lt;init&gt;</method>
-    </frame>
-    <frame>
-      <class>java.net.ServerSocket</class>
-      <method>&lt;init&gt;</method>
-    </frame>
-    <frame>
-      <class>ServidorV2.Ventana_Servidor</class>
-      <method>runServer</method>
-      <line>234</line>
-    </frame>
-    <frame>
-      <class>ServidorV2.Ventana_Servidor</class>
-      <method>main</method>
-      <line>312</line>
-    </frame>
-  </exception>
-</record>
-</log>
-<?xml version="1.0" encoding="windows-1252" standalone="no"?>
-<!DOCTYPE log SYSTEM "logger.dtd">
-<log>
-<record>
-  <date>2016-12-05T09:44:53</date>
-  <millis>1480927493133</millis>
-  <sequence>0</sequence>
-  <logger>ServidorV2.Registro</logger>
-  <level>SEVERE</level>
-  <class>ServidorV2.Registro</class>
-  <method>log</method>
-  <thread>1</thread>
-  <message>Error Address already in use: JVM_Bind</message>
-  <exception>
-    <message>java.net.BindException: Address already in use: JVM_Bind</message>
-    <frame>
-      <class>java.net.DualStackPlainSocketImpl</class>
-      <method>bind0</method>
-    </frame>
-    <frame>
-      <class>java.net.DualStackPlainSocketImpl</class>
-      <method>socketBind</method>
-    </frame>
-    <frame>
-      <class>java.net.AbstractPlainSocketImpl</class>
-      <method>bind</method>
-    </frame>
-    <frame>
-      <class>java.net.PlainSocketImpl</class>
-      <method>bind</method>
-    </frame>
-    <frame>
-      <class>java.net.ServerSocket</class>
-      <method>bind</method>
-    </frame>
-    <frame>
-      <class>java.net.ServerSocket</class>
-      <method>&lt;init&gt;</method>
-    </frame>
-    <frame>
-      <class>java.net.ServerSocket</class>
-      <method>&lt;init&gt;</method>
-    </frame>
-    <frame>
-      <class>ServidorV2.Ventana_Servidor</class>
-      <method>runServer</method>
-      <line>232</line>
-    </frame>
-    <frame>
-      <class>ServidorV2.Ventana_Servidor</class>
-      <method>main</method>
-      <line>312</line>
-    </frame>
-  </exception>
-</record>
-</log>
-<?xml version="1.0" encoding="windows-1252" standalone="no"?>
-<!DOCTYPE log SYSTEM "logger.dtd">
-<log>
-<record>
-  <date>2016-12-06T12:31:08</date>
-  <millis>1481023868226</millis>
-  <sequence>0</sequence>
-  <logger>ServidorV2.Registro</logger>
+  <logger>ServidorV2.LoggerS</logger>
   <level>CONFIG</level>
-  <class>ServidorV2.Registro</class>
+  <class>ServidorV2.LoggerS</class>
+  <method>log</method>
+  <thread>20</thread>
+  <message>Cliente agregado: </message>
+</record>
+<record>
+  <date>2016-12-12T08:11:03</date>
+  <millis>1481526663131</millis>
+  <sequence>1</sequence>
+  <logger>ServidorV2.LoggerS</logger>
+  <level>CONFIG</level>
+  <class>ServidorV2.LoggerS</class>
+  <method>log</method>
+  <thread>20</thread>
+  <message>Número de clientes actualmente: 2</message>
+</record>
+<record>
+  <date>2016-12-12T08:11:06</date>
+  <millis>1481526666187</millis>
+  <sequence>2</sequence>
+  <logger>ServidorV2.LoggerS</logger>
+  <level>CONFIG</level>
+  <class>ServidorV2.LoggerS</class>
   <method>log</method>
   <thread>19</thread>
   <message>Cliente agregado: </message>
 </record>
 <record>
-  <date>2016-12-06T12:31:08</date>
-  <millis>1481023868227</millis>
-  <sequence>1</sequence>
-  <logger>ServidorV2.Registro</logger>
+  <date>2016-12-12T08:11:06</date>
+  <millis>1481526666188</millis>
+  <sequence>3</sequence>
+  <logger>ServidorV2.LoggerS</logger>
   <level>CONFIG</level>
-  <class>ServidorV2.Registro</class>
+  <class>ServidorV2.LoggerS</class>
   <method>log</method>
   <thread>19</thread>
-  <message>Número de clientes actualmente: 1</message>
+  <message>Número de clientes actualmente: 2</message>
 </record>
 <record>
-  <date>2016-12-06T12:31:12</date>
-  <millis>1481023872568</millis>
-  <sequence>2</sequence>
-  <logger>ServidorV2.Registro</logger>
+  <date>2016-12-12T08:12:17</date>
+  <millis>1481526737818</millis>
+  <sequence>4</sequence>
+  <logger>ServidorV2.LoggerS</logger>
   <level>SEVERE</level>
-  <class>ServidorV2.Registro</class>
+  <class>ServidorV2.LoggerS</class>
   <method>log</method>
   <thread>19</thread>
   <message>Error en la lectura de la opción. </message>
@@ -164,191 +74,54 @@
       <method>readInt</method>
     </frame>
     <frame>
-      <class>ServidorV2.HiloServidor</class>
+      <class>ServidorV2.H_Servidor</class>
       <method>run</method>
       <line>79</line>
     </frame>
   </exception>
 </record>
 <record>
-  <date>2016-12-06T12:31:12</date>
-  <millis>1481023872577</millis>
-  <sequence>3</sequence>
-  <logger>ServidorV2.Registro</logger>
+  <date>2016-12-12T08:12:17</date>
+  <millis>1481526737824</millis>
+  <sequence>5</sequence>
+  <logger>ServidorV2.LoggerS</logger>
   <level>CONFIG</level>
-  <class>ServidorV2.Registro</class>
+  <class>ServidorV2.LoggerS</class>
   <method>log</method>
   <thread>19</thread>
   <message>El usuario  se fue.</message>
 </record>
 <record>
-  <date>2016-12-06T12:31:12</date>
-  <millis>1481023872578</millis>
-  <sequence>4</sequence>
-  <logger>ServidorV2.Registro</logger>
-  <level>CONFIG</level>
-  <class>ServidorV2.Registro</class>
-  <method>log</method>
-  <thread>19</thread>
-  <message>Número de clientes actualmente: 0</message>
-</record>
-<record>
-  <date>2016-12-06T12:31:12</date>
-  <millis>1481023872578</millis>
-  <sequence>5</sequence>
-  <logger>ServidorV2.Registro</logger>
-  <level>CONFIG</level>
-  <class>ServidorV2.Registro</class>
-  <method>log</method>
-  <thread>19</thread>
-  <message>Socket del cliente cerrado.</message>
-</record>
-<record>
-  <date>2016-12-06T12:31:34</date>
-  <millis>1481023894678</millis>
+  <date>2016-12-12T08:12:17</date>
+  <millis>1481526737824</millis>
   <sequence>6</sequence>
-  <logger>ServidorV2.Registro</logger>
-  <level>SEVERE</level>
-  <class>ServidorV2.Registro</class>
-  <method>log</method>
-  <thread>22</thread>
-  <message>Error en los Streams. </message>
-  <exception>
-    <message>java.net.SocketException: Connection reset</message>
-    <frame>
-      <class>java.net.SocketInputStream</class>
-      <method>read</method>
-    </frame>
-    <frame>
-      <class>java.net.SocketInputStream</class>
-      <method>read</method>
-    </frame>
-    <frame>
-      <class>java.net.SocketInputStream</class>
-      <method>read</method>
-    </frame>
-    <frame>
-      <class>java.io.DataInputStream</class>
-      <method>readUnsignedShort</method>
-    </frame>
-    <frame>
-      <class>java.io.DataInputStream</class>
-      <method>readUTF</method>
-    </frame>
-    <frame>
-      <class>java.io.DataInputStream</class>
-      <method>readUTF</method>
-    </frame>
-    <frame>
-      <class>ServidorV2.HiloServidor</class>
-      <method>run</method>
-      <line>63</line>
-    </frame>
-  </exception>
-</record>
-<record>
-  <date>2016-12-06T12:31:34</date>
-  <millis>1481023894685</millis>
-  <sequence>7</sequence>
-  <logger>ServidorV2.Registro</logger>
-  <level>SEVERE</level>
-  <class>ServidorV2.Registro</class>
-  <method>log</method>
-  <thread>22</thread>
-  <message>Error en la lectura de la opción. </message>
-  <exception>
-    <message>java.net.SocketException: Connection reset</message>
-    <frame>
-      <class>java.net.SocketInputStream</class>
-      <method>read</method>
-    </frame>
-    <frame>
-      <class>java.net.SocketInputStream</class>
-      <method>read</method>
-    </frame>
-    <frame>
-      <class>java.net.SocketInputStream</class>
-      <method>read</method>
-    </frame>
-    <frame>
-      <class>java.io.DataInputStream</class>
-      <method>readInt</method>
-    </frame>
-    <frame>
-      <class>ServidorV2.HiloServidor</class>
-      <method>run</method>
-      <line>79</line>
-    </frame>
-  </exception>
-</record>
-<record>
-  <date>2016-12-06T12:31:34</date>
-  <millis>1481023894689</millis>
-  <sequence>8</sequence>
-  <logger>ServidorV2.Registro</logger>
+  <logger>ServidorV2.LoggerS</logger>
   <level>CONFIG</level>
-  <class>ServidorV2.Registro</class>
-  <method>log</method>
-  <thread>22</thread>
-  <message>El usuario  se fue.</message>
-</record>
-<record>
-  <date>2016-12-06T12:31:34</date>
-  <millis>1481023894690</millis>
-  <sequence>9</sequence>
-  <logger>ServidorV2.Registro</logger>
-  <level>CONFIG</level>
-  <class>ServidorV2.Registro</class>
-  <method>log</method>
-  <thread>22</thread>
-  <message>Número de clientes actualmente: 0</message>
-</record>
-<record>
-  <date>2016-12-06T12:31:34</date>
-  <millis>1481023894691</millis>
-  <sequence>10</sequence>
-  <logger>ServidorV2.Registro</logger>
-  <level>CONFIG</level>
-  <class>ServidorV2.Registro</class>
-  <method>log</method>
-  <thread>22</thread>
-  <message>Socket del cliente cerrado.</message>
-</record>
-</log>
-<?xml version="1.0" encoding="windows-1252" standalone="no"?>
-<!DOCTYPE log SYSTEM "logger.dtd">
-<log>
-<record>
-  <date>2016-12-06T12:33:42</date>
-  <millis>1481024022264</millis>
-  <sequence>0</sequence>
-  <logger>ServidorV2.Registro</logger>
-  <level>CONFIG</level>
-  <class>ServidorV2.Registro</class>
-  <method>log</method>
-  <thread>19</thread>
-  <message>Cliente agregado: </message>
-</record>
-<record>
-  <date>2016-12-06T12:33:42</date>
-  <millis>1481024022265</millis>
-  <sequence>1</sequence>
-  <logger>ServidorV2.Registro</logger>
-  <level>CONFIG</level>
-  <class>ServidorV2.Registro</class>
+  <class>ServidorV2.LoggerS</class>
   <method>log</method>
   <thread>19</thread>
   <message>Número de clientes actualmente: 1</message>
 </record>
 <record>
-  <date>2016-12-06T12:33:43</date>
-  <millis>1481024023531</millis>
-  <sequence>2</sequence>
-  <logger>ServidorV2.Registro</logger>
-  <level>SEVERE</level>
-  <class>ServidorV2.Registro</class>
+  <date>2016-12-12T08:12:17</date>
+  <millis>1481526737825</millis>
+  <sequence>7</sequence>
+  <logger>ServidorV2.LoggerS</logger>
+  <level>CONFIG</level>
+  <class>ServidorV2.LoggerS</class>
   <method>log</method>
   <thread>19</thread>
+  <message>Socket del cliente cerrado.</message>
+</record>
+<record>
+  <date>2016-12-12T08:12:18</date>
+  <millis>1481526738314</millis>
+  <sequence>8</sequence>
+  <logger>ServidorV2.LoggerS</logger>
+  <level>SEVERE</level>
+  <class>ServidorV2.LoggerS</class>
+  <method>log</method>
+  <thread>20</thread>
   <message>Error en la lectura de la opción. </message>
   <exception>
     <message>java.net.SocketException: Connection reset</message>
@@ -369,43 +142,43 @@
       <method>readInt</method>
     </frame>
     <frame>
-      <class>ServidorV2.HiloServidor</class>
+      <class>ServidorV2.H_Servidor</class>
       <method>run</method>
       <line>79</line>
     </frame>
   </exception>
 </record>
 <record>
-  <date>2016-12-06T12:33:43</date>
-  <millis>1481024023539</millis>
-  <sequence>3</sequence>
-  <logger>ServidorV2.Registro</logger>
+  <date>2016-12-12T08:12:18</date>
+  <millis>1481526738318</millis>
+  <sequence>9</sequence>
+  <logger>ServidorV2.LoggerS</logger>
   <level>CONFIG</level>
-  <class>ServidorV2.Registro</class>
+  <class>ServidorV2.LoggerS</class>
   <method>log</method>
-  <thread>19</thread>
+  <thread>20</thread>
   <message>El usuario  se fue.</message>
 </record>
 <record>
-  <date>2016-12-06T12:33:43</date>
-  <millis>1481024023540</millis>
-  <sequence>4</sequence>
-  <logger>ServidorV2.Registro</logger>
+  <date>2016-12-12T08:12:18</date>
+  <millis>1481526738319</millis>
+  <sequence>10</sequence>
+  <logger>ServidorV2.LoggerS</logger>
   <level>CONFIG</level>
-  <class>ServidorV2.Registro</class>
+  <class>ServidorV2.LoggerS</class>
   <method>log</method>
-  <thread>19</thread>
+  <thread>20</thread>
   <message>Número de clientes actualmente: 0</message>
 </record>
 <record>
-  <date>2016-12-06T12:33:43</date>
-  <millis>1481024023540</millis>
-  <sequence>5</sequence>
-  <logger>ServidorV2.Registro</logger>
+  <date>2016-12-12T08:12:18</date>
+  <millis>1481526738320</millis>
+  <sequence>11</sequence>
+  <logger>ServidorV2.LoggerS</logger>
   <level>CONFIG</level>
-  <class>ServidorV2.Registro</class>
+  <class>ServidorV2.LoggerS</class>
   <method>log</method>
-  <thread>19</thread>
+  <thread>20</thread>
   <message>Socket del cliente cerrado.</message>
 </record>
 </log>

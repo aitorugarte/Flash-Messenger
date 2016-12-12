@@ -40,7 +40,8 @@ public class Registrarse extends JFrame {
 	private String Ip_Servidor;
 
 	public Registrarse() {
-	
+		Comunicador comunicarse = new Comunicador(this);
+		
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 347, 281);
@@ -91,9 +92,12 @@ public class Registrarse extends JFrame {
 					if (!correo.trim().equals("")) {
 						if (comprobarPass() == true) {
 							
-							//TODO método que envíe el registro
-							JOptionPane.showMessageDialog(null, "Registro completo.");
-							limpiar(1);
+							try {
+								comunicarse.conexion(nombre, contraseña, correo);
+							} catch (IOException e1) {
+								e1.printStackTrace();
+							}
+			
 						} else {
 							JOptionPane.showMessageDialog(null, "Error, las contraseñas no coindicen.", "Error",
 									JOptionPane.ERROR_MESSAGE);

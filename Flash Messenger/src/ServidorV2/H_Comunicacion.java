@@ -21,8 +21,6 @@ import javax.swing.JOptionPane;
 public class H_Comunicacion extends Thread {
 
 	public void recibirDatos() throws IOException {
-
-		Ventana_Servidor servidor = new Ventana_Servidor();
 		
 		while (true) {
 			ServerSocket sc = null;
@@ -30,21 +28,29 @@ public class H_Comunicacion extends Thread {
 			Socket enviar = null;
 
 			sc = new ServerSocket(5000);
-			recibir = new Socket();
-
 			recibir = sc.accept();
 
 			DataInputStream entrada = new DataInputStream(recibir.getInputStream());
-
-			String datosRecibidos = entrada.readUTF();
+		
+			String tipoRecibido = entrada.readUTF();
+			System.out.println("Tipo recibido: " + tipoRecibido);
+			
+			DataInputStream entrada2 = new DataInputStream(recibir.getInputStream());
+			String datosRecibidos = entrada2.readUTF();
 			System.out.println("Datos recibidos: " + datosRecibidos);
 			String respuesta = " ";
-			if(servidor.buscarUsuario(datosRecibidos)){
-				respuesta = "ok";
-			}else{
-				respuesta = "no";
-			}
+			if(tipoRecibido.equals("login")){
 			
+				if(Ventana_Servidor.buscarUsuario(datosRecibidos)){
+					respuesta = "ok";
+				}else{
+					respuesta = "no";
+				}
+			}else{
+				Ventana_Servidor.dividir(datosRecibidos);
+				respuesta = "done";
+			}
+	
 			enviar = new Socket("localhost", 5001);
 			DataOutputStream salida = new DataOutputStream(enviar.getOutputStream());
 			

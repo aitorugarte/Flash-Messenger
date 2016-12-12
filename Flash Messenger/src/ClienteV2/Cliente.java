@@ -3,12 +3,7 @@ package ClienteV2;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.net.DatagramPacket;
-import java.net.InetAddress;
-import java.net.MulticastSocket;
 import java.net.Socket;
-import java.net.UnknownHostException;
-
 import javax.swing.JOptionPane;
 
 /*
@@ -18,13 +13,12 @@ public class Cliente {
 
 	   public static String Ip_Servidor; //Dirección ip del servidor
 	   private String nombre; //Nombre del usuario
-	   private String contraseña; //Contraseña del usuario
 	   private GUI_Cliente frame; //GUI del cliente
 	   private DataOutputStream salida;
 	   private DataInputStream entrada;
 	   private Socket comunicacion; //para la conectarse
 	   private Socket comunicacion2;//para recibir el mensaje
-	   private HiloCliente hilo;
+	   private H_Cliente hilo;
 	
 	   //Crea una nueva instancia del cliente
 	   public Cliente(GUI_Cliente frame) throws IOException{      
@@ -42,32 +36,24 @@ public class Cliente {
 	         entrada = new DataInputStream(comunicacion2.getInputStream());     
 	   
 	      }catch (IOException e) {
-	    	
 	    	  JOptionPane.showMessageDialog(frame,"Ningún servidor activado", "Error de conexión", JOptionPane.ERROR_MESSAGE);
 	      }
 	     
-	      hilo =  new HiloCliente(entrada, frame);
+	      hilo =  new H_Cliente(entrada, frame);
 	      hilo.start();
 	   }
-	   
-	   public String getNombre(){
-	      return nombre;
-	   }
-	   
+	
+	   /*
+	    * Método que envía los mensajes al servidor
+	    */
 	   public void flujo(String txt){
 	      try {             
-	     //    System.out.println("El mensaje enviado desde el cliente es: " + txt);
 	         salida.writeInt(1);
 	         salida.writeUTF(txt);
 	      } catch (IOException e) {
 	    	  JOptionPane.showMessageDialog(frame,"Has sido expulsado del servidor.", "Error", JOptionPane.ERROR_MESSAGE);
 	    	  frame.dispose();
-	    	  hilo.interrupt();
 	    	 
 	      }
 	   }
-	  public void expulsado(){
-		  
-		 
-	  }
 }

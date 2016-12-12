@@ -1,5 +1,8 @@
 package ClienteV2.Encriptado;
 
+/*
+ * Clase encargada de cifrar los mensajes
+ */
 public class CesarRecursivo {
 
 	public static void main(String[] args) {

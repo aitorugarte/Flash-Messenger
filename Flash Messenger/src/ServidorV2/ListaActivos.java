@@ -70,13 +70,13 @@ public class ListaActivos extends JFrame {
 	
 	public void agregarNombre(){
 		
-		int tamanio = HiloServidor.clientesActivos.size();
-		HiloServidor user = null;
+		int tamanio = H_Servidor.clientesActivos.size();
+		H_Servidor user = null;
 		String datos;
 	
 			for (int i = 0; i < tamanio; i++) {
 				
-				user = HiloServidor.clientesActivos.get(i);
+				user = H_Servidor.clientesActivos.get(i);
 				datos = user.getNombUser() + "  " + user.getIp(); //Mal!!! Obtiene la ip del servidor, no del cliente. TODO
 				user.interrupt();
 				
@@ -86,15 +86,15 @@ public class ListaActivos extends JFrame {
 	}
 	public void eliminarNombre(){
 		
-		HiloServidor user = null;
+		H_Servidor user = null;
 		Integer indice = listaNombres.getSelectedIndex();
 		
 		try{
 		modelo.removeElementAt(indice); //Borramos al usuario de la lista
-		user = HiloServidor.clientesActivos.get(indice);
+		user = H_Servidor.clientesActivos.get(indice);
 		user.desconectar(); //Echamos al usuario del servidor :)	
 		}catch(IndexOutOfBoundsException e){
-			Registro.log( Level.SEVERE, "Error al eliminar al usuario. ", e );
+			LoggerServi.log( Level.SEVERE, "Error al eliminar al usuario. ", e );
 		}
 		
 		

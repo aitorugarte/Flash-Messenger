@@ -23,7 +23,7 @@ public class H_EnviarIp extends Thread {
 		try{
 			Thread.sleep(4000);
 		}catch (Exception e) {
-			Registro.log( Level.SEVERE, "Error en la espera de los 4 segundos. ", e );
+			LoggerServi.log( Level.SEVERE, "Error en la espera de los 4 segundos. ", e );
 		}
 		String Ip_Servidor = Inet4Address.getLocalHost().getHostAddress();
 		
@@ -48,7 +48,7 @@ public class H_EnviarIp extends Thread {
 		try {
 			Enviar_Ip();
 		} catch (IOException e) {
-			Registro.log( Level.SEVERE, "Error al iniciar el hilo. ", e );
+			LoggerServi.log( Level.SEVERE, "Error al iniciar el hilo. ", e );
 			e.printStackTrace();
 		}
 	}
