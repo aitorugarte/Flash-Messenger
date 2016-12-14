@@ -11,6 +11,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import ServidorV2.H_Servidor;
+
 public class BD_Padre {
 
 	protected Connection conexion;
@@ -98,6 +100,7 @@ public class BD_Padre {
 				  String juntado = nombre + " " + contraseña;
 				  System.out.println(juntado);
 				  if(usuario.equals(juntado)){
+					  H_Servidor.setNombUser(nombre); //TODO Seteamos el nombre del usuario
 					  return true;
 				  }
 				}

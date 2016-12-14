@@ -1,7 +1,5 @@
 package ServidorV2.BD;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -9,12 +7,9 @@ import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.JList;
 import javax.swing.DefaultListModel;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.awt.event.ActionEvent;
 
 public class Utilidades_BD extends JFrame {
 

@@ -19,7 +19,7 @@ public class H_Servidor extends Thread {
 	private DataInputStream entrada;
 	private DataOutputStream salida2;
 	public static Vector<H_Servidor> clientesActivos = new Vector<H_Servidor>();
-	private String nombre;
+	private static String nombre;
 	private Ventana_Servidor servi;
 	private String direccion;
 
@@ -33,11 +33,11 @@ public class H_Servidor extends Thread {
 		clientesActivos.add(this);
 	}
 
-	public String getNombUser() {
+	public static String getNombUser() {
 		return nombre;
 	}
 
-	public void setNombUser(String name) {
+	public static void setNombUser(String name) {
 		nombre = name;
 	}
 	public String getIp(){
@@ -62,7 +62,7 @@ public class H_Servidor extends Thread {
 		
 			entrada = new DataInputStream(Scli.getInputStream());
 			salida2 = new DataOutputStream(Scli2.getOutputStream());
-			this.setNombUser(entrada.readUTF()); // Escribe el nombre del usuario
+		//	this.setNombUser(entrada.readUTF()); // Escribe el nombre del usuario
 		
 			Log_errores.log(Level.CONFIG, "Cliente agregado: " + getNombUser(), null);
 			Log_errores.log(Level.CONFIG, "Número de clientes actualmente: " + clientesActivos.size(), null);
@@ -112,11 +112,12 @@ public class H_Servidor extends Thread {
 		for (int i = 0; i < clientesActivos.size(); i++) {
 			
 			try {
-
 				user = clientesActivos.get(i);
 				user.salida2.writeInt(1);// opción de mensaje
-				user.salida2.writeUTF("" + this.getNombUser() + " :" + txt);
-				Log_errores.log(Level.INFO, "" + this.getNombUser() + " :" + txt, null);
+				user.salida2.writeUTF("" + getNombUser() + " :" + txt);
+				System.out.println(getNombUser()+ " :" + txt);
+				//TODO no aparece el nombre y no se envía todo
+		//		Log_errores.log(Level.INFO, "" + this.getNombUser() + " :" + txt, null);
 
 			} catch (IOException e) {
 				Log_errores.log( Level.SEVERE, "Error al enviar el mensaje. ", e );
