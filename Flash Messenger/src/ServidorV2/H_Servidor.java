@@ -7,6 +7,7 @@ import java.net.Socket;
 import java.util.Vector;
 import java.util.logging.Level;
 
+import ServidorV2.BD.BD_Padre;
 import ServidorV2.Logger.Log_errores;
 
 /*
@@ -19,32 +20,31 @@ public class H_Servidor extends Thread {
 	private DataInputStream entrada;
 	private DataOutputStream salida2;
 	public static Vector<H_Servidor> clientesActivos = new Vector<H_Servidor>();
-	private static String nombre;
+	private String nombre;
 	private Ventana_Servidor servi;
 	private String direccion;
 
-	public H_Servidor(Socket Scliente, Socket Scliente2, Ventana_Servidor servi, String ip) {
+	public H_Servidor(String nombre, Socket Scliente, Socket Scliente2, Ventana_Servidor servi, String ip) {
 
 		Scli = Scliente;
 		Scli2 = Scliente2;
 		this.servi = servi;
-		nombre = "";
+		this.nombre = nombre;
 		direccion = ip;
 		clientesActivos.add(this);
 	}
 
-	public static String getNombUser() {
+	public String getNombre() {
 		return nombre;
 	}
-
-	public static void setNombUser(String name) {
+	public void setNombre(String name) {
 		nombre = name;
 	}
 	public String getIp(){
 		return direccion;
 	}
 	public void setIp(String ip){
-		direccion = ip;
+		this.direccion = ip;
 	}
 	public void desconectar(){
 		clientesActivos.removeElement(this);
@@ -62,9 +62,8 @@ public class H_Servidor extends Thread {
 		
 			entrada = new DataInputStream(Scli.getInputStream());
 			salida2 = new DataOutputStream(Scli2.getOutputStream());
-		//	this.setNombUser(entrada.readUTF()); // Escribe el nombre del usuario
 		
-			Log_errores.log(Level.CONFIG, "Cliente agregado: " + getNombUser(), null);
+			Log_errores.log(Level.CONFIG, "Cliente agregado: " + getNombre(), null);
 			Log_errores.log(Level.CONFIG, "Número de clientes actualmente: " + clientesActivos.size(), null);
 
 		
@@ -93,7 +92,7 @@ public class H_Servidor extends Thread {
 				break;
 			}
 		}
-		Log_errores.log(Level.CONFIG, "El usuario " + getNombUser() + " se fue.", null);
+		Log_errores.log(Level.CONFIG, "El usuario " + getNombre() + " se fue.", null);
 		desconectar();
 		Log_errores.log(Level.CONFIG, "Número de clientes actualmente: " + clientesActivos.size(), null);
 		
@@ -104,21 +103,29 @@ public class H_Servidor extends Thread {
 			Log_errores.log( Level.SEVERE, "No se puede cerrar el socket del cliente. ", et );
 		}
 	}
-
+	/*
+	 * TODO encontrar el nombre del que envía el mensaje
+	 */
 	private void enviaMsg(String txt) {
 
 		H_Servidor user = null;
-
-		for (int i = 0; i < clientesActivos.size(); i++) {
+		String nombre = " ";
+		int i = 0;
+		//Buscamos el nombre del usuario que ha enviado el mensaje
+		for (i = 0; i < txt.length(); i++) {
+			if(txt.charAt(i) == '='){
+				nombre = txt.substring(0, i - 1);
+			}
+		}
+		
+		for (i = 0; i < clientesActivos.size(); i++) {
 			
 			try {
 				user = clientesActivos.get(i);
-				user.salida2.writeInt(1);// opción de mensaje
-				user.salida2.writeUTF("" + getNombUser() + " :" + txt);
-				System.out.println(getNombUser()+ " :" + txt);
-				//TODO no aparece el nombre y no se envía todo
-		//		Log_errores.log(Level.INFO, "" + this.getNombUser() + " :" + txt, null);
-
+				if(!user.getNombre().equals(nombre)){
+					user.salida2.writeInt(1);// opción de mensaje
+					user.salida2.writeUTF(txt);
+				}
 			} catch (IOException e) {
 				Log_errores.log( Level.SEVERE, "Error al enviar el mensaje. ", e );
 				e.printStackTrace();

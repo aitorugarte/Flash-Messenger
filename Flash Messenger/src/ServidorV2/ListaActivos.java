@@ -80,7 +80,7 @@ public class ListaActivos extends JFrame {
 			for (int i = 0; i < tamanio; i++) {
 				
 				user = H_Servidor.clientesActivos.get(i);
-				datos = user.getNombUser() + "  " + user.getIp(); //Mal!!! Obtiene la ip del servidor, no del cliente. TODO
+				datos = user.getNombre() + "  " + user.getIp(); //Mal!!! Obtiene la ip del servidor, no del cliente. TODO
 				user.interrupt();
 				
 				modelo.addElement(datos);

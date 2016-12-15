@@ -38,17 +38,12 @@ public class Ventana_Servidor extends JFrame {
 	private JPanel contentPane;
 	private JLabel lblPanelDeControl, lblEstado;
 	private JButton btnDesconectar, btnUsuarios, btnRegistroDeMensajes, btnBD;
-	private String ip;
+	private String ip; //ip del lciente
 	private BD_Remota remota;
 	private BD_Local local;
 	private static Connection conex = null;
 	private static Statement stat = null;
 	private static BD_Padre padre = new BD_Padre(conex, stat);
-	private static String host = "sql7.freesqldatabase.com"; //+ puerto
-	private static String nombre_BD = "sql7143768";
-	private static String usuario = "sql7143768";
-	private static String pass = "edl72lc3Wt";
-
 
 
 	public Ventana_Servidor() {
@@ -117,13 +112,13 @@ public class Ventana_Servidor extends JFrame {
 	
 	//Método que busca el usuario y la contraseña en la BD
 	public static boolean buscarUsuario(String usuario){
-	
 		boolean hay = padre.existeUsuario(usuario, stat, conex);
-		System.out.println("Hay : " + hay);
-		
 		return hay;
 	}
 	
+	/*
+	 * Método que divide la cadena de texto para ser insertada
+	 */
 	public static void dividir(String algo) {
 
 		String nombre = "";
@@ -168,6 +163,10 @@ public class Ventana_Servidor extends JFrame {
 		padre.clienteInsert(stat, nombre, contraseña, correo);
 
 	}
+	
+	/*
+	 * Mëtodo que corre el servidor
+	 */
 	public void runServer() {
 
 		ServerSocket servidor1 = null;// para establecer la conexión
@@ -198,10 +197,9 @@ public class Ventana_Servidor extends JFrame {
 				}
 				
 				ip = (((InetSocketAddress)socket1.getRemoteSocketAddress()).getAddress()).toString().replace("/","");
-				System.out.println("La ip del cliente es: " + ip);
 				
-				//Activamos el usuario
-				H_Servidor user = new H_Servidor(socket1, socket2, this, ip);
+				//Activamos el usuario (nombre, puerto1, puerto2, la ventana, su ip);
+				H_Servidor user = new H_Servidor(BD_Padre.nomb, socket1, socket2, this, ip);
 				user.start();
 			}
 
@@ -211,6 +209,9 @@ public class Ventana_Servidor extends JFrame {
 		}
 	}
 	
+	/*
+	 * Método que comprueba si hay internet
+	 */
 	public boolean Test(){
 		
 		if(padre.TestInternet() == true){

@@ -43,19 +43,6 @@ public class Login extends JFrame {
 	private JButton btnSalir, btnIniciar, btnIngresar;
 	public static String Ip_Servidor; //Dirección ip del servidor
 
-	
-	public static void main(String[] args) {
-
-		Login frame = null;
-		try {
-			frame = new Login();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		frame.setVisible(true);
-
-	}
 
 	public Login() throws IOException {
 		Comunicador comunicarse = new Comunicador(this);

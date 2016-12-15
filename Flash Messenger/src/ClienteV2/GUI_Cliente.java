@@ -144,7 +144,7 @@ public class GUI_Cliente extends JFrame implements KeyListener, ActionListener {
 	}
 	
 	public void mostrarMsg(String msg) {	
-		this.PanMsg.append(getUsuario() + " => " + msg + "\n"); //TODO if getUsuario == thisUsuario => Tú
+		this.PanMsg.append(msg + "\n"); //TODO if getUsuario == thisUsuario => Tú
 	}
 	
 	public String getUsuario() {
@@ -171,8 +171,9 @@ public class GUI_Cliente extends JFrame implements KeyListener, ActionListener {
 		if (key.VK_ENTER==key.getKeyCode()){
 			String mensaje = textEnviar.getText();
 			if(!mensaje.trim().equals("")){
+				mostrarMsg(getUsuario() + " => " + mensaje);
+				mensaje = getUsuario() + " => " + mensaje;
 				cliente.flujo(mensaje);
-				mostrarMsg(mensaje);
 				// Limpiamos el cuadro de texto del mensaje
 				textEnviar.setText("");
 			}
@@ -185,8 +186,9 @@ public class GUI_Cliente extends JFrame implements KeyListener, ActionListener {
 		if(e.getSource().equals(btnEnviar)){
 			String mensaje = textEnviar.getText();
 			if(!mensaje.trim().equals("")){
+				mostrarMsg(getUsuario() + " => " + mensaje);
+				mensaje = getUsuario() + "_" + mensaje;
 				cliente.flujo(mensaje);
-				mostrarMsg(mensaje);
 				// Limpiamos el cuadro de texto del mensaje
 				textEnviar.setText("");
 			}

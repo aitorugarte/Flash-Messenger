@@ -17,6 +17,7 @@ public class BD_Padre {
 
 	protected Connection conexion;
 	protected Statement stat;
+	public static String nomb;
 	public ArrayList<String> contenido = new ArrayList<String>();
 
 	
@@ -100,7 +101,8 @@ public class BD_Padre {
 				  String juntado = nombre + " " + contraseña;
 				  System.out.println(juntado);
 				  if(usuario.equals(juntado)){
-					  H_Servidor.setNombUser(nombre); //TODO Seteamos el nombre del usuario
+					  nomb = nombre;
+					//  H_Servidor.setNombUser(nombre); //TODO Seteamos el nombre del usuario
 					  return true;
 				  }
 				}

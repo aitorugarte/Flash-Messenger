@@ -19,7 +19,7 @@ public class Log_chat {
 
 	public static void main(String[] args) throws IOException {
 		
-		EscribirDatos();
+		//EscribirDatos("Hola");
 		//LeerDatos();
 	}
 
@@ -27,8 +27,7 @@ public class Log_chat {
 	 * Método para escribir los datos del usuario en el fichero Si no existe,
 	 * crea el fichero
 	 */
-	public static void EscribirDatos() throws IOException {
-		String datos = "Holaa";
+	public static void EscribirDatos(String texto) throws IOException {
 		File registro = new File(ruta);
 		BufferedWriter escritor;
 		if (registro.exists()) {
@@ -36,11 +35,11 @@ public class Log_chat {
 			// Para que no se sobreescriba el texto del archivo, descomentar el
 			// true
 			escritor = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(registro/* , true */)));
-			escritor.write(datos);
+			escritor.write(texto);
 			escritor.write("\n");
 		} else { // Sino, crea el archivo
 			escritor = new BufferedWriter(new FileWriter(registro));
-			escritor.write(datos);
+			escritor.write(texto);
 			escritor.write("\n");
 		}
 		escritor.close();
