@@ -99,8 +99,13 @@ public class BD_Padre {
 				  String nombre = rs.getString("usuario");
 				  String contraseña = rs.getString("contraseña");
 				  String juntado = nombre + " " + contraseña;
-				  System.out.println(juntado);
+				  
 				  if(usuario.equals(juntado)){
+					  for (int i = 0; i < H_Servidor.clientesActivos.size(); i++) {
+						 if(nombre.equals(H_Servidor.clientesActivos.get(i).getNombre())){
+							return false;
+						 }
+					}
 					  nomb = nombre;
 					//  H_Servidor.setNombUser(nombre); //TODO Seteamos el nombre del usuario
 					  return true;

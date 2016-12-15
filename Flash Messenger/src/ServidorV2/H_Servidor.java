@@ -117,7 +117,6 @@ public class H_Servidor extends Thread {
 				nombre = txt.substring(0, i - 1);
 			}
 		}
-		
 		for (i = 0; i < clientesActivos.size(); i++) {
 			
 			try {
