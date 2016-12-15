@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import ClienteV2.Encriptado.CesarRecursivo;
 import ServidorV2.Ventana_Servidor;
 
 import javax.swing.JSplitPane;
@@ -172,6 +173,7 @@ public class GUI_Cliente extends JFrame implements KeyListener, ActionListener {
 			String mensaje = textEnviar.getText();
 			if(!mensaje.trim().equals("")){
 				mostrarMsg(getUsuario() + " => " + mensaje);
+				mensaje = CesarRecursivo.recorrer(1, "", mensaje, 0);
 				mensaje = getUsuario() + " => " + mensaje;
 				cliente.flujo(mensaje);
 				// Limpiamos el cuadro de texto del mensaje
