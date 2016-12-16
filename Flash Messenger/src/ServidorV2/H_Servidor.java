@@ -8,6 +8,7 @@ import java.util.Vector;
 import java.util.logging.Level;
 
 import ServidorV2.BD.BD_Padre;
+import ServidorV2.Logger.Log_chat;
 import ServidorV2.Logger.Log_errores;
 
 /*
@@ -78,6 +79,7 @@ public class H_Servidor extends Thread {
 
 				case 1:// envio de mensaje a todos
 					msmCli = entrada.readUTF();
+					Log_chat.EscribirDatos(msmCli);
 					enviaMsg(msmCli);
 					break;
 				case 2:

@@ -15,35 +15,30 @@ import java.io.OutputStreamWriter;
  */
 public class Log_chat {
 	
-	private static String ruta = "C:/Users/aitor/Desktop/prueba.txt";
-
-	public static void main(String[] args) throws IOException {
-		
-		//EscribirDatos("Hola");
-		//LeerDatos();
-	}
+	private static String ruta = "C:/Flash-Messenger";
+	private static String nombre = "/chat.txt";
 
 	/*
-	 * Método para escribir los datos del usuario en el fichero Si no existe,
-	 * crea el fichero
+	 * Método para escribir el chat en el fichero
 	 */
 	public static void EscribirDatos(String texto) throws IOException {
-		File registro = new File(ruta);
-		BufferedWriter escritor;
-		if (registro.exists()) {
 
-			// Para que no se sobreescriba el texto del archivo, descomentar el
-			// true
-			escritor = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(registro/* , true */)));
-			escritor.write(texto);
-			escritor.write("\n");
-		} else { // Sino, crea el archivo
-			escritor = new BufferedWriter(new FileWriter(registro));
-			escritor.write(texto);
-			escritor.write("\n");
+		// Primero miramos si existe la carpeta
+		File carpeta = new File(ruta);
+		if (!carpeta.exists()) { // Si no existe, creamos la carpeta
+			carpeta.mkdir();
 		}
+		// Ahora manejamos el txt
+		File registro = new File(ruta + nombre);
+		BufferedWriter escritor;
+		if (registro.exists()) { // Si exite lo modificamos
+			escritor = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(registro, true)));
+		} else { // Sino, creamos el archivo
+			escritor = new BufferedWriter(new FileWriter(registro));
+		}
+		escritor.write(texto);
+		escritor.newLine();
 		escritor.close();
-
 	}
 
 	/*
@@ -52,13 +47,13 @@ public class Log_chat {
 	public static void LeerDatos() throws FileNotFoundException {
 
 		BufferedReader lector = null;
-		File archivo = new File(ruta);
+		File archivo = new File(ruta + nombre);
 		FileReader registro = null;
 		
 		if(archivo.exists()){
 	
 			try{
-			registro = new FileReader(ruta);
+			registro = new FileReader(ruta + nombre);
 			lector = new BufferedReader(registro);
 			
 			String linea;
