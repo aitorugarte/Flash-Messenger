@@ -8,6 +8,7 @@ import ServidorV2.BD.BD_Local;
 import ServidorV2.BD.BD_Padre;
 import ServidorV2.BD.BD_Remota;
 import ServidorV2.BD.Utilidades_BD;
+import ServidorV2.Logger.Log_chat;
 import ServidorV2.Logger.Log_errores;
 
 import javax.swing.JLabel;
@@ -25,6 +26,8 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.sql.Connection;
 import java.sql.Statement;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.awt.event.ActionEvent;
 
@@ -253,8 +256,12 @@ public class Ventana_Servidor extends JFrame {
 		H_Comunicacion comunicarse = new H_Comunicacion();
 		comunicarse.start();
 		
+		Calendar calendario = GregorianCalendar.getInstance();
+		Log_chat.empezarLog(calendario);
+		
 		Ventana_Servidor servidor = new Ventana_Servidor();
 		servidor.setVisible(true);
 		servidor.runServer();
+		
 	}
 }

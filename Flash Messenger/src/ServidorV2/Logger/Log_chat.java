@@ -9,6 +9,11 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+
+import javax.sound.midi.Synthesizer;
 
 /*
  * Clase que guarda la conversación de chat
@@ -19,9 +24,18 @@ public class Log_chat {
 	private static String nombre = "/chat.txt";
 
 	/*
+	 * Método que se ejecuta al iniciar el servidor, escribe el día/mes/año
+	 * al principio del fichero
+	 */
+	public static void empezarLog(Calendar calendario) throws IOException{
+		SimpleDateFormat dia = new SimpleDateFormat("dd/M/yyyy");
+		EscribirDatos("",calendario,  dia);
+	}
+
+	/*
 	 * Método para escribir el chat en el fichero
 	 */
-	public static void EscribirDatos(String texto) throws IOException {
+	public static void EscribirDatos(String texto, Calendar calendario, SimpleDateFormat hora) throws IOException {
 
 		// Primero miramos si existe la carpeta
 		File carpeta = new File(ruta);
@@ -36,7 +50,8 @@ public class Log_chat {
 		} else { // Sino, creamos el archivo
 			escritor = new BufferedWriter(new FileWriter(registro));
 		}
-		escritor.write(texto);
+    
+		escritor.write(texto + " (" + hora.format(calendario.getTime()) + ")");
 		escritor.newLine();
 		escritor.close();
 	}

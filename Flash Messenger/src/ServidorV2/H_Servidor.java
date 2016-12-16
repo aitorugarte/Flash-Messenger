@@ -4,6 +4,9 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.Vector;
 import java.util.logging.Level;
 
@@ -24,7 +27,10 @@ public class H_Servidor extends Thread {
 	private String nombre;
 	private Ventana_Servidor servi;
 	private String direccion;
-
+	Calendar calendario = null;
+	SimpleDateFormat hora = null;
+  
+    
 	public H_Servidor(String nombre, Socket Scliente, Socket Scliente2, Ventana_Servidor servi, String ip) {
 
 		Scli = Scliente;
@@ -79,7 +85,9 @@ public class H_Servidor extends Thread {
 
 				case 1:// envio de mensaje a todos
 					msmCli = entrada.readUTF();
-					Log_chat.EscribirDatos(msmCli);
+					calendario = GregorianCalendar.getInstance();
+					hora = new SimpleDateFormat("hh:mm");
+					Log_chat.EscribirDatos(msmCli, calendario, hora);
 					enviaMsg(msmCli);
 					break;
 				case 2:
