@@ -15,6 +15,8 @@ import java.util.logging.Level;
 
 import javax.swing.JOptionPane;
 
+import ServidorV2.Logger.Log_errores;
+
 /*
  * Clase encargada de recibir los datos del LogIn
  */
@@ -71,6 +73,7 @@ public class H_Comunicacion extends Thread {
 		try {
 			recibirDatos();
 		} catch (IOException e) {
+			Log_errores.log( Level.SEVERE, "Error al iniciar el hilo H_Comunicación: " + e.getMessage(), e );
 			System.out.println(e);
 		}
 

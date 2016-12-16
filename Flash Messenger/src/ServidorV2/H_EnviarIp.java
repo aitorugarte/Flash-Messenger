@@ -39,7 +39,6 @@ public class H_EnviarIp extends Thread {
 		// y el puerto 50000, uno cualquiera que esté libre.
 		DatagramPacket dgp = new DatagramPacket(b, b.length, InetAddress.getByName("230.0.0.1"), 50000);
 
-	
 		enviador.send(dgp);
 		}
 	}
@@ -50,7 +49,7 @@ public class H_EnviarIp extends Thread {
 		try {
 			Enviar_Ip();
 		} catch (IOException e) {
-			Log_errores.log( Level.SEVERE, "Error al iniciar el hilo. ", e );
+			Log_errores.log( Level.SEVERE, "Error al iniciar el hilo de Enviar_Ip. ", e );
 			e.printStackTrace();
 		}
 	}

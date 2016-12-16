@@ -10,8 +10,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 
 import ServidorV2.H_Servidor;
+import ServidorV2.Logger.Log_errores;
 
 public class BD_Padre {
 
@@ -61,6 +63,7 @@ public class BD_Padre {
 			}
 			return true;
 		} catch (SQLException e) {
+			Log_errores.log( Level.SEVERE, "Error: " + e.getMessage(), e );
 			e.printStackTrace();
 			return false;
 		}
@@ -85,6 +88,7 @@ public class BD_Padre {
 				System.out.println(nombre + " " + contraseña + " " + correo);
 			}
 		} catch (SQLException e) {
+			Log_errores.log( Level.SEVERE, "Error: " + e.getMessage(), e );
 			e.printStackTrace();
 		}
 	}
@@ -112,6 +116,7 @@ public class BD_Padre {
 				  }
 				}
 		} catch (SQLException e) {
+			Log_errores.log( Level.SEVERE, "Error: " + e.getMessage(), e );
 			e.printStackTrace();
 		}
 	
@@ -138,12 +143,14 @@ public class BD_Padre {
 				}
 			}
 		} catch (Exception e) {
+			Log_errores.log( Level.SEVERE, "Error: " + e.getMessage(), e );
 			return false;
 		}
 		//Cerramos el puerto
 		try {
 			test.close();
 		} catch (IOException e) {
+			Log_errores.log( Level.SEVERE, "Error: " + e.getMessage(), e );
 			e.printStackTrace();
 		}
 		return hayinternet;
@@ -163,14 +170,17 @@ public class BD_Padre {
 			//Comprobamos con nuestro host
 			s = new Socket("www.phpmyadmin.co", 3306);
 			}catch(ConnectException e){
+				Log_errores.log( Level.SEVERE, "Puerto cerrado: " + e.getMessage(), e );
 				abierto = false;
 			}
 			//Cerramos el puerto
 			s.close();
 		} catch (UnknownHostException e) {
+			Log_errores.log( Level.SEVERE, "Error: " + e.getMessage(), e );
 			e.printStackTrace();
 			return false;
 		} catch (IOException e) {
+			Log_errores.log( Level.SEVERE, "Error: " + e.getMessage(), e );
 			e.printStackTrace();
 			return false;
 		}

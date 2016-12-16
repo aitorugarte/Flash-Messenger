@@ -37,6 +37,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Fixed
 - Optimizado el uso del chat
+- Ya no se puede iniciar sesión con una cuenta que ya esté en activo
 
 ##Removed
 -

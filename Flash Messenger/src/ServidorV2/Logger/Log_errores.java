@@ -11,16 +11,14 @@ public class Log_errores {
 
 	private static Logger logger = null;
 
-
 	public static void setLogger(Logger logger) {
 		Log_errores.logger = logger;
 	}
 
-
 	public static void log(Level level, String msg, Throwable excepcion) {
 		if (logger == null) { 
 			logger = Logger.getLogger(Log_errores.class.getName()); 
-			logger.setLevel(Level.ALL); // Loguea todos los niveles
+			logger.setLevel(Level.SEVERE); // Loguea el nivel de las excepciones
 			try {
 				//Saca el log a fichero xml
 				logger.addHandler(new FileHandler("Servidor.log.xml", true)); 

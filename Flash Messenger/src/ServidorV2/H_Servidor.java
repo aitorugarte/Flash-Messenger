@@ -51,7 +51,7 @@ public class H_Servidor extends Thread {
 		try {
 			Scli.close();
 		} catch (IOException e) {
-			
+			Log_errores.log( Level.SEVERE, "Error." + e.getMessage(), e );
 			e.printStackTrace();
 		}
 	}
@@ -62,11 +62,7 @@ public class H_Servidor extends Thread {
 		
 			entrada = new DataInputStream(Scli.getInputStream());
 			salida2 = new DataOutputStream(Scli2.getOutputStream());
-		
-			Log_errores.log(Level.CONFIG, "Cliente agregado: " + getNombre(), null);
-			Log_errores.log(Level.CONFIG, "Número de clientes actualmente: " + clientesActivos.size(), null);
-
-		
+			
 		} catch (IOException e) {
 			Log_errores.log( Level.SEVERE, "Error en los Streams. ", e );
 			e.printStackTrace();
@@ -88,14 +84,13 @@ public class H_Servidor extends Thread {
 				//TODO En un futuro se añadirán más casos
 				}
 			} catch (IOException e) {
-				Log_errores.log( Level.SEVERE, "Error en la lectura de la opción. ", e );
+				Log_errores.log( Level.SEVERE, "Error en la lectura de la opción. ", e ); //TODO Siempre salta al desconectarse, fix it!!
 				break;
 			}
 		}
-		Log_errores.log(Level.CONFIG, "El usuario " + getNombre() + " se fue.", null);
+	//	Log_errores.log(Level.CONFIG, "El usuario " + getNombre() + " se fue.", null);
 		desconectar();
-		Log_errores.log(Level.CONFIG, "Número de clientes actualmente: " + clientesActivos.size(), null);
-		
+
 		try {
 			Scli.close();
 			Log_errores.log(Level.CONFIG, "Socket del cliente cerrado.", null);

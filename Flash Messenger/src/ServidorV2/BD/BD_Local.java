@@ -4,8 +4,11 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
 
 import javax.swing.JOptionPane;
+
+import ServidorV2.Logger.Log_errores;
 
 public class BD_Local extends BD_Padre{
 
@@ -30,6 +33,7 @@ public class BD_Local extends BD_Padre{
 		    return DriverManager.getConnection("jdbc:sqlite:ProyectoFlash.db");
 		} catch (ClassNotFoundException | SQLException e) {
 			JOptionPane.showMessageDialog(null,"No se ha podido establecer la conexión " + e);
+			Log_errores.log( Level.SEVERE, "No se ha podido establecer la conexión: " + e.getMessage(), e );
 			return null;
 		}
 	}
@@ -40,6 +44,7 @@ public class BD_Local extends BD_Padre{
 			stat.setQueryTimeout(30);  // poner timeout 30 msg
 			return stat;
 		} catch (SQLException e) {
+			Log_errores.log( Level.SEVERE, "Error: " + e.getMessage(), e );
 			e.printStackTrace();
 			return null;
 		}
@@ -62,6 +67,7 @@ public class BD_Local extends BD_Padre{
 			System.out.println("Conectado con base de datos local.");
 			return stat;
 		} catch (SQLException e) {
+			Log_errores.log( Level.SEVERE, "Error: " + e.getMessage(), e );
 			e.printStackTrace();
 			return null;
 		}

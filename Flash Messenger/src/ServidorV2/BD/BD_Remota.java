@@ -4,8 +4,11 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
 
 import javax.swing.JOptionPane;
+
+import ServidorV2.Logger.Log_errores;
 
 public class BD_Remota extends BD_Padre{
 
@@ -31,11 +34,11 @@ public class BD_Remota extends BD_Padre{
 	public static Connection initBD() {
 		try {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
-			
 			String servidor = "jdbc:mysql://" + host + "/" + nombre_BD;
 			return DriverManager.getConnection(servidor, usuario, pass);
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null,"No se ha podido establecer la conexión " + e);
+			Log_errores.log( Level.SEVERE, "No se ha podido establecer la conexión: " + e.getMessage(), e );
 			return null;
 		}
 	}
@@ -43,9 +46,9 @@ public class BD_Remota extends BD_Padre{
 	public static Statement usarBD(Connection con) {
 		try {
 			Statement statement = con.createStatement();
-		//	statement.setQueryTimeout(30);  // poner timeout 30 msg
 			return statement;
 		} catch (SQLException e) {
+			Log_errores.log( Level.SEVERE, "Error: " + e.getMessage(), e );
 			e.printStackTrace();
 			return null;
 		}
