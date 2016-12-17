@@ -93,7 +93,6 @@ public class Login extends JFrame {
 				
 				try {
 					comunicarse.conexion(nombre, contraseña);
-					System.out.println("LogIn sin fallos");
 				} catch (IOException e2) {
 				System.out.println(e2);
 				}			

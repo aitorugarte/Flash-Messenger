@@ -23,7 +23,9 @@ public class H_Cliente extends Thread{
 	   public void run(){
 		   
 	      String mensaje = "";
+	      String usuario = "";
 	      int opcion = 0;
+	      int i = 0;
 	      //!interrupted
 	      while(true){         
 	         try{
@@ -32,8 +34,6 @@ public class H_Cliente extends Thread{
 	            
 	               case 1://mensage recibido
 	            	   mensaje = entrada.readUTF(); //TODO encontrar el nombre del usuario
-	            	   String usuario = "";
-	            	   int i = 0;
 	            	   for (i = 0; i < mensaje.length(); i++) {
 						if(mensaje.charAt(i) == '='){
 							usuario = mensaje.substring(0, i - 1);
@@ -48,7 +48,19 @@ public class H_Cliente extends Thread{
 	               case 2://se agrega
 	            	   mensaje = entrada.readUTF();                
 	                  break;
-	               case 3: //TODO
+	               case 3: //Recibe imagen
+	            	   mensaje = entrada.readUTF();
+	            	   for (i = 0; i < mensaje.length(); i++) {
+						if(mensaje.charAt(i) == '='){
+							usuario = mensaje.substring(0, i - 1);
+							break;
+						}
+					}  
+	            	   mensaje = mensaje.substring(i);
+	            	   mensaje = CesarRecursivo.recorrer(2, mensaje, "", 0);
+	            	   frame.mostrarImagen(2, mensaje, usuario);
+	                  break;
+	            	   
 	            }
 	         }catch (IOException e){
 	        	 JOptionPane.showMessageDialog(frame,"El servidor ha sido desconectado", "Desconexión", JOptionPane.ERROR_MESSAGE);

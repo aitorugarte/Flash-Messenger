@@ -12,6 +12,7 @@ import ClienteV2.Cliente;
 import ClienteV2.GUI_Cliente;
 import ClienteV2.H_Cliente;
 import ClienteV2.Principal_Cliente;
+import ClienteV2.Ficheros.Almacenamiento;
 
 public class Comunicador {
 	
@@ -66,6 +67,7 @@ public class Comunicador {
 			
 			if(respuesta.equals("ok")){
 				login.dispose();
+				Almacenamiento.crearCarpetas();
 				GUI_Cliente gui = new GUI_Cliente();
 				gui.setNombreUser(usuario);
 				gui.setVisible(true);

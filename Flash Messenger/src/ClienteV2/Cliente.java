@@ -1,10 +1,20 @@
-	package ClienteV2;
+package ClienteV2;
 
+import java.awt.image.BufferedImage;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.Socket;
+
+import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
+
+import org.apache.commons.codec.binary.Base64;
+
+import ClienteV2.Encriptado.CesarRecursivo;
 
 /*
  * Clase del cliente que gestiona la conexión
@@ -43,17 +53,32 @@ public class Cliente {
 	      hilo.start();
 	   }
 	
-	   /*
-	    * Método que envía los mensajes al servidor
-	    */
-	   public void flujo(String txt){
-	      try {             
-	         salida.writeInt(1);
-	         salida.writeUTF(txt);
-	      } catch (IOException e) {
-	    	  JOptionPane.showMessageDialog(frame,"Has sido expulsado del servidor.", "Error", JOptionPane.ERROR_MESSAGE);
-	    	  frame.dispose();
-	    	 
-	      }
-	   }
+	/*
+	 * Método que envía los mensajes al servidor
+	 */
+	public void enviarTexto(String txt) {
+		try {
+			salida.writeInt(1);
+			salida.writeUTF(txt);
+		} catch (IOException e) {
+			JOptionPane.showMessageDialog(frame, "Has sido expulsado del servidor.", "Error",
+					JOptionPane.ERROR_MESSAGE);
+			frame.dispose();
+
+		}
+	}
+
+	/*
+	 * Método que envía una imagen
+	 */
+	public void enviarImagen(String imagen) {
+		try {
+			salida.writeInt(3);
+			salida.writeUTF(imagen);
+		} catch (IOException e2) {
+			JOptionPane.showMessageDialog(frame, "Has sido expulsado del servidor.", "Error",
+					JOptionPane.ERROR_MESSAGE);
+			frame.dispose();
+		}
+	}
 }

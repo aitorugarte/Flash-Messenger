@@ -18,7 +18,7 @@ import java.util.logging.Level;
  */
 public class Log_chat {
 	
-	private static String ruta = "C:/Flash-Messenger";
+	private static String ruta = "C:/Flash-Messenger/Log";
 	private static String nombre = "/chat.txt";
 
 	/*
@@ -38,7 +38,7 @@ public class Log_chat {
 		// Primero miramos si existe la carpeta
 		File carpeta = new File(ruta);
 		if (!carpeta.exists()) { // Si no existe, creamos la carpeta
-			carpeta.mkdir();
+			carpeta.mkdirs();
 		}
 		// Ahora manejamos el txt
 		File registro = new File(ruta + nombre);
