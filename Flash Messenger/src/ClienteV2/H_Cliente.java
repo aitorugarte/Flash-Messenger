@@ -43,7 +43,7 @@ public class H_Cliente extends Thread{
 	            	   mensaje = mensaje.substring(i);
 	            	   mensaje = CesarRecursivo.recorrer(2, mensaje, "", 0);
 	            	   mensaje = usuario + mensaje;
-	            	   frame.mostrarMsg(mensaje);            
+	            	   frame.mostrarMensaje(2, mensaje);            
 	                  break;
 	               case 2://se agrega
 	            	   mensaje = entrada.readUTF();                

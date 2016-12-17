@@ -7,6 +7,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import ClienteV2.Encriptado.CesarRecursivo;
 import ServidorV2.Ventana_Servidor;
@@ -18,6 +19,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.File;
 import java.io.IOException;
 import java.util.Vector;
 import java.awt.event.ActionEvent;
@@ -27,6 +29,9 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import java.awt.Color;
+import javax.swing.JEditorPane;
+import javax.swing.JFileChooser;
+import javax.swing.JScrollPane;
 
 public class GUI_Cliente extends JFrame implements KeyListener, ActionListener {
 
@@ -37,7 +42,6 @@ public class GUI_Cliente extends JFrame implements KeyListener, ActionListener {
 	private JPanel panUsus, panChat;
 	private JButton btnEnviar;
 	private JTextField textEnviar;
-	private JTextArea PanMsg;
 	private JLabel lblUsuariosConectados, lblConver;
 	private JList list;
 	private DefaultListModel<String> modelo;
@@ -47,6 +51,16 @@ public class GUI_Cliente extends JFrame implements KeyListener, ActionListener {
 	private JMenuItem Ayuda;
 	private Cliente cliente;
 	private String usuario;
+	private JScrollPane scrollPane;
+	private JEditorPane editorPane;
+	private String seFue, entra, cargarTxt = "", cargarImg = "";
+	private JFileChooser fileChooser;
+	private JButton btnImg;
+	private String I_linea = "<br>", F_linea = "</br>";
+	private String I_tamanio = "<FONT SIZE="+4+">" , F_tamanio = "</FONT>";
+	private String I_cursiva = "<I>", F_cursiva = "</I>";
+	private String I_sub = "<SUB>", F_sub = "</SUB>";
+	private String texto = "";
 	
 	
 	public GUI_Cliente() {
@@ -124,28 +138,88 @@ public class GUI_Cliente extends JFrame implements KeyListener, ActionListener {
 		panChat.add(btnEnviar);
 		
 		lblConver = new JLabel();
-		lblConver.setBounds(10, 11, 496, 17);
+		lblConver.setBounds(10, 11, 387, 17);
 		lblConver.setHorizontalAlignment(SwingConstants.CENTER);
 		panChat.add(lblConver);
 		
-		PanMsg = new JTextArea();
-		PanMsg.setForeground(Color.BLACK);
-		PanMsg.setEditable(false);
-		PanMsg.setBounds(20, 39, 478, 247);
-		panChat.add(PanMsg);
+		scrollPane = new JScrollPane();
+		scrollPane.setBounds(20, 41, 482, 245);
+		panChat.add(scrollPane);
+		
+		//TODO método que resize las imagenes dependiendo si son cuadradas u horizontales
+		//cargarImg = "<br><img src='file:C:/Users/aitor/Desktop/bicho.png' width=50 height=50></img></br>";
+		editorPane = new JEditorPane("text/html", "<html>");
+		editorPane.setEditable(false);
+		scrollPane.setViewportView(editorPane);
+		
+		btnImg = new JButton("Img");
+		btnImg.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//Valor que tomará el fileChooser
+                int valor = fileChooser.showOpenDialog(null);    
+                String direccion = "";
+                //Accion del fileChooser
+                if(valor == JFileChooser.APPROVE_OPTION){
+                        //Crear propiedades para ser utilizadas por fileChooser
+                        File archivoElegido = fileChooser.getSelectedFile();
+                        //Obteniendo la direccion del archivo
+                        direccion = archivoElegido.getPath();
+                }
+        		mostrarImagen(1, direccion); //TODO y fichero también. http://www.discoduroderoer.es/como-usar-el-componente-jfilechooser-en-una-aplicacion-grafica-en-java/
+			}
+		});
+		btnImg.setBounds(417, 11, 89, 23);
+		panChat.add(btnImg);
 	
+		//Creamos el FileChooser
+        fileChooser = new JFileChooser();
+        //Le añadimos los filtros
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("JPEG", "jpg", "jpeg", "jpe", "jfif");
+        FileNameExtensionFilter filter2 = new FileNameExtensionFilter("PNG", "png");
+        FileNameExtensionFilter filter3 = new FileNameExtensionFilter("TXT", "txt");
+        fileChooser.setFileFilter(filter);
+        fileChooser.setFileFilter(filter2);
+        fileChooser.setFileFilter(filter3);
+        
 		try {
 			cliente = new Cliente(this);
 			cliente.conexion();
 		} catch (IOException e) {
-		
 			e.printStackTrace();
 		}
 		
 	}
-	
-	public void mostrarMsg(String msg) {	
-		this.PanMsg.append(msg + "\n"); //TODO if getUsuario == thisUsuario => Tú
+
+	/**
+	 * Método que muestra el mensaje por pantalla
+	 * @param num mensaje enviado = 1, mensaje recibido = 2
+	 * @param mensaje
+	 */
+	public void mostrarMensaje(int num, String mensaje){
+		if(num == 1){
+			cargarTxt = "<br><FONT SIZE="+4+"><DIV align=\"right\">" + getUsuario() + " => " + mensaje + "</DIV></FONT></br>";
+		}else{
+			cargarTxt = "<br><FONT SIZE="+4+"><DIV align=\"left\">" + mensaje + "</DIV></FONT></br>";
+		}
+		texto = texto + cargarTxt;
+		editorPane.setText(texto + "</html>");
+	}
+	/**
+	 * Método que muestra la imagen por pantalla
+	 * @param num imagen enviada = 1, imagen recibida = 2
+	 * @param mensaje
+	 */
+	public void mostrarImagen(int num, String path){
+		if(num ==1){
+			cargarImg = "<br><DIV align=\"right\">" + getUsuario() + " => <img src='file:" + path + "' width=60 height=60></DIV></img></br>";
+		}else{
+			cargarImg = "<br><DIV align=\"left\"><img src='file:" + path + "' width=60 height=60></DIV></img></br>";
+		}
+		texto = texto + cargarImg;
+		editorPane.setText(texto + "</html>");	
+	}
+	public void mostrarFichero(String path){
+		
 	}
 	
 	public String getUsuario() {
@@ -172,7 +246,7 @@ public class GUI_Cliente extends JFrame implements KeyListener, ActionListener {
 		if (key.VK_ENTER==key.getKeyCode()){
 			String mensaje = textEnviar.getText();
 			if(!mensaje.trim().equals("")){
-				mostrarMsg(getUsuario() + " => " + mensaje);
+				mostrarMensaje(1, mensaje);
 				mensaje = CesarRecursivo.recorrer(1, "", mensaje, 0);
 				mensaje = getUsuario() + " => " + mensaje;
 				cliente.flujo(mensaje);
@@ -188,7 +262,7 @@ public class GUI_Cliente extends JFrame implements KeyListener, ActionListener {
 		if(e.getSource().equals(btnEnviar)){
 			String mensaje = textEnviar.getText();
 			if(!mensaje.trim().equals("")){
-				mostrarMsg(getUsuario() + " => " + mensaje);
+				mostrarMensaje(1, mensaje);
 				mensaje = getUsuario() + "_" + mensaje;
 				cliente.flujo(mensaje);
 				// Limpiamos el cuadro de texto del mensaje

@@ -11,9 +11,7 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.GregorianCalendar;
-
-import javax.sound.midi.Synthesizer;
+import java.util.logging.Level;
 
 /*
  * Clase que guarda la conversación de chat
@@ -57,9 +55,9 @@ public class Log_chat {
 	}
 
 	/*
-	 * Método para leer un fichero (no binario, sólo txt)
+	 * Método para leer el fichero que contiene los chats
 	 */
-	public static void LeerDatos() throws FileNotFoundException {
+	public static void LeerFichero() throws FileNotFoundException {
 
 		BufferedReader lector = null;
 		File archivo = new File(ruta + nombre);
@@ -78,6 +76,7 @@ public class Log_chat {
 			}
 
 		} catch (IOException e2) {
+			Log_errores.log( Level.SEVERE, "Error.", e2 );
 			e2.printStackTrace();
 		} finally {
 			// En el finally cerramos el fichero, así nos aseguramos de que se cierra siempre.
@@ -86,10 +85,12 @@ public class Log_chat {
 					lector.close();
 				}
 			} catch (IOException e3) {
+				Log_errores.log( Level.SEVERE, "Error.", e3 );
 				e3.printStackTrace();
 			}
 		}
 		}else{
+			Log_errores.log( Level.SEVERE, "El archivo a leer no existe.", null );
 			System.out.println("El archivo no existe.");
 		}
 	}

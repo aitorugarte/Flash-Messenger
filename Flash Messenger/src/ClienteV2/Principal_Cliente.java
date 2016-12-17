@@ -36,7 +36,6 @@ public class Principal_Cliente extends JFrame {
 	public Principal_Cliente() throws UnknownHostException, IOException {
 		super("Lista");
 		setResizable(false);
-	
 	    setSize(210, 200);
 	    setLocationRelativeTo(null);
 	    setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -118,6 +117,7 @@ public class Principal_Cliente extends JFrame {
 			// If Nimbus is not available, you can set the GUI to another look
 			// and feel.
 		}
+		
 		BarraProgreso barra = new BarraProgreso();
 		barra.setVisible(true);
 

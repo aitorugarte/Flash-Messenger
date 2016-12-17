@@ -76,11 +76,13 @@ public class H_Servidor extends Thread {
 		}
 
 		int opcion = 0;
-		String msmCli;
+		String msmCli = null;
 
 		while (true) {
 			try {
+
 				opcion = entrada.readInt();
+
 				switch (opcion) {
 
 				case 1:// envio de mensaje a todos
@@ -91,11 +93,10 @@ public class H_Servidor extends Thread {
 					enviaMsg(msmCli);
 					break;
 				case 2:
-				//TODO En un futuro se añadirán más casos
+					// TODO En un futuro se añadirán más casos
 				}
 			} catch (IOException e) {
-				Log_errores.log( Level.SEVERE, "Error en la lectura de la opción. ", e ); //TODO Siempre salta al desconectarse, fix it!!
-				break;
+				break; //Cuando salta la excepción es que el usuario se ha ido
 			}
 		}
 	//	Log_errores.log(Level.CONFIG, "El usuario " + getNombre() + " se fue.", null);
