@@ -4,7 +4,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import ClienteV2.Cliente;
 import ClienteV2.GUI_Cliente;
 import ClienteV2.Principal_Cliente;
 

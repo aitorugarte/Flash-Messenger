@@ -9,8 +9,8 @@ import java.io.IOException;
  */
 public class Almacenamiento {
 
-	private static String ruta = "C:/Flash-Messenger/Images";
-	private static String ruta2 = "C:/Flash-Messenger/Video";
+	private static String ruta = "C:/Flash-Messenger/Client/Images";
+	private static String ruta2 = "C:/Flash-Messenger/Client/Video";
 	
 	/*
 	 * Método que crea las carpetas

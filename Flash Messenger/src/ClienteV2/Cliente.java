@@ -6,7 +6,9 @@ import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.InetAddress;
 import java.net.Socket;
 
 import javax.imageio.ImageIO;
@@ -49,7 +51,7 @@ public class Cliente {
 	    	  JOptionPane.showMessageDialog(frame,"Ningún servidor activado", "Error de conexión", JOptionPane.ERROR_MESSAGE);
 	      }
 	     
-	      hilo =  new H_Cliente(entrada, frame);
+	      hilo =  new H_Cliente(entrada, comunicacion2, frame);
 	      hilo.start();
 	   }
 	
@@ -63,21 +65,34 @@ public class Cliente {
 		} catch (IOException e) {
 			JOptionPane.showMessageDialog(frame, "Has sido expulsado del servidor.", "Error",
 					JOptionPane.ERROR_MESSAGE);
+			System.out.println(e);
 			frame.dispose();
 
 		}
 	}
 
-	/*
+	/**
 	 * Método que envía una imagen
+	 * @param path dirección en la que se encuentra la fotografía
+	 * @param tipo 1 si jpg, 2 si png
 	 */
-	public void enviarImagen(String imagen) {
+	public void enviarImagen(String path, String tipo){
 		try {
+		if(tipo.equals("png")){
+			salida.writeInt(2);
+		}else{
 			salida.writeInt(3);
-			salida.writeUTF(imagen);
-		} catch (IOException e2) {
+		}
+		BufferedImage bufferedImage = ImageIO.read(new File(path));
+	//	ImageIO.write(bufferedImage, tipo, comunicacion.getOutputStream());
+		ImageIO.write(bufferedImage, tipo, salida);
+		comunicacion.getOutputStream().flush();
+		salida.close(); //Para que funcione se tiene que cerrar!!! Pero entonces salta la excepción..
+		System.out.println("Has enviado la imagen con éxito!");
+		} catch (Exception e) {
 			JOptionPane.showMessageDialog(frame, "Has sido expulsado del servidor.", "Error",
 					JOptionPane.ERROR_MESSAGE);
+			System.out.println(e);
 			frame.dispose();
 		}
 	}

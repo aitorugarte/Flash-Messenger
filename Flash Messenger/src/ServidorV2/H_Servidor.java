@@ -1,14 +1,21 @@
 package ServidorV2;
 
+import java.awt.image.BufferedImage;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.InetAddress;
 import java.net.Socket;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.Random;
 import java.util.Vector;
 import java.util.logging.Level;
+
+import javax.imageio.ImageIO;
 
 import ServidorV2.BD.BD_Padre;
 import ServidorV2.Logger.Log_chat;
@@ -74,9 +81,10 @@ public class H_Servidor extends Thread {
 			Log_errores.log( Level.SEVERE, "Error en los Streams. ", e );
 			e.printStackTrace();
 		}
-
+	
 		int opcion = 0;
 		String msmCli = null;
+		String path = "C:/Flash-Messenger/Server/Images/" + getNombAleatorio();
 
 		while (true) {
 			try {
@@ -87,13 +95,42 @@ public class H_Servidor extends Thread {
 
 				case 1:// envio de mensaje a todos
 					msmCli = entrada.readUTF();
+					System.out.println("Mensaje recibido: " + msmCli);
 					calendario = GregorianCalendar.getInstance();
 					hora = new SimpleDateFormat("hh:mm");
 					Log_chat.EscribirDatos(msmCli, calendario, hora);
 					enviaMsg(msmCli);
 					break;
 				case 2:
-					// TODO En un futuro se añadirán más casos
+					try {
+						BufferedImage bufferedImage = ImageIO.read(entrada);
+						System.out.println("Procesando imagen..");
+						ImageIO.write(bufferedImage, "png", new FileOutputStream(path + ".png"));
+						
+						System.out.println("Imagen recibida en el servidor.");
+						calendario = GregorianCalendar.getInstance();
+						hora = new SimpleDateFormat("hh:mm");
+						Log_chat.EscribirDatos("Imagen", calendario, hora);
+						enviarImg(path+".png", 1);
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+					break;
+				case 3:
+					try {
+						BufferedImage bufferedImage = ImageIO.read(entrada);
+						System.out.println("Procesando imagen..");
+						ImageIO.write(bufferedImage, "jpg", new FileOutputStream(path + ".jpg"));
+						System.out.println("Imagen recibida en el servidor.");
+						calendario = GregorianCalendar.getInstance();
+						hora = new SimpleDateFormat("hh:mm");
+						Log_chat.EscribirDatos("Imagen", calendario, hora);
+						enviarImg(path+".jpg", 2);
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+					break;
+				
 				}
 			} catch (IOException e) {
 				break; //Cuando salta la excepción es que el usuario se ha ido
@@ -109,33 +146,86 @@ public class H_Servidor extends Thread {
 			Log_errores.log( Level.SEVERE, "No se puede cerrar el socket del cliente. ", et );
 		}
 	}
-	/*
+	/**
 	 * TODO encontrar el nombre del que envía el mensaje
+	 * @param txt texto a enviar
 	 */
 	private void enviaMsg(String txt) {
 
 		H_Servidor user = null;
 		String nombre = " ";
 		int i = 0;
-		//Buscamos el nombre del usuario que ha enviado el mensaje
+		// Buscamos el nombre del usuario que ha enviado el mensaje
 		for (i = 0; i < txt.length(); i++) {
-			if(txt.charAt(i) == '='){
-				nombre = txt.substring(0, i - 1);
+			if (txt.charAt(i) == '_') {
+				nombre = txt.substring(0, i);
 			}
 		}
 		for (i = 0; i < clientesActivos.size(); i++) {
-			
 			try {
 				user = clientesActivos.get(i);
-				if(!user.getNombre().equals(nombre)){
+				if (!user.getNombre().equals(nombre)) {
+
 					user.salida2.writeInt(1);// opción de mensaje
 					user.salida2.writeUTF(txt);
+					System.out.println("Mensaje enviado a cliente " + nombre);
+
 				}
 			} catch (IOException e) {
-				Log_errores.log( Level.SEVERE, "Error al enviar el mensaje. ", e );
+				Log_errores.log(Level.SEVERE, "Error al enviar el mensaje. ", e);
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	private void enviarImg(String path, int tipo){
+
+		H_Servidor user = null;
+		String clase = null;
+		int num = 0;
+		
+		if(tipo == 1){
+			num = 3;
+			clase = "png";
+		}else{
+			num = 4;
+			clase = "jpg";
+		}
+		for (int i = 0; i < clientesActivos.size(); i++) {
+			try {
+				user = clientesActivos.get(i);
+			//	if (!user.getNombre().equals(nombre)) {
+					user.salida2.writeInt(num);// opción de mensaje
+					BufferedImage imagen = ImageIO.read(new File(path));
+					System.out.println(path);
+					//ImageIO.write(imagen, clase, Scli2.getOutputStream());
+					ImageIO.write(imagen, clase, salida2);
+					salida2.flush();
+					salida2.close();
+					System.out.println("Imagen enviada con éxito a " + user.getNombre());
+				//}
+			} catch (IOException e) {
+				Log_errores.log(Level.SEVERE, "Error al enviar el mensaje. ", e);
+				e.printStackTrace();
+			}
+		}
+	}
+	/*
+	 * Método que genera un nombre aleatorio para la imagen
+	 */
+	public String getNombAleatorio() {
+		String cadenaAleatoria = "";
+		long milis = new GregorianCalendar().getTimeInMillis();
+		Random r = new Random(milis);
+		int i = 0;
+		while (i < 15) {
+			char c = (char) r.nextInt(255);
+			if ((c >= '0' && c <= '9') || (c >= 'A' && c <= 'Z')) {
+				cadenaAleatoria += c;
+				i++;
+			}
+		}
+		return cadenaAleatoria;
 	}
 
 }

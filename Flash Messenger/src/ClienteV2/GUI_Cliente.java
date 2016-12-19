@@ -184,9 +184,10 @@ public class GUI_Cliente extends JFrame implements ActionListener {
 					// Obteniendo la direccion del archivo
 					direccion = archivoElegido.getPath();
 				}
-				mostrarImagen(1, direccion, ""); // TODO y fichero también.
-												// http://www.discoduroderoer.es/como-usar-el-componente-jfilechooser-en-una-aplicacion-grafica-en-java/
-				cliente.enviarImagen(direccion);
+				mostrarImagen(1, direccion); 
+				String tipo = direccion.substring(direccion.length() - 3);
+				System.out.println(direccion + " " + tipo);
+				cliente.enviarImagen(direccion, tipo);
 			}
 		});
 		btnImg.setBounds(367, 11, 89, 23);
@@ -233,6 +234,7 @@ public class GUI_Cliente extends JFrame implements ActionListener {
 		if(num == 1){
 			cargarTxt = "<FONT SIZE="+4+"><DIV align=\"right\">" + getUsuario() + " => " + mensaje + "</DIV></FONT></br>";
 		}else{
+			System.out.println("Se debería de mostrar: "+ mensaje);
 			cargarTxt = "<FONT SIZE="+4+"><DIV align=\"left\">" + mensaje + "</DIV></FONT></br>";
 		}
 		texto = texto + cargarTxt;
@@ -241,57 +243,19 @@ public class GUI_Cliente extends JFrame implements ActionListener {
 	/**TODO método que resize las imagenes dependiendo si son cuadradas u horizontales
 	 * Método que muestra la imagen por pantalla
 	 * @param num imagen enviada = 1, imagen recibida = 2
-	 * @param imagen dirección local de la imagen ó un string de imagen
+	 * @param imagen dirección local de la imagen
 	 * @param usuario que envía la imagen
 	 */
-	public void mostrarImagen(int num, String imagen, String usuario){
+	public void mostrarImagen(int num, String path){
 		
-		if(num ==1){
-			cargarImg = "<DIV align=\"right\">" + getUsuario() + " => <img src='file:" + imagen + "' width=60 height=60></DIV></img></br>";
+		if(num == 1){
+			cargarImg = "<DIV align=\"right\">" + getUsuario() + " => <img src='file:" + path + "' width=60 height=60></DIV></img></br>";
 		}else{
-			String nombre = getNombAleatorio();
-			// Converting a Base64 String into Image byte array
-           try{
-            byte[] imagenDatos = Base64.decodeBase64(imagen);
-            // Write a image byte array into file system
-            FileOutputStream imagenOut = new FileOutputStream("C:/Flash-Messenger/Images/"+ nombre +".jpg");
- 
-            imagenOut.write(imagenDatos);
-            imagenOut.close();
-           }catch (FileNotFoundException e){
-        	   System.out.println("Imagen no encontada" + e);
-           }catch (IOException e2){
-        	   System.out.println(e2);
-           }
-           cargarImg = "<DIV align=\"left\"><FONT SIZE="+4+">"+ usuario + "<img src='file:C:/Flash-Messenger/Images/"+ nombre + ".jpg' width=60 height=60></FONT></DIV></img></br>";
+			
+           cargarImg = "<DIV align=\"left\"><FONT SIZE="+4+">"+ usuario + "<img src='file:C:/Flash-Messenger/Images/"+ path + "' width=60 height=60></FONT></DIV></img></br>";
 		}
 		texto = texto + cargarImg;
 		editorPane.setText(texto + "<br>");	
-	}
-
-	/*
-	 * Método que envía una imagen
-	 */
-	public void enviarImagen(String path) {
-
-		File file = new File(path);
-		try {
-			FileInputStream imagenFichero = new FileInputStream(file);
-			byte imagenDatos[] = new byte[(int) file.length()];
-			imagenFichero.read(imagenDatos);
-			
-			// Convertimos el array de bytes en un String Base64
-			String imagenString = Base64.encodeBase64URLSafeString(imagenDatos);
-			imagenString = CesarRecursivo.recorrer(1, "", imagenString, 0);
-			imagenString = getUsuario() + "_" + imagenString;
-			
-			cliente.enviarImagen(imagenString);
-			imagenFichero.close();
-		} catch (FileNotFoundException e) {
-			System.out.println("Imagen no encontrada" + e);
-		} catch (IOException e2) {
-			System.out.println("Error al leer la imagen" + e2);
-		}
 	}
 	
 	public String getUsuario() {
@@ -302,21 +266,5 @@ public class GUI_Cliente extends JFrame implements ActionListener {
 		this.usuario = user;
 	}
 
-	/*
-	 * Método que genera un nombre aleatorio para la imagen
-	 */
-	public String getNombAleatorio() {
-		String cadenaAleatoria = "";
-		long milis = new GregorianCalendar().getTimeInMillis();
-		Random r = new Random(milis);
-		int i = 0;
-		while (i < 15) {
-			char c = (char) r.nextInt(255);
-			if ((c >= '0' && c <= '9') || (c >= 'A' && c <= 'Z')) {
-				cadenaAleatoria += c;
-				i++;
-			}
-		}
-		return cadenaAleatoria;
-	}
+	
 }

@@ -18,7 +18,9 @@ import java.util.logging.Level;
  */
 public class Log_chat {
 	
-	private static String ruta = "C:/Flash-Messenger/Log";
+	private static String ruta = "C:/Flash-Messenger/Server/Log";
+	private static String ruta2 = "C:/Flash-Messenger/Server/Images";
+	private static String ruta3 = "C:/Flash-Messenger/Server/Video";
 	private static String nombre = "/chat.txt";
 
 	/*
@@ -29,17 +31,31 @@ public class Log_chat {
 		SimpleDateFormat dia = new SimpleDateFormat("dd/M/yyyy");
 		EscribirDatos("",calendario,  dia);
 	}
-
+	
+	/*
+	 * Método que crea las carpetas necesarias del servidor
+	 */
+	public static void crearCarpetas(){
+		
+		File carpeta = new File(ruta);
+		if (!carpeta.exists()) { // Si no existe, creamos la carpeta
+			carpeta.mkdirs();
+		}
+		File carpeta2 = new File(ruta2);
+		if (!carpeta2.exists()) { 
+			carpeta2.mkdirs();
+		}
+		File carpeta3 = new File(ruta3);
+		if (!carpeta3.exists()) { 
+			carpeta3.mkdirs();
+		}
+	}
 	/*
 	 * Método para escribir el chat en el fichero
 	 */
 	public static void EscribirDatos(String texto, Calendar calendario, SimpleDateFormat hora) throws IOException {
 
-		// Primero miramos si existe la carpeta
-		File carpeta = new File(ruta);
-		if (!carpeta.exists()) { // Si no existe, creamos la carpeta
-			carpeta.mkdirs();
-		}
+		crearCarpetas();
 		// Ahora manejamos el txt
 		File registro = new File(ruta + nombre);
 		BufferedWriter escritor;
