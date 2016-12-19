@@ -27,9 +27,11 @@ public class Cliente {
 	   private String nombre; //Nombre del usuario
 	   private GUI_Cliente frame; //GUI del cliente
 	   private DataOutputStream salida;
-	   private DataInputStream entrada;
-	   private Socket comunicacion; //para la conectarse
-	   private Socket comunicacion2;//para recibir el mensaje
+	   private DataInputStream entrada_txt;
+	   private DataInputStream entrada_imagen;
+	   private Socket Senviar; //pare enviar
+	   private Socket Srecibir;//para recibir el mensaje
+	   private Socket Simagen;
 	   private H_Cliente hilo;
 	
 	   //Crea una nueva instancia del cliente
@@ -41,17 +43,19 @@ public class Cliente {
 		   Ip_Servidor = Principal_Cliente.Ip_Servidor;
 		   
 	      try {
-	         comunicacion = new Socket(Cliente.Ip_Servidor, 8080);
-	         comunicacion2 = new Socket(Cliente.Ip_Servidor, 8083);
+	    	 Senviar = new Socket(Cliente.Ip_Servidor, 8080);
+	         Srecibir = new Socket(Cliente.Ip_Servidor, 8081);
+	         Simagen = new Socket(Cliente.Ip_Servidor, 8082);
 	         
-	         salida = new DataOutputStream(comunicacion.getOutputStream());
-	         entrada = new DataInputStream(comunicacion2.getInputStream());     
+	         salida = new DataOutputStream(Senviar.getOutputStream());
+	         entrada_txt = new DataInputStream(Srecibir.getInputStream());  
+	         entrada_imagen = new DataInputStream(Simagen.getInputStream());
 	   
 	      }catch (IOException e) {
 	    	  JOptionPane.showMessageDialog(frame,"Ningún servidor activado", "Error de conexión", JOptionPane.ERROR_MESSAGE);
 	      }
 	     
-	      hilo =  new H_Cliente(entrada, comunicacion2, frame);
+	      hilo =  new H_Cliente(entrada_txt, Srecibir, entrada_imagen, Simagen, frame);
 	      hilo.start();
 	   }
 	
@@ -84,9 +88,8 @@ public class Cliente {
 			salida.writeInt(3);
 		}
 		BufferedImage bufferedImage = ImageIO.read(new File(path));
-	//	ImageIO.write(bufferedImage, tipo, comunicacion.getOutputStream());
 		ImageIO.write(bufferedImage, tipo, salida);
-		comunicacion.getOutputStream().flush();
+		salida.flush();
 		salida.close(); //Para que funcione se tiene que cerrar!!! Pero entonces salta la excepción..
 		System.out.println("Has enviado la imagen con éxito!");
 		} catch (Exception e) {

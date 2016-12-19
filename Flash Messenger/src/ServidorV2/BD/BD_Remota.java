@@ -46,6 +46,7 @@ public class BD_Remota extends BD_Padre{
 	public static Statement usarBD(Connection con) {
 		try {
 			Statement statement = con.createStatement();
+			statement.setQueryTimeout(30);  // poner timeout 30 msg
 			return statement;
 		} catch (SQLException e) {
 			Log_errores.log( Level.SEVERE, "Error: " + e.getMessage(), e );

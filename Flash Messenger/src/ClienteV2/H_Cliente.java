@@ -1,6 +1,7 @@
 package ClienteV2;
 
 import java.awt.image.BufferedImage;
+import java.io.DataInput;
 import java.io.DataInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -21,13 +22,17 @@ import ServidorV2.Logger.Log_chat;
  */
 public class H_Cliente extends Thread{
 	
-	   private DataInputStream entrada;
+	   private DataInputStream entrada_txt;
+	   private DataInputStream entrada_imagen;
 	   private GUI_Cliente frame;
 	   private Socket Sentrada;
+	   private Socket Simagen;
 	   
-	   public H_Cliente (DataInputStream entrada, Socket Sentrada, GUI_Cliente frame) throws IOException{
-	      this.entrada = entrada;
+	   public H_Cliente (DataInputStream entrada_txt, Socket Sentrada, DataInputStream entrada_imagen, Socket Simagen, GUI_Cliente frame) throws IOException{
+	      this.entrada_txt = entrada_txt;
 	      this.Sentrada = Sentrada;
+	      this.entrada_imagen = entrada_imagen;
+	      this.Simagen = Simagen;
 	      this.frame = frame;
 	   }
 	   
@@ -41,11 +46,11 @@ public class H_Cliente extends Thread{
 	      //!interrupted
 	      while(true){         
 	         try{
-	            opcion = entrada.readInt();
+	            opcion = entrada_txt.readInt();
 	            switch(opcion){
 	            
 				case 1:// mensage recibido
-					mensaje = entrada.readUTF(); 
+					mensaje = entrada_txt.readUTF(); 
 					System.out.println("Mensaje recibido: " + mensaje);
 					for (i = 0; i < mensaje.length(); i++) {
 						if (mensaje.charAt(i) == '_') {
@@ -59,15 +64,15 @@ public class H_Cliente extends Thread{
 					frame.mostrarMensaje(2, mensaje);
 					break;
 				case 2:// se agrega
-					mensaje = entrada.readUTF();
+					mensaje = entrada_txt.readUTF();
 					break;
 				case 3: // Recibe imagen
 					try {
-						BufferedImage bufferedImage = ImageIO.read(entrada);
+						BufferedImage bufferedImage = ImageIO.read(entrada_imagen);
 						System.out.println("Procesando imagen..");
 						ImageIO.write(bufferedImage, "png", new FileOutputStream(path + ".png"));
 						System.out.println("Imagen recibida en el cliente.");
-						entrada.close();
+						//entrada_imagen.close();
 	
 					} catch (IOException e) {
 						e.printStackTrace();
@@ -76,11 +81,11 @@ public class H_Cliente extends Thread{
 					break;
 				case 4:
 					try {
-						BufferedImage bufferedImage = ImageIO.read(entrada);
+						BufferedImage bufferedImage = ImageIO.read(entrada_imagen);
 						System.out.println("Procesando imagen..");
 						ImageIO.write(bufferedImage, "jpg", new FileOutputStream(path + ".jpg"));
 						System.out.println("Imagen recibida en el cliente.");
-						entrada.close();
+						//entrada_imagen.close();
 	
 					} catch (IOException e) {
 						e.printStackTrace();

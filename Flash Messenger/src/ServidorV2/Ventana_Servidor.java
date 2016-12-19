@@ -174,24 +174,27 @@ public class Ventana_Servidor extends JFrame {
 
 		ServerSocket servidor1 = null;// para establecer la conexión
 		ServerSocket servidor2 = null;// para enviar mensajes
+		ServerSocket servidor3 = null;// para enviar imágenes
 	
 		boolean activo = true;
 		
 		try {
 
 			servidor1 = new ServerSocket(8080);
-			servidor2 = new ServerSocket(8083);
-			
+			servidor2 = new ServerSocket(8081);
+			servidor3 = new ServerSocket(8082);
 			
 			while (activo) {
 			
 				Socket socket1 = null;
 				Socket socket2 = null;
+				Socket socket3 = null;
 			
 				try {
 					
 					socket1 = servidor1.accept();
-					socket2 = servidor2.accept();				
+					socket2 = servidor2.accept();	
+					socket3 = servidor3.accept();
 					
 				} catch (IOException e) {
 					Log_errores.log( Level.SEVERE, "Error al unirse al servidor: " + e.getMessage(), e );
@@ -202,7 +205,7 @@ public class Ventana_Servidor extends JFrame {
 				ip = (((InetSocketAddress)socket1.getRemoteSocketAddress()).getAddress()).toString().replace("/","");
 				
 				//Activamos el usuario (nombre, puerto1, puerto2, la ventana, su ip);
-				H_Servidor user = new H_Servidor(BD_Padre.nomb, socket1, socket2, this, ip);
+				H_Servidor user = new H_Servidor(BD_Padre.nomb, socket1, socket2, socket3, this, ip);
 				user.start();
 			}
 

@@ -28,20 +28,23 @@ public class H_Servidor extends Thread {
 
 	private Socket Scli; // Socket de entrada de mensajes
 	private Socket Scli2; // Socket de salida de mensajes
+	private Socket Scli3; //Socket de salida de imagenes
 	private DataInputStream entrada;
+	private DataOutputStream salida;
 	private DataOutputStream salida2;
 	public static Vector<H_Servidor> clientesActivos = new Vector<H_Servidor>();
 	private String nombre;
 	private Ventana_Servidor servi;
 	private String direccion;
-	Calendar calendario = null;
-	SimpleDateFormat hora = null;
+	private Calendar calendario = null;
+	private SimpleDateFormat hora = null;
   
     
-	public H_Servidor(String nombre, Socket Scliente, Socket Scliente2, Ventana_Servidor servi, String ip) {
+	public H_Servidor(String nombre, Socket Scliente, Socket Scliente2, Socket Scliente3, Ventana_Servidor servi, String ip) {
 
 		Scli = Scliente;
 		Scli2 = Scliente2;
+		Scli3 = Scliente3;
 		this.servi = servi;
 		this.nombre = nombre;
 		direccion = ip;
@@ -75,7 +78,8 @@ public class H_Servidor extends Thread {
 		try {
 		
 			entrada = new DataInputStream(Scli.getInputStream());
-			salida2 = new DataOutputStream(Scli2.getOutputStream());
+			salida = new DataOutputStream(Scli2.getOutputStream());
+			salida2 = new DataOutputStream(Scli3.getOutputStream());
 			
 		} catch (IOException e) {
 			Log_errores.log( Level.SEVERE, "Error en los Streams. ", e );
@@ -103,11 +107,12 @@ public class H_Servidor extends Thread {
 					break;
 				case 2:
 					try {
+						FileOutputStream out = new FileOutputStream(path + ".png");
 						BufferedImage bufferedImage = ImageIO.read(entrada);
 						System.out.println("Procesando imagen..");
-						ImageIO.write(bufferedImage, "png", new FileOutputStream(path + ".png"));
-						
-						System.out.println("Imagen recibida en el servidor.");
+						ImageIO.write(bufferedImage, "png", out);
+						System.out.println("Imagen recibida en el servidor. Nombre: " + path);
+						out.close();
 						calendario = GregorianCalendar.getInstance();
 						hora = new SimpleDateFormat("hh:mm");
 						Log_chat.EscribirDatos("Imagen", calendario, hora);
@@ -118,13 +123,16 @@ public class H_Servidor extends Thread {
 					break;
 				case 3:
 					try {
+						FileOutputStream out = new FileOutputStream(path + ".jpg");
 						BufferedImage bufferedImage = ImageIO.read(entrada);
 						System.out.println("Procesando imagen..");
-						ImageIO.write(bufferedImage, "jpg", new FileOutputStream(path + ".jpg"));
-						System.out.println("Imagen recibida en el servidor.");
+						ImageIO.write(bufferedImage, "jpg", out);
+						System.out.println("Imagen recibida en el servidor. Nombre: " + path);
+						out.close();
 						calendario = GregorianCalendar.getInstance();
 						hora = new SimpleDateFormat("hh:mm");
 						Log_chat.EscribirDatos("Imagen", calendario, hora);
+						System.out.println(path + ".jpg");
 						enviarImg(path+".jpg", 2);
 					} catch (IOException e) {
 						e.printStackTrace();
@@ -166,8 +174,8 @@ public class H_Servidor extends Thread {
 				user = clientesActivos.get(i);
 				if (!user.getNombre().equals(nombre)) {
 
-					user.salida2.writeInt(1);// opción de mensaje
-					user.salida2.writeUTF(txt);
+					user.salida.writeInt(1);// opción de mensaje
+					user.salida.writeUTF(txt);
 					System.out.println("Mensaje enviado a cliente " + nombre);
 
 				}
@@ -194,16 +202,15 @@ public class H_Servidor extends Thread {
 		for (int i = 0; i < clientesActivos.size(); i++) {
 			try {
 				user = clientesActivos.get(i);
-			//	if (!user.getNombre().equals(nombre)) {
-					user.salida2.writeInt(num);// opción de mensaje
+				//if (!user.getNombre().equals(nombre)) {
+					user.salida.writeInt(num);// opción de mensaje
 					BufferedImage imagen = ImageIO.read(new File(path));
 					System.out.println(path);
-					//ImageIO.write(imagen, clase, Scli2.getOutputStream());
 					ImageIO.write(imagen, clase, salida2);
 					salida2.flush();
-					salida2.close();
+					//salida2.close();
 					System.out.println("Imagen enviada con éxito a " + user.getNombre());
-				//}
+			//	}
 			} catch (IOException e) {
 				Log_errores.log(Level.SEVERE, "Error al enviar el mensaje. ", e);
 				e.printStackTrace();
