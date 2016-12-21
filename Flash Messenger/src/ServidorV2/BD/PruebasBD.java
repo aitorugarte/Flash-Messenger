@@ -22,10 +22,10 @@ public class PruebasBD {
 		Statement stat = remota.getStat();
 		
 		BD_Padre padre = new BD_Padre(conex, stat);
-	   padre.clienteInsert(stat, "Aitor3", "12345678", "aitorugarte19@gmail.es");
-	//	System.out.println("Cliente introducido");
-		padre.mostrarContenido();
-	//	BD_Remota2 remota = BD_Remota2.getBD(host, nombre_BD, usuario, pass);
+		padre.servidorInsert(stat, "192.168.0.1");
+		padre.servidorInsert(stat, "192.0.0.1");
+		
+
 
 		
 	}
