@@ -18,6 +18,9 @@ import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 
 import java.awt.Font;
+import java.awt.Image;
+import java.awt.Toolkit;
+
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -172,40 +175,33 @@ public class Ventana_Servidor extends JFrame {
 	 */
 	public void runServer() {
 
-		ServerSocket servidor1 = null;// para establecer la conexión
-		ServerSocket servidor2 = null;// para enviar mensajes
-		ServerSocket servidor3 = null;// para enviar imágenes
+		ServerSocket servidor1 = null;
 	
 		boolean activo = true;
 		
 		try {
 
-			servidor1 = new ServerSocket(8080);
-			servidor2 = new ServerSocket(8081);
-			servidor3 = new ServerSocket(8082);
+			servidor1 = new ServerSocket(8000);
+
 			
 			while (activo) {
 			
-				Socket socket1 = null;
-				Socket socket2 = null;
-				Socket socket3 = null;
+				Socket socket = null;
 			
 				try {
 					
-					socket1 = servidor1.accept();
-					socket2 = servidor2.accept();	
-					socket3 = servidor3.accept();
-					
+					socket = servidor1.accept();
+
 				} catch (IOException e) {
 					Log_errores.log( Level.SEVERE, "Error al unirse al servidor: " + e.getMessage(), e );
 				    JOptionPane.showInputDialog("Error al unirse al servidor : " + e.getMessage());
 					continue;
 				}
 				
-				ip = (((InetSocketAddress)socket1.getRemoteSocketAddress()).getAddress()).toString().replace("/","");
+				ip = (((InetSocketAddress)socket.getRemoteSocketAddress()).getAddress()).toString().replace("/","");
 				
 				//Activamos el usuario (nombre, puerto1, puerto2, la ventana, su ip);
-				H_Servidor user = new H_Servidor(BD_Padre.nomb, socket1, socket2, socket3, this, ip);
+				H_Servidor user = new H_Servidor(BD_Padre.nomb, socket, this, ip);
 				user.start();
 			}
 
@@ -252,7 +248,8 @@ public class Ventana_Servidor extends JFrame {
 					// If Nimbus is not available, you can set the GUI to another look
 					// and feel.
 				}
-			
+		Image icon = Toolkit.getDefaultToolkit().getImage("images/logo.jpg");
+
 		H_EnviarIp enviar = new H_EnviarIp();
 		enviar.start();
 	
@@ -263,6 +260,7 @@ public class Ventana_Servidor extends JFrame {
 		Log_chat.empezarLog(calendario);
 		
 		Ventana_Servidor servidor = new Ventana_Servidor();
+		servidor.setIconImage(icon);
 		servidor.setVisible(true);
 		servidor.runServer();
 		

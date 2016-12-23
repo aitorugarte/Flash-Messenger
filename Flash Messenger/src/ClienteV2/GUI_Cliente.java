@@ -251,8 +251,7 @@ public class GUI_Cliente extends JFrame implements ActionListener {
 		if(num == 1){
 			cargarImg = "<DIV align=\"right\">" + getUsuario() + " => <img src='file:" + path + "' width=60 height=60></DIV></img></br>";
 		}else{
-			
-           cargarImg = "<DIV align=\"left\"><FONT SIZE="+4+">"+ usuario + "<img src='file:C:/Flash-Messenger/Images/"+ path + "' width=60 height=60></FONT></DIV></img></br>";
+           cargarImg = "<DIV align=\"left\"><FONT SIZE="+4+">"+ usuario + "<img src='file:"+ path + "' width=60 height=60></FONT></DIV></img></br>";
 		}
 		texto = texto + cargarImg;
 		editorPane.setText(texto + "<br>");	

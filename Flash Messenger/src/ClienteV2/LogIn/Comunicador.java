@@ -1,5 +1,7 @@
 package ClienteV2.LogIn;
 
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -57,18 +59,18 @@ public class Comunicador {
 			//Enviamos las credenciales
 			salida.writeUTF(credenciales);
 			salida.flush();
-			System.out.println("Enviado correctamente");
 
 			Srecibir = sc.accept();
 			
 			DataInputStream entrada = new DataInputStream(Srecibir.getInputStream());
 			String respuesta = entrada.readUTF();
-			System.out.println(respuesta);
 			
 			if(respuesta.equals("ok")){
 				login.dispose();
 				Almacenamiento.crearCarpetas();
+				Image icon = Toolkit.getDefaultToolkit().getImage("images/logo.jpg");
 				GUI_Cliente gui = new GUI_Cliente();
+				gui.setIconImage(icon);
 				gui.setNombreUser(usuario);
 				gui.setVisible(true);
 			}else if(respuesta.equals("no")){

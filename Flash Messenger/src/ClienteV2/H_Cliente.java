@@ -1,10 +1,14 @@
 package ClienteV2;
 
+import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.DataInput;
 import java.io.DataInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
@@ -12,6 +16,7 @@ import java.util.GregorianCalendar;
 import java.util.Random;
 
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 import ClienteV2.Encriptado.CesarRecursivo;
@@ -22,35 +27,51 @@ import ServidorV2.Logger.Log_chat;
  */
 public class H_Cliente extends Thread{
 	
-	   private DataInputStream entrada_txt;
-	   private DataInputStream entrada_imagen;
-	   private GUI_Cliente frame;
-	   private Socket Sentrada;
-	   private Socket Simagen;
-	   
-	   public H_Cliente (DataInputStream entrada_txt, Socket Sentrada, DataInputStream entrada_imagen, Socket Simagen, GUI_Cliente frame) throws IOException{
-	      this.entrada_txt = entrada_txt;
-	      this.Sentrada = Sentrada;
-	      this.entrada_imagen = entrada_imagen;
-	      this.Simagen = Simagen;
-	      this.frame = frame;
-	   }
-	   
+	private ObjectInputStream in;
+	private ObjectOutputStream out;
+	private Socket socket;
+	private GUI_Cliente frame;
+
+	public H_Cliente(Socket socket, ObjectInputStream in, ObjectOutputStream out, GUI_Cliente frame) throws IOException {
+			
+		this.socket = socket;
+		this.in = in;
+		this.out = out;
+		this.frame = frame;
+	}
+
 	   public void run(){
-		   
+		
+		  //Declaramos los objetos que recibimos
+		  Object obj; //la opción 
+		  Object obj2; //el mensaje de texto
+		  Object imagen; //la imagen
+		  //Declaramos las variables que manejaremos
+		  int opcion = 0;
+		  int i = 0;
+		  String opc = "";
 	      String mensaje = "";
 	      String usuario = "";
-	      String path = "C:/Flash-Messenger/Server/Images/" + getNombAleatorio();
-	      int opcion = 0;
-	      int i = 0;
+
 	      //!interrupted
-	      while(true){         
-	         try{
-	            opcion = entrada_txt.readInt();
+	      while(true){ 
+	    	  String path = "C:/Flash-Messenger/Client/Images/" + getNombAleatorio();
+	    	  try{
+	 	        
+	            try {
+					obj = in.readObject();
+					opc = obj.toString();
+					opcion = Integer.parseInt(opc);
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
+
 	            switch(opcion){
 	            
 				case 1:// mensage recibido
-					mensaje = entrada_txt.readUTF(); 
+					obj2 = in.readObject();
+					mensaje = obj2.toString();
+					
 					System.out.println("Mensaje recibido: " + mensaje);
 					for (i = 0; i < mensaje.length(); i++) {
 						if (mensaje.charAt(i) == '_') {
@@ -64,41 +85,71 @@ public class H_Cliente extends Thread{
 					frame.mostrarMensaje(2, mensaje);
 					break;
 				case 2:// se agrega
-					mensaje = entrada_txt.readUTF();
+					obj2 = in.readObject();
+					mensaje = obj2.toString();
 					break;
 				case 3: // Recibe imagen
 					try {
-						BufferedImage bufferedImage = ImageIO.read(entrada_imagen);
-						System.out.println("Procesando imagen..");
-						ImageIO.write(bufferedImage, "png", new FileOutputStream(path + ".png"));
-						System.out.println("Imagen recibida en el cliente.");
-						//entrada_imagen.close();
-	
+						FileOutputStream crear = new FileOutputStream(path + ".png");
+
+						imagen = in.readObject();
+						System.out.println("Imagen recibida.");
+						
+						ImageIcon icono = (ImageIcon) imagen;
+						BufferedImage buff = new BufferedImage(icono.getIconWidth(), icono.getIconHeight(), BufferedImage.TYPE_INT_RGB);
+						Graphics g = buff.createGraphics();
+						icono.paintIcon(null, g, 0, 0);
+						g.dispose();
+
+						ImageIO.write(buff, "png", crear);
+						System.out.println("Imagen creada correctamente");
+						crear.close();
+		
+
 					} catch (IOException e) {
+						e.printStackTrace();
+					} catch (ClassNotFoundException e) {
 						e.printStackTrace();
 					}
 					frame.mostrarImagen(2, path + ".png");
 					break;
 				case 4:
 					try {
-						BufferedImage bufferedImage = ImageIO.read(entrada_imagen);
-						System.out.println("Procesando imagen..");
-						ImageIO.write(bufferedImage, "jpg", new FileOutputStream(path + ".jpg"));
-						System.out.println("Imagen recibida en el cliente.");
-						//entrada_imagen.close();
-	
+				    
+						FileOutputStream crear = new FileOutputStream(path + ".jpg");
+
+						imagen = in.readObject();
+						System.out.println("Imagen recibida.");
+						
+						ImageIcon icono = (ImageIcon) imagen;
+
+						BufferedImage buff = new BufferedImage(icono.getIconWidth(), icono.getIconHeight(), BufferedImage.TYPE_INT_RGB);
+						Graphics g = buff.createGraphics();
+						icono.paintIcon(null, g, 0, 0);
+						g.dispose();
+
+						ImageIO.write(buff, "jpg", crear);
+						System.out.println("Imagen creada correctamente");
+						crear.close();
 					} catch (IOException e) {
+						e.printStackTrace();
+					} catch (ClassNotFoundException e) {
 						e.printStackTrace();
 					}   
 					frame.mostrarImagen(2, path + ".jpg");
 					break;
 				}  
+
 	         }catch (IOException e){
+	        	 //TODO reabrir entrada_imagen antes de que salte la excepción
 	        	 System.out.println(e);
 	        	 JOptionPane.showMessageDialog(frame,"El servidor ha sido desconectado", "Desconexión", JOptionPane.ERROR_MESSAGE);
 	        	 frame.dispose(); //Se cierra la ventana del cliente
 	            break;
-	         }
+	         } catch (ClassNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 	      }
 	   }
 

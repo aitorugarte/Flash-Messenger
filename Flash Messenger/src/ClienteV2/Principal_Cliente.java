@@ -1,5 +1,7 @@
 package ClienteV2;
 
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -57,12 +59,14 @@ public class Principal_Cliente extends JFrame {
 	  	dispose();
 	  	Ip_Servidor = ""+list.getSelectedValue();
 	
+	  	Image icon = Toolkit.getDefaultToolkit().getImage("images/logo.jpg");
 	  	Login inicio = null;
 		try {
 			inicio = new Login();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		inicio.setIconImage(icon);
 	  	inicio.setVisible(true);  	
 	   	}
 	   });
@@ -117,8 +121,10 @@ public class Principal_Cliente extends JFrame {
 			// If Nimbus is not available, you can set the GUI to another look
 			// and feel.
 		}
-		
+		Image icon = Toolkit.getDefaultToolkit().getImage("images/logo.jpg");
+	
 		BarraProgreso barra = new BarraProgreso();
+		barra.setIconImage(icon);
 		barra.setVisible(true);
 
 		DireccionIp();
@@ -126,6 +132,7 @@ public class Principal_Cliente extends JFrame {
 		barra.dispose();
 
 		Principal_Cliente busqueda = new Principal_Cliente();
+		busqueda.setIconImage(icon);
 		busqueda.setVisible(true);
 
 	}

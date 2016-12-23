@@ -35,11 +35,9 @@ public class H_Comunicacion extends Thread {
 			DataInputStream entrada = new DataInputStream(recibir.getInputStream());
 		
 			String tipoRecibido = entrada.readUTF();
-			System.out.println("Tipo recibido: " + tipoRecibido);
 			
 			DataInputStream entrada2 = new DataInputStream(recibir.getInputStream());
 			String datosRecibidos = entrada2.readUTF();
-			System.out.println("Datos recibidos: " + datosRecibidos);
 			String respuesta = " ";
 			if(tipoRecibido.equals("login")){
 			

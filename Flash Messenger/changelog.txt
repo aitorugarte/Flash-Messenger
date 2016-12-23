@@ -32,12 +32,21 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Registro de chats
 - Clases para la comunicación cliente-servidor
 
-### Changed
--
-
 ## Fixed
 - Optimizado el uso del chat
-- Ya no se puede iniciar sesión con una cuenta que ya esté en activo
+- Ya no se puede iniciar sesión con una cuenta que ya esté en activa
 
-##Removed
--
+## [3.0.1] - 2016-11-23
+### Added
+- Tabla servidor en la que se guarda la dirección ip del servidor activo
+- Método en el cliente que permite obtener la dirección ip del servidor
+ accediendo a la base de datos remota.
+- Ya se pueden enviar/recibir imágenes
+- Logo añadido a las ventanas 
+
+### Changed
+- Ahora solo se necesita un Socket para el envio/recepción de datos
+- Ahora los mensajes se envían como objectos
+
+### Removed
+- Eliminados el uso de tantos sockets

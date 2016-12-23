@@ -28,6 +28,8 @@ import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
 import java.awt.Font;
 import java.awt.HeadlessException;
+import java.awt.Image;
+import java.awt.Toolkit;
 
 /*
  * Clase que se encarga de iniciar sesión en la cuenta del cliente
@@ -103,8 +105,9 @@ public class Login extends JFrame {
 		btnIngresar = new JButton("Registrarse");
 		btnIngresar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
+				Image icon = Toolkit.getDefaultToolkit().getImage("images/logo.jpg");
 				Registrarse registro = new Registrarse();
+				registro.setIconImage(icon);
 				registro.setVisible(true);
 				textUsuario.setText("");
 				textPassword.setText("");
