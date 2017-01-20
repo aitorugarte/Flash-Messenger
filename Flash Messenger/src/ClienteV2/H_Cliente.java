@@ -20,7 +20,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 import ClienteV2.Encriptado.CesarRecursivo;
-import ServidorV2.Logger.Log_chat;
+import ServidorV2.Logs.Log_chat;
 
 /*
  * Hilo del cliente encargado de los mensajes
@@ -61,9 +61,17 @@ public class H_Cliente extends Thread{
 	            try {
 					obj = in.readObject();
 					opc = obj.toString();
+					
+					try{
 					opcion = Integer.parseInt(opc);
-				} catch (Exception e1) {
-					e1.printStackTrace();
+					}catch(NumberFormatException ex){ // handle your exception
+						System.out.println(opc);
+						ex.printStackTrace();
+					}
+					
+				} catch (Exception e) {
+					e.printStackTrace();
+					break;
 				}
 
 	            switch(opcion){
@@ -84,11 +92,8 @@ public class H_Cliente extends Thread{
 					mensaje = usuario + mensaje;
 					frame.mostrarMensaje(2, mensaje);
 					break;
-				case 2:// se agrega
-					obj2 = in.readObject();
-					mensaje = obj2.toString();
-					break;
-				case 3: // Recibe imagen
+
+				case 2: // Recibe imagen
 					try {
 						FileOutputStream crear = new FileOutputStream(path + ".png");
 
@@ -108,12 +113,14 @@ public class H_Cliente extends Thread{
 
 					} catch (IOException e) {
 						e.printStackTrace();
+						break;
 					} catch (ClassNotFoundException e) {
 						e.printStackTrace();
+						break;
 					}
 					frame.mostrarImagen(2, path + ".png");
 					break;
-				case 4:
+				case 3:
 					try {
 				    
 						FileOutputStream crear = new FileOutputStream(path + ".jpg");
@@ -133,26 +140,29 @@ public class H_Cliente extends Thread{
 						crear.close();
 					} catch (IOException e) {
 						e.printStackTrace();
+						break;
 					} catch (ClassNotFoundException e) {
 						e.printStackTrace();
+						break;
 					}   
 					frame.mostrarImagen(2, path + ".jpg");
 					break;
 				}  
 
 	         }catch (IOException e){
-	        	 //TODO reabrir entrada_imagen antes de que salte la excepción
-	        	 System.out.println(e);
-	        	 JOptionPane.showMessageDialog(frame,"El servidor ha sido desconectado", "Desconexión", JOptionPane.ERROR_MESSAGE);
-	        	 frame.dispose(); //Se cierra la ventana del cliente
+	        	error(e);
 	            break;
-	         } catch (ClassNotFoundException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+	         } catch (ClassNotFoundException e) {
+	        	error(e);
+				break;
 			}
 	      }
 	   }
 
+	public void error(Exception e){
+	JOptionPane.showMessageDialog(frame,"El servidor ha sido desconectado", "Desconexión", JOptionPane.ERROR_MESSAGE);
+   	 frame.dispose(); //Se cierra la ventana del cliente
+	}
 	/*
 	 * Método que genera un nombre aleatorio para la imagen
 	 */

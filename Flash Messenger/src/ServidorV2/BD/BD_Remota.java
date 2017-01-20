@@ -8,7 +8,7 @@ import java.util.logging.Level;
 
 import javax.swing.JOptionPane;
 
-import ServidorV2.Logger.Log_errores;
+import ServidorV2.Logs.Log_errores;
 
 public class BD_Remota extends BD_Padre{
 
@@ -54,6 +54,42 @@ public class BD_Remota extends BD_Padre{
 			return null;
 		}
 
+	}
+	/** Añade un cliente a la tabla abierta de BD, usando la sentencia INSERT de SQL
+	 * @param st Sentencia ya abierta de Base de Datos (con la estructura de tabla correspondiente a la habitación)
+	 * @param ip dirección ip del servidor activo
+	 */
+	public boolean servidorInsert(Statement st, String ip) {
+		String sentSQL = "";
+		try {
+			sentSQL = "insert into servidor (ip) values(" +
+					"'" + ip + "')";
+			int val = st.executeUpdate( sentSQL );
+			if (val!=1) {  // Se tiene que añadir 1 - error si no
+				return false;  
+			}
+			return true;
+		} catch (SQLException e) {
+			Log_errores.log( Level.SEVERE, "Error: " + e.getMessage(), e );
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	public boolean servidorDelete(Statement st, String ip){
+		String sentSQL = "";
+		try {
+			sentSQL = "delete from servidor where ip = '" + ip + "'";
+			int val = st.executeUpdate( sentSQL );
+			if (val!=1) {  // Se tiene que añadir 1 - error si no
+				return false;  
+			}
+			return true;
+		} catch (SQLException e) {
+			Log_errores.log( Level.SEVERE, "Error: " + e.getMessage(), e );
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 }

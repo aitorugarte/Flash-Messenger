@@ -6,7 +6,7 @@ import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.EmptyBorder;
 
-import ServidorV2.Logger.Log_errores;
+import ServidorV2.Logs.Log_errores;
 
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;

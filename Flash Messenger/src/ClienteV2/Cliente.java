@@ -95,4 +95,16 @@ public class Cliente {
 			frame.dispose();
 		}
 	}
+	/**
+	 * Método que avisa al servidor de que el cliente se desconecta
+	 * @param nombre del usuario
+	 */
+	public void desconexión(String nombre){
+		
+		try {
+			out.writeObject("4");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 }

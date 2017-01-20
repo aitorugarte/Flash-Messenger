@@ -39,6 +39,8 @@ import java.awt.Color;
 import javax.swing.JEditorPane;
 import javax.swing.JFileChooser;
 import javax.swing.JScrollPane;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class GUI_Cliente extends JFrame implements ActionListener {
 
@@ -71,6 +73,12 @@ public class GUI_Cliente extends JFrame implements ActionListener {
 	
 	
 	public GUI_Cliente() {
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent arg0) {
+				
+			}
+		});
 		setTitle("GUI cliente");
 		setResizable(false);
 		IniciarFrame();

@@ -1,4 +1,4 @@
-package ServidorV2.Logger;
+package ServidorV2.Logs;
 
 import java.util.logging.FileHandler;
 import java.util.logging.Level;

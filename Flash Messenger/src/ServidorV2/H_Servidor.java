@@ -22,8 +22,8 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
 import ServidorV2.BD.BD_Padre;
-import ServidorV2.Logger.Log_chat;
-import ServidorV2.Logger.Log_errores;
+import ServidorV2.Logs.Log_chat;
+import ServidorV2.Logs.Log_errores;
 
 /*
  * Clase del hilo del servidor
@@ -102,7 +102,8 @@ public class H_Servidor extends Thread {
 					opc = obj.toString();
 					opcion = Integer.parseInt(opc);
 				} catch (Exception e1) {
-					e1.printStackTrace();
+					desconectar();
+					//e1.printStackTrace();
 				}
 				switch (opcion) {
 
@@ -136,6 +137,7 @@ public class H_Servidor extends Thread {
 						calendario = GregorianCalendar.getInstance();
 						hora = new SimpleDateFormat("hh:mm");
 						Log_chat.EscribirDatos("Imagen", calendario, hora);
+						
 						enviarImg(path+".png", 1);
 						
 					} catch (IOException e) {
@@ -165,7 +167,7 @@ public class H_Servidor extends Thread {
 						calendario = GregorianCalendar.getInstance();
 						hora = new SimpleDateFormat("hh:mm");
 						Log_chat.EscribirDatos("Imagen", calendario, hora);
-						System.out.println(path + ".jpg");
+	
 						enviarImg(path+".jpg", 2);
 						
 					} catch (IOException e) {
@@ -175,7 +177,9 @@ public class H_Servidor extends Thread {
 						e.printStackTrace();
 					}
 					break;
-				
+				case 4:
+					desconectar();
+					break;
 				}
 			} catch (IOException e) {
 				break; //Cuando salta la excepción es que el usuario se ha ido
@@ -185,7 +189,7 @@ public class H_Servidor extends Thread {
 			}
 		}
 	//	Log_errores.log(Level.CONFIG, "El usuario " + getNombre() + " se fue.", null);
-		desconectar();
+	//	desconectar();
 
 		try {
 			socket.close();
@@ -225,25 +229,29 @@ public class H_Servidor extends Thread {
 		}
 	}
 	
+	/**
+	 *@param path dirección local de la imagen
+	 *@param tipo 1 si jpg, 2 si png
+	 */
 	private void enviarImg(String path, int tipo){
 
 		H_Servidor user = null;
-		String clase = null;
-		String num = "";
 		
-		if(tipo == 1){
-			num = "3";
-			clase = "png";
-		}else{
-			num = "4";
-			clase = "jpg";
-		}
 		for (int i = 0; i < clientesActivos.size(); i++) {
 			try {
-
 				user = clientesActivos.get(i);
+				
+				if(tipo == 1){
+					user.out.writeObject("2");
+				}else{
+					user.out.writeObject("3");
+				}
+				/*try {
+					Thread.sleep (1000);
+					} catch (Exception e) {
+					e.printStackTrace();
+					}*/
 				//if (!user.getNombre().equals(nombre)) {
-					user.out.writeObject(num);
 					BufferedImage imagen = ImageIO.read(new File(path));
 					out.writeObject(new ImageIcon(imagen));
 					System.out.println("Imagen enviada con éxito a " + user.getNombre());

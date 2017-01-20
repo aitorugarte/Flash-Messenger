@@ -8,7 +8,7 @@ import java.util.logging.Level;
 
 import javax.swing.JOptionPane;
 
-import ServidorV2.Logger.Log_errores;
+import ServidorV2.Logs.Log_errores;
 
 public class BD_Local extends BD_Padre{
 

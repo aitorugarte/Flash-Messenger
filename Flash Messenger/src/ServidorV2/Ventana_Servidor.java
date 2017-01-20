@@ -8,8 +8,8 @@ import ServidorV2.BD.BD_Local;
 import ServidorV2.BD.BD_Padre;
 import ServidorV2.BD.BD_Remota;
 import ServidorV2.BD.Utilidades_BD;
-import ServidorV2.Logger.Log_chat;
-import ServidorV2.Logger.Log_errores;
+import ServidorV2.Logs.Log_chat;
+import ServidorV2.Logs.Log_errores;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -24,15 +24,19 @@ import java.awt.Toolkit;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.net.Inet4Address;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.UnknownHostException;
 import java.sql.Connection;
 import java.sql.Statement;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.awt.event.ActionEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 /*
  * Clase principal del Servidor
@@ -42,17 +46,30 @@ public class Ventana_Servidor extends JFrame {
  
 	private static final long serialVersionUID = 930849024921895057L;
 	private JPanel contentPane;
-	private JLabel lblPanelDeControl, lblEstado;
+	private JLabel lblPanelDeControl;
 	private JButton btnDesconectar, btnUsuarios, btnRegistroDeMensajes, btnBD;
-	private String ip; //ip del lciente
-	private BD_Remota remota;
-	private BD_Local local;
+	private String ip; //ip del cliente
 	private static Connection conex = null;
 	private static Statement stat = null;
-	private static BD_Padre padre = new BD_Padre(conex, stat);
+	private static BD_Remota remota;
+	private static BD_Local local;
+	private static BD_Padre padre;
+	private static boolean hayInternet = Utilidades_BD.TestInternet();
 
 
 	public Ventana_Servidor() {
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				if(hayInternet == true){
+					try {
+						remota.servidorDelete(stat, Inet4Address.getLocalHost().getHostAddress());
+					} catch (UnknownHostException e1) {
+						e1.printStackTrace();
+					}
+				}
+			}
+		});
 		setTitle("Flash Messenger");
 		setAutoRequestFocus(false);
 		setResizable(false);
@@ -72,6 +89,13 @@ public class Ventana_Servidor extends JFrame {
 		btnDesconectar = new JButton("Desconectar");
 		btnDesconectar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				if(hayInternet == true){
+					try {
+						remota.servidorDelete(stat, Inet4Address.getLocalHost().getHostAddress());
+					} catch (UnknownHostException e1) {
+						e1.printStackTrace();
+					}
+				}
 				System.exit(0);
 			}
 		});
@@ -98,10 +122,6 @@ public class Ventana_Servidor extends JFrame {
 		});
 		btnRegistroDeMensajes.setBounds(163, 75, 89, 48);
 		contentPane.add(btnRegistroDeMensajes);
-		
-		lblEstado = new JLabel("Conectado a internet => " + Test());
-		lblEstado.setBounds(55, 183, 166, 23);
-		contentPane.add(lblEstado);
 		
 		btnBD = new JButton("Base de datos");
 		btnBD.addActionListener(new ActionListener() {
@@ -211,26 +231,7 @@ public class Ventana_Servidor extends JFrame {
 		}
 	}
 	
-	/*
-	 * Método que comprueba si hay internet
-	 */
-	public boolean Test(){
-		
-		if(padre.TestInternet() == true){
-			remota = BD_Remota.getBD();
-			stat = remota.getStat();
-			conex = remota.getConexion();
-			return true;
-		}else{
-			local = BD_Local.getBD();
-			local.crearTablasBD();
-			stat = local.getStat();
-			conex = local.getConexion();
-			return false;
-		}
-		
-	}
-	
+
 	/*
 	 * Main del programa Servidor
 	 */
@@ -249,10 +250,26 @@ public class Ventana_Servidor extends JFrame {
 					// and feel.
 				}
 		Image icon = Toolkit.getDefaultToolkit().getImage("images/logo.jpg");
-
+			
+		if(hayInternet == true){
+			padre = new BD_Padre(conex, stat);
+			remota = BD_Remota.getBD();
+			stat = remota.getStat();
+			conex = remota.getConexion();
+			remota.servidorInsert(stat, Inet4Address.getLocalHost().getHostAddress());
+			System.out.println("Hay internet");
+		}else{
+			padre = new BD_Padre(conex, stat);
+			local = BD_Local.getBD();
+			local.crearTablasBD();
+			stat = local.getStat();
+			conex = local.getConexion();
+			System.out.println("No hay internet");
+			
 		H_EnviarIp enviar = new H_EnviarIp();
 		enviar.start();
-	
+		}
+
 		H_Comunicacion comunicarse = new H_Comunicacion();
 		comunicarse.start();
 		

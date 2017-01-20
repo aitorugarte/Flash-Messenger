@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.logging.Level;
 
 import ServidorV2.H_Servidor;
-import ServidorV2.Logger.Log_errores;
+import ServidorV2.Logs.Log_errores;
 
 public class BD_Padre {
 
@@ -68,42 +68,7 @@ public class BD_Padre {
 			return false;
 		}
 	}
-	/** Añade un cliente a la tabla abierta de BD, usando la sentencia INSERT de SQL
-	 * @param st Sentencia ya abierta de Base de Datos (con la estructura de tabla correspondiente a la habitación)
-	 * @param ip dirección ip del servidor activo
-	 */
-	public boolean servidorInsert(Statement st, String ip) {
-		String sentSQL = "";
-		try {
-			sentSQL = "insert into servidor (ip) values(" +
-					"'" + ip + "')";
-			int val = st.executeUpdate( sentSQL );
-			if (val!=1) {  // Se tiene que añadir 1 - error si no
-				return false;  
-			}
-			return true;
-		} catch (SQLException e) {
-			Log_errores.log( Level.SEVERE, "Error: " + e.getMessage(), e );
-			e.printStackTrace();
-			return false;
-		}
-	}
-	
-	public boolean servidorDelete(Statement st, String ip){
-		String sentSQL = "";
-		try {
-			sentSQL = "delete from servidor where ip = '" + ip + "'";
-			int val = st.executeUpdate( sentSQL );
-			if (val!=1) {  // Se tiene que añadir 1 - error si no
-				return false;  
-			}
-			return true;
-		} catch (SQLException e) {
-			Log_errores.log( Level.SEVERE, "Error: " + e.getMessage(), e );
-			e.printStackTrace();
-			return false;
-		}
-	}
+
 
 	/*
 	 * Método que muestra el contenido de la base de datos
@@ -147,7 +112,6 @@ public class BD_Padre {
 						 }
 					}
 					  nomb = nombre;
-					//  H_Servidor.setNombUser(nombre); //TODO Seteamos el nombre del usuario
 					  return true;
 				  }
 				}
@@ -159,69 +123,7 @@ public class BD_Padre {
 		return false;
 		
 	}
-	/**
-	 *Método que indica si hay disponible una conexión a internet
-	 * @return true si hay internet
-	 * @return false si no hay internet
-	 */
-	public boolean TestInternet() {
-
-		String web = "www.google.es";
-		int puerto = 80;
-		boolean hayinternet = false;
-		Socket test = null;
-		try {
-			test = new Socket(web, puerto);
-			if (test.isConnected()) {
-				// Si hay internet comprobamos el puerto 3306
-				if (TestPuerto() == true) {
-					hayinternet = true;
-				}
-			}
-		} catch (Exception e) {
-			Log_errores.log( Level.SEVERE, "Error: " + e.getMessage(), e );
-			return false;
-		}
-		//Cerramos el puerto
-		try {
-			test.close();
-		} catch (IOException e) {
-			Log_errores.log( Level.SEVERE, "Error: " + e.getMessage(), e );
-			e.printStackTrace();
-		}
-		return hayinternet;
-	}
-
-	/*
-	 * Método que comprueba si el puerto necesario para conectarse a la bd
-	 * está abierto o cerrado
-	 * @return true si está abierto
-	 * @return false si está cerrado
-	 */
-	private boolean TestPuerto() {
-		boolean abierto = true;
-		try {
-			Socket s = null;
-			try{
-			//Comprobamos con nuestro host
-			s = new Socket("www.phpmyadmin.co", 3306);
-			}catch(ConnectException e){
-				Log_errores.log( Level.SEVERE, "Puerto cerrado: " + e.getMessage(), e );
-				abierto = false;
-			}
-			//Cerramos el puerto
-			s.close();
-		} catch (UnknownHostException e) {
-			Log_errores.log( Level.SEVERE, "Error: " + e.getMessage(), e );
-			e.printStackTrace();
-			return false;
-		} catch (IOException e) {
-			Log_errores.log( Level.SEVERE, "Error: " + e.getMessage(), e );
-			e.printStackTrace();
-			return false;
-		}
-		return abierto;
-	}
+	
 	
 	// Devuelve el string "securizado" para volcarlo en SQL
 	// (Implementación 1) Sustituye ' por '' y quita saltos de línea

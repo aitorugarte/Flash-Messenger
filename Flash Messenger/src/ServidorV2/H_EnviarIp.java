@@ -10,7 +10,7 @@ import java.util.logging.Level;
 
 import javax.swing.JButton;
 
-import ServidorV2.Logger.Log_errores;
+import ServidorV2.Logs.Log_errores;
 
 /*
  * Clase encargada de enviar la ip del servidor cada 4 segundos
@@ -28,7 +28,6 @@ public class H_EnviarIp extends Thread {
 			Log_errores.log( Level.SEVERE, "Error en la espera de los 4 segundos. ", e );
 		}
 		String Ip_Servidor = Inet4Address.getLocalHost().getHostAddress();
-		
 		
 		//Convertimos los char en bytes
 		byte[] b = Ip_Servidor.getBytes(Charset.forName("UTF-8"));

@@ -22,8 +22,8 @@ public class PruebasBD {
 		Statement stat = remota.getStat();
 		
 		BD_Padre padre = new BD_Padre(conex, stat);
-		padre.servidorInsert(stat, "192.168.0.1");
-		padre.servidorInsert(stat, "192.0.0.1");
+	//	padre.servidorInsert(stat, "192.168.0.1");
+	//	padre.servidorInsert(stat, "192.0.0.1");
 		
 
 

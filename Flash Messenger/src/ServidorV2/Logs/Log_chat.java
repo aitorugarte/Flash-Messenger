@@ -1,4 +1,4 @@
-package ServidorV2.Logger;
+package ServidorV2.Logs;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

@@ -15,7 +15,7 @@ import java.util.logging.Level;
 
 import javax.swing.JOptionPane;
 
-import ServidorV2.Logger.Log_errores;
+import ServidorV2.Logs.Log_errores;
 
 /*
  * Clase encargada de recibir los datos del LogIn
@@ -57,7 +57,7 @@ public class H_Comunicacion extends Thread {
 			salida.writeUTF(respuesta);
 			salida.flush();
 
-			//Cerramos los cokets
+			//Cerramos los scokets
 			sc.close();
 			recibir.close();
 			enviar.close();
