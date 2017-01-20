@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 
-import ServidorV2.H_Servidor;
+import ServidorV2.Hilos.H_Servidor;
 import ServidorV2.Logs.Log_errores;
 
 public class BD_Padre {

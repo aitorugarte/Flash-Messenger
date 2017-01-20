@@ -1,4 +1,4 @@
-package ServidorV2;
+package ServidorV2.Hilos;
 
 import java.io.IOException;
 import java.net.DatagramPacket;

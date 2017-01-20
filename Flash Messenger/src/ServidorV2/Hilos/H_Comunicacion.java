@@ -1,4 +1,4 @@
-package ServidorV2;
+package ServidorV2.Hilos;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -15,6 +15,7 @@ import java.util.logging.Level;
 
 import javax.swing.JOptionPane;
 
+import ServidorV2.Ventana_Servidor;
 import ServidorV2.Logs.Log_errores;
 
 /*

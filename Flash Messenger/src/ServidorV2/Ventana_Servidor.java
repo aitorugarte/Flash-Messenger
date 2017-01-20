@@ -8,8 +8,12 @@ import ServidorV2.BD.BD_Local;
 import ServidorV2.BD.BD_Padre;
 import ServidorV2.BD.BD_Remota;
 import ServidorV2.BD.Utilidades_BD;
+import ServidorV2.Hilos.H_Comunicacion;
+import ServidorV2.Hilos.H_EnviarIp;
+import ServidorV2.Hilos.H_Servidor;
 import ServidorV2.Logs.Log_chat;
 import ServidorV2.Logs.Log_errores;
+import ServidorV2.Utilidades.Analisis_Red;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -54,7 +58,7 @@ public class Ventana_Servidor extends JFrame {
 	private static BD_Remota remota;
 	private static BD_Local local;
 	private static BD_Padre padre;
-	private static boolean hayInternet = Utilidades_BD.TestInternet();
+	private static boolean hayInternet = Analisis_Red.TestInternet();
 
 
 	public Ventana_Servidor() {

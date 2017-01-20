@@ -6,6 +6,7 @@ import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.EmptyBorder;
 
+import ServidorV2.Hilos.H_Servidor;
 import ServidorV2.Logs.Log_errores;
 
 import javax.swing.JLabel;
@@ -63,7 +64,6 @@ public class ListaActivos extends JFrame {
 		btnEcharDelServidor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				eliminarNombre();	
-
 					}
 		});
 		btnEcharDelServidor.setBounds(20, 220, 181, 23);
