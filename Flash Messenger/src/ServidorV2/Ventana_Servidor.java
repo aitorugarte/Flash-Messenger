@@ -17,6 +17,7 @@ import ServidorV2.Logs.Log_errores;
 
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 
@@ -77,8 +78,8 @@ public class Ventana_Servidor extends JFrame {
 	private static final long serialVersionUID = 930849024921895057L;
 	private JPanel contentPane, p_oeste, p_centro, p_este, p_sur, p_norte;
 	private String ip; // ip del cliente
-	private static Connection conex = null;
-	private static Statement stat = null;
+	private static Connection conex;
+	private static Statement stat;
 	private static BD_Remota remota;
 	private static BD_Local local;
 	private static BD_Padre padre;
@@ -91,6 +92,7 @@ public class Ventana_Servidor extends JFrame {
 	private JList<Integer> lista;
 	public DefaultListModel<Integer> model;
 	public static ArrayList<Integer> puertos;
+	public static ArrayList<String[]> usuarios;
 	private MiBoton btnDesconectar, btnConectar;
 	private JList list_activos;
 	public static JProgressBar progressBar;
@@ -187,13 +189,13 @@ public class Ventana_Servidor extends JFrame {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
-				/*if(hayInternet == true){
+				if(hayInternet == true){
 					try {
 						remota.servidorDelete(stat, Inet4Address.getLocalHost().getHostAddress());
 					} catch (UnknownHostException e1) {
 						e1.printStackTrace();
 					}
-				}*/
+				}
 			}
 		});
 		btnBaseDeDatos.addActionListener(new ActionListener() {
@@ -207,22 +209,24 @@ public class Ventana_Servidor extends JFrame {
 				cargarListaPuertos();
 			}
 		});
+		
 		btnConectar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				btnConectar.setBackground(Color.yellow);
 				btnConectar.setText("Conectado");
 				btnDesconectar.setBackground(getBackground());
 				btnDesconectar.setText("Desconectar");
+
 				H_Comunicacion comunicarse = new H_Comunicacion();
 				comunicarse.start();
-				
+
 				Calendar calendario = GregorianCalendar.getInstance();
 				try {
 					Log_chat.empezarLog(calendario);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-				runServer();
+				server.start();
 			}
 		});
 		btnDesconectar.addActionListener(new ActionListener() {
@@ -241,17 +245,27 @@ public class Ventana_Servidor extends JFrame {
 			}
 		});
 	}
-
+	Thread server = new Thread(){
+		@Override
+		public void run(){
+			runServer();
+		}
+	};
 	public void cargarTabla() {
 
 		modelo = new DefaultTableModel();
-		String[] fila = { "Aitor", "123", "aitorugarte@opendeusto.es" };
 
 		modelo.addColumn("Nombre");
 		modelo.addColumn("Contraseña");
 		modelo.addColumn("Correo electrónico");
-		modelo.addRow(fila);
-
+		padre.obtenerContenido();
+		
+		usuarios = BD_Padre.contenido;
+		for (int i = 0; i < usuarios.size(); i++) {
+			System.out.println(usuarios.get(i));
+			modelo.addRow(usuarios.get(i));
+		}
+		
 		table = new JTable();
 		table.addFocusListener(new FocusAdapter() {
 			@Override
@@ -416,7 +430,7 @@ public class Ventana_Servidor extends JFrame {
 
 				
 				while (activo) {
-				
+		
 					Socket socket = null;
 				
 					try {
@@ -460,18 +474,18 @@ public class Ventana_Servidor extends JFrame {
 		Image icon = Toolkit.getDefaultToolkit().getImage("images/logo.jpg");
 
 		if(hayInternet == true){
-			padre = new BD_Padre(conex, stat);
 			remota = BD_Remota.getBD();
 			stat = remota.getStat();
 			conex = remota.getConexion();
+			padre = new BD_Padre(conex, stat);
 			remota.servidorInsert(stat, Inet4Address.getLocalHost().getHostAddress());
 			System.out.println("Hay internet");
 		}else{
-			padre = new BD_Padre(conex, stat);
 			local = BD_Local.getBD();
 			local.crearTablasBD();
 			stat = local.getStat();
 			conex = local.getConexion();
+			padre = new BD_Padre(conex, stat);
 			System.out.println("No hay internet");
 			
 		H_EnviarIp enviar = new H_EnviarIp();
@@ -486,7 +500,6 @@ public class Ventana_Servidor extends JFrame {
 
 	class MiBoton extends JButton {
 
-		
 		public MiBoton(String texto) {
 			super(texto);
 			setContentAreaFilled(false);
@@ -506,7 +519,6 @@ public class Ventana_Servidor extends JFrame {
 		}
 
 		Shape shape;
-
 		public boolean contains(int x, int y) {
 			if (shape == null || !shape.getBounds().equals(getBounds())) {
 				shape = new Ellipse2D.Float(0, 0, getWidth(), getHeight());

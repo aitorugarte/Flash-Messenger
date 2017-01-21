@@ -20,7 +20,7 @@ public class BD_Padre {
 	protected Connection conexion;
 	protected Statement stat;
 	public static String nomb;
-	public ArrayList<String> contenido = new ArrayList<String>();
+	public static ArrayList<String[]> contenido = new ArrayList<String[]>();
 
 	
 	public BD_Padre(Connection conexion, Statement stat) {
@@ -54,9 +54,9 @@ public class BD_Padre {
 		String sentSQL = "";
 		try {
 			sentSQL = "insert into cliente (usuario, contraseña, correo) values(" +
-					"'" + secu(nombre) + "'," +
-					"'" + secu(contraseña) + "'," +
-					"'" + secu(correo) +  "')";
+					"'" + nombre + "'," +
+					"'" + contraseña + "'," +
+					"'" + correo +  "')";
 			int val = st.executeUpdate( sentSQL );
 			if (val!=1) {  // Se tiene que añadir 1 - error si no
 				return false;  
@@ -75,7 +75,7 @@ public class BD_Padre {
 	 * TODO que devuelva un arraylist
 	 */
 
-	public void mostrarContenido() {
+	public void obtenerContenido() {
 
 		try {
 			ResultSet rs = stat.executeQuery("select * from cliente");
@@ -83,10 +83,10 @@ public class BD_Padre {
 				String nombre = rs.getString("usuario");
 				String contraseña = rs.getString("contraseña");
 				String correo = rs.getString("correo");
-				String cadena = nombre + " " + contraseña + " " + correo;
+				String cadena[] = {nombre, contraseña, correo};
 
 				contenido.add(cadena);
-				System.out.println(nombre + " " + contraseña + " " + correo);
+				System.out.println(cadena);
 			}
 		} catch (SQLException e) {
 			Log_errores.log( Level.SEVERE, "Error: " + e.getMessage(), e );
@@ -119,7 +119,6 @@ public class BD_Padre {
 			Log_errores.log( Level.SEVERE, "Error: " + e.getMessage(), e );
 			e.printStackTrace();
 		}
-	
 		return false;
 		
 	}
