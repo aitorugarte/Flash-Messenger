@@ -83,6 +83,7 @@ public class Ventana_Servidor extends JFrame {
 	private static BD_Remota remota;
 	private static BD_Local local;
 	private static BD_Padre padre;
+	private H_Comunicacion comunicarse;
 	private static boolean hayInternet = Analisis_Red.TestInternet();
 	private JLabel lbTitulo, lblUsuariosActivos, lbVisualizar, lbOpciones;
 	private JButton btnExpulsar, btnBaseDeDatos, btnRedWifi, btnRegistro, btnEliminar, btnEscanear;
@@ -128,7 +129,6 @@ public class Ventana_Servidor extends JFrame {
 	}
 
 	private void Add() {
-		setAlwaysOnTop(true);
 		setTitle("Flash Messenger");
 		setAutoRequestFocus(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -217,15 +217,8 @@ public class Ventana_Servidor extends JFrame {
 				btnDesconectar.setBackground(getBackground());
 				btnDesconectar.setText("Desconectar");
 
-				H_Comunicacion comunicarse = new H_Comunicacion();
+				comunicarse = new H_Comunicacion();
 				comunicarse.start();
-
-				Calendar calendario = GregorianCalendar.getInstance();
-				try {
-					Log_chat.empezarLog(calendario);
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
 				server.start();
 			}
 		});
@@ -235,6 +228,9 @@ public class Ventana_Servidor extends JFrame {
 				btnConectar.setText("Conectar");
 				btnDesconectar.setBackground(Color.yellow);
 				btnDesconectar.setText("Desconectado");
+				
+				//TODO los hilos del servidor
+				
 				if(hayInternet == true){
 					try {
 						remota.servidorDelete(stat, Inet4Address.getLocalHost().getHostAddress());
@@ -242,6 +238,12 @@ public class Ventana_Servidor extends JFrame {
 						e1.printStackTrace();
 					}
 				}
+				
+			}
+		});
+		btnRegistro.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
 			}
 		});
 	}
@@ -252,7 +254,7 @@ public class Ventana_Servidor extends JFrame {
 		}
 	};
 	public void cargarTabla() {
-
+		int c = 6;
 		modelo = new DefaultTableModel();
 
 		modelo.addColumn("Nombre");
@@ -262,7 +264,6 @@ public class Ventana_Servidor extends JFrame {
 		
 		usuarios = BD_Padre.contenido;
 		for (int i = 0; i < usuarios.size(); i++) {
-			System.out.println(usuarios.get(i));
 			modelo.addRow(usuarios.get(i));
 		}
 		
@@ -286,6 +287,7 @@ public class Ventana_Servidor extends JFrame {
 
 		if (p_centro.isAncestorOf(btnEscanear)) {
 			p_centro.remove(btnEscanear);
+			c = 5;
 		}
 		btnEliminar = new JButton("Eliminar");
 		btnEliminar.addActionListener(new ActionListener() {
@@ -296,11 +298,11 @@ public class Ventana_Servidor extends JFrame {
 		
 		p_centro.add(btnEliminar, BorderLayout.SOUTH);
 		lbVisualizar.setText("Contenido de la Base de Datos");
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 6)); // Para que se actualice la ventana y aparezca el botón
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, c)); // Para que se actualice la ventana y aparezca el botón
 	}
 
 	public void cargarListaPuertos() {
-
+		int c = 6;
 		if (model != null) {
 			scrollPane2.setViewportView(lista);
 			lista.setModel(model);
@@ -318,12 +320,14 @@ public class Ventana_Servidor extends JFrame {
 		lbVisualizar.setText("Puertos abiertos en la red wifi");
 		if (p_centro.isAncestorOf(btnEliminar)) {
 			p_centro.remove(btnEliminar);
+			c = 5;
 		}
 		if (scrollPane2.isAncestorOf(table)){
 			scrollPane2.setViewportView(null);;
 		}
+
 		p_centro.add(btnEscanear, BorderLayout.SOUTH);
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 6)); // Para que se actualice la ventana y aparezca el botón
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, c)); // Para que se actualice la ventana y aparezca el botón
 
 	}
 
@@ -358,7 +362,6 @@ public class Ventana_Servidor extends JFrame {
 			for (int i = 0; i < puertos.size(); i++) {
 				model.addElement(puertos.get(i));
 			}
-			//TODO no se muestran en una lista los elementos -_-
 		}
 	};
 	//Método que busca el usuario y la contraseña en la BD
@@ -491,7 +494,13 @@ public class Ventana_Servidor extends JFrame {
 		H_EnviarIp enviar = new H_EnviarIp();
 		enviar.start();
 		}
-	
+		
+		Calendar calendario = GregorianCalendar.getInstance();
+		try {
+			Log_chat.empezarLog(calendario);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		Ventana_Servidor servidor = new Ventana_Servidor();
 		servidor.setIconImage(icon);
 		servidor.setVisible(true);

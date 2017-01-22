@@ -9,6 +9,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.logging.Level;
 
@@ -76,7 +79,9 @@ public class BD_Padre {
 	 */
 
 	public void obtenerContenido() {
-
+		if(contenido != null){
+			contenido.removeAll(contenido);
+		}
 		try {
 			ResultSet rs = stat.executeQuery("select * from cliente");
 			while (rs.next()) {
@@ -86,12 +91,12 @@ public class BD_Padre {
 				String cadena[] = {nombre, contraseña, correo};
 
 				contenido.add(cadena);
-				System.out.println(cadena);
 			}
 		} catch (SQLException e) {
 			Log_errores.log( Level.SEVERE, "Error: " + e.getMessage(), e );
 			e.printStackTrace();
 		}
+	
 	}
 	
 
