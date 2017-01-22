@@ -50,3 +50,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Removed
 - Eliminados el uso de tantos sockets
+
+## [4.0.0] - 2017-01-22
+### Added
+- Utilidades para usar desde la ventana del servidor
+
+### Changed
+- Interfaces gráficas del cliente y del servidor personalizadas
+
+
