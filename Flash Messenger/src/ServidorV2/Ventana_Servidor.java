@@ -253,7 +253,7 @@ public class Ventana_Servidor extends JFrame {
 				lbVisualizar.setText("Búsqueda de actualizaciones");
 				lbEnlace = new JLabel();
 
-				if (remota.hayNuevaVersion(stat) == true) {
+				if (remota.hayNuevaVersion(stat) == false) {
 
 					String enlace = "https://github.com/aitorugarte/Flash-Messenger";
 					lbEnlace.setText("<html><a href=" + enlace + "> ¡Nueva versión encontrada!</a></html>");

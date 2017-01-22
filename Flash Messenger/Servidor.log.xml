@@ -114,3 +114,139 @@
   </exception>
 </record>
 </log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+</log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2017-01-22T21:13:05</date>
+  <millis>1485115985303</millis>
+  <sequence>0</sequence>
+  <logger>ServidorV2.Logs.Log_errores</logger>
+  <level>SEVERE</level>
+  <class>ServidorV2.Logs.Log_errores</class>
+  <method>log</method>
+  <thread>1</thread>
+  <message>No se ha podido establecer la conexión: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.</message>
+  <exception>
+    <message>com.mysql.jdbc.exceptions.jdbc4.CommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.</message>
+    <frame>
+      <class>sun.reflect.NativeConstructorAccessorImpl</class>
+      <method>newInstance0</method>
+    </frame>
+    <frame>
+      <class>sun.reflect.NativeConstructorAccessorImpl</class>
+      <method>newInstance</method>
+    </frame>
+    <frame>
+      <class>sun.reflect.DelegatingConstructorAccessorImpl</class>
+      <method>newInstance</method>
+    </frame>
+    <frame>
+      <class>java.lang.reflect.Constructor</class>
+      <method>newInstance</method>
+    </frame>
+    <frame>
+      <class>com.mysql.jdbc.Util</class>
+      <method>handleNewInstance</method>
+      <line>404</line>
+    </frame>
+    <frame>
+      <class>com.mysql.jdbc.SQLError</class>
+      <method>createCommunicationsException</method>
+      <line>988</line>
+    </frame>
+    <frame>
+      <class>com.mysql.jdbc.MysqlIO</class>
+      <method>&lt;init&gt;</method>
+      <line>341</line>
+    </frame>
+    <frame>
+      <class>com.mysql.jdbc.ConnectionImpl</class>
+      <method>coreConnect</method>
+      <line>2251</line>
+    </frame>
+    <frame>
+      <class>com.mysql.jdbc.ConnectionImpl</class>
+      <method>connectOneTryOnly</method>
+      <line>2284</line>
+    </frame>
+    <frame>
+      <class>com.mysql.jdbc.ConnectionImpl</class>
+      <method>createNewIO</method>
+      <line>2083</line>
+    </frame>
+    <frame>
+      <class>com.mysql.jdbc.ConnectionImpl</class>
+      <method>&lt;init&gt;</method>
+      <line>806</line>
+    </frame>
+    <frame>
+      <class>com.mysql.jdbc.JDBC4Connection</class>
+      <method>&lt;init&gt;</method>
+      <line>47</line>
+    </frame>
+    <frame>
+      <class>sun.reflect.NativeConstructorAccessorImpl</class>
+      <method>newInstance0</method>
+    </frame>
+    <frame>
+      <class>sun.reflect.NativeConstructorAccessorImpl</class>
+      <method>newInstance</method>
+    </frame>
+    <frame>
+      <class>sun.reflect.DelegatingConstructorAccessorImpl</class>
+      <method>newInstance</method>
+    </frame>
+    <frame>
+      <class>java.lang.reflect.Constructor</class>
+      <method>newInstance</method>
+    </frame>
+    <frame>
+      <class>com.mysql.jdbc.Util</class>
+      <method>handleNewInstance</method>
+      <line>404</line>
+    </frame>
+    <frame>
+      <class>com.mysql.jdbc.ConnectionImpl</class>
+      <method>getInstance</method>
+      <line>410</line>
+    </frame>
+    <frame>
+      <class>com.mysql.jdbc.NonRegisteringDriver</class>
+      <method>connect</method>
+      <line>328</line>
+    </frame>
+    <frame>
+      <class>java.sql.DriverManager</class>
+      <method>getConnection</method>
+    </frame>
+    <frame>
+      <class>java.sql.DriverManager</class>
+      <method>getConnection</method>
+    </frame>
+    <frame>
+      <class>ServidorV2.BD.BD_Remota</class>
+      <method>initBD</method>
+      <line>41</line>
+    </frame>
+    <frame>
+      <class>ServidorV2.BD.BD_Remota</class>
+      <method>getBD</method>
+      <line>31</line>
+    </frame>
+    <frame>
+      <class>ServidorV2.Ventana_Servidor</class>
+      <method>main</method>
+      <line>526</line>
+    </frame>
+  </exception>
+</record>
+</log>

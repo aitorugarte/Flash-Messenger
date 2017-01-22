@@ -9,14 +9,16 @@ import java.util.logging.Level;
 
 import javax.swing.JOptionPane;
 
+import ServidorV2.Logs.Datos;
 import ServidorV2.Logs.Log_errores;
 
 public class BD_Remota extends BD_Padre{
 
-	private static String host = "sql7.freesqldatabase.com"; //+ puerto
-	private static String nombre_BD = "sql7143768";
-	private static String usuario = "sql7143768";
-	private static String pass = "edl72lc3Wt";
+	private static Datos datos = new Datos();
+	private static String host = datos.getProperties("resources/Flash.properties", "host");
+	private static String nombre_BD = datos.getProperties("resources/Flash.properties", "nombre");
+	private static String usuario = datos.getProperties("resources/Flash.properties", "usuario");
+	private static String pass = datos.getProperties("resources/Flash.properties", "contrasenia");
 	private static BD_Remota mybd;
 	
 	public BD_Remota(Connection conexion, Statement stat) {
@@ -94,21 +96,22 @@ public class BD_Remota extends BD_Padre{
 	}
 	
 	public boolean hayNuevaVersion(Statement st){
-		String nueva = "no";
+		String version = "0";
 		try {
 			ResultSet rs = stat.executeQuery("select * from actualizaciones");
 			while (rs.next()) {
-				nueva = rs.getString("nuevaVersion");
+				version = rs.getString("vServidor");
+
 			}
 		} catch (SQLException e) {
 			Log_errores.log( Level.SEVERE, "Error: " + e.getMessage(), e );
 			e.printStackTrace();
 		}
 		
-		if(nueva.equals("si")){
+		if(version.equals(datos.getProperties("resources/Flash.properties", "version"))){
 			return true;
 		}else{
-				return false;
+			return false;
 		}
 	}
 }
