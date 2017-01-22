@@ -126,7 +126,6 @@ public class Registrarse extends JPanel {
 		if (!nombre.trim().equals("")) {
 			if (!correo.trim().equals("")) {
 				if (comprobarPass() == true) {
-
 					try {
 						comunicarse.conexion(nombre, contraseña, correo);
 					} catch (IOException e1) {
@@ -139,11 +138,11 @@ public class Registrarse extends JPanel {
 					limpiar(2);
 				}
 			} else {
-				JOptionPane.showMessageDialog(null, "Error, debe introducir un nombre usuario.", "Error",
+				JOptionPane.showMessageDialog(null, "Error, debe introducir un  correo electrónico.", "Error",
 						JOptionPane.ERROR_MESSAGE);
 			}
 		} else {
-			JOptionPane.showMessageDialog(null, "Error, debe introducir un correo electrónico.", "Error",
+			JOptionPane.showMessageDialog(null, "Error, debe introducir un nombre usuario.", "Error",
 					JOptionPane.ERROR_MESSAGE);
 		}
 	}

@@ -95,10 +95,13 @@ public class Ventana_Servidor extends JFrame {
 	private DefaultTableModel modelo;
 	private JList<Integer> lista;
 	public DefaultListModel<Integer> model;
+	private JList<String> list_activos;
+	private DefaultListModel<String> model_activos;
 	public static ArrayList<Integer> puertos;
 	public static ArrayList<String[]> usuarios;
 	private MiBoton btnDesconectar, btnConectar;
-	private JList list_activos;
+
+
 	public static JProgressBar progressBar;
 
 	public Ventana_Servidor() {

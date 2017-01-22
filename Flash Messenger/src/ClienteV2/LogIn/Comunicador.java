@@ -41,7 +41,7 @@ public class Comunicador {
 			credenciales = usuario + " " + contraseña;
 			tipo = "login";
 		}else{
-			credenciales = usuario + " " + contraseña + " " + emails;
+			credenciales = usuario + " " + contraseña + " " + emails[0];
 			tipo = "registro";
 		}
 		
