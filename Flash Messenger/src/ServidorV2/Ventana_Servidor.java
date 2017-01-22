@@ -28,6 +28,7 @@ import java.awt.Shape;
 import java.awt.Toolkit;
 
 import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -232,9 +233,7 @@ public class Ventana_Servidor extends JFrame {
 				btnConectar.setText("Conectar");
 				btnDesconectar.setBackground(Color.yellow);
 				btnDesconectar.setText("Desconectado");
-				
-				//TODO parar los hilos del servidor
-				
+							
 				comunicarse.interrupt();
 				server.interrupt();
 				
@@ -411,7 +410,6 @@ public class Ventana_Servidor extends JFrame {
 				model.addElement(puertos.get(i));
 			}
 			cargarListaPuertos();
-	//TODO
 		}
 	};
 	//Método que busca el usuario y la contraseña en la BD
@@ -530,14 +528,13 @@ public class Ventana_Servidor extends JFrame {
 			conex = remota.getConexion();
 			padre = new BD_Padre(conex, stat);
 			remota.servidorInsert(stat, Inet4Address.getLocalHost().getHostAddress());
-			System.out.println("Hay internet");
+
 		}else{
 			local = BD_Local.getBD();
 			local.crearTablasBD();
 			stat = local.getStat();
 			conex = local.getConexion();
 			padre = new BD_Padre(conex, stat);
-			System.out.println("No hay internet");
 			
 		H_EnviarIp enviar = new H_EnviarIp();
 		enviar.start();
@@ -555,6 +552,7 @@ public class Ventana_Servidor extends JFrame {
 
 	}
 
+	@SuppressWarnings("serial")
 	class MiBoton extends JButton {
 
 		public MiBoton(String texto) {

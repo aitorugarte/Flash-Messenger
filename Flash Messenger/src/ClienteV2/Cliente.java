@@ -40,7 +40,7 @@ public class Cliente {
 	   }
 	   
 	   public void conexion() throws IOException{
-		   Ip_Servidor = Principal_Cliente.Ip_Servidor;
+		   Ip_Servidor = Principal_Cliente.ip;
 		   
 	      try {
 	    	 socket = new Socket(Cliente.Ip_Servidor, 8000);

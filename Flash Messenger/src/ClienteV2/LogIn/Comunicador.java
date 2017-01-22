@@ -79,7 +79,7 @@ public class Comunicador {
 						JOptionPane.ERROR_MESSAGE);
 			}
 			else if(respuesta.equals("done")){
-				registro.dispose();
+			//	registro.dispose();
 				JOptionPane.showMessageDialog(registro, "Registro completado exitósamente.");
 			}
 			

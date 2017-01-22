@@ -23,9 +23,7 @@ import javax.swing.JPanel;
  */
 public class PanelForm extends JPanel {
 
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
 	private final Image image;
 	private BufferedImage bufferedImage;

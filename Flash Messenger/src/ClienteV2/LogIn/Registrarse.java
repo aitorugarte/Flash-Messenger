@@ -22,147 +22,155 @@ import java.nio.charset.Charset;
 import java.util.Arrays;
 import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
+
+import java.awt.Color;
 import java.awt.Font;
 
 /*
  * Clase del registro del usuario
  */
-public class Registrarse extends JFrame {
+public class Registrarse extends JPanel {
 
-	
+
 	private static final long serialVersionUID = -6374924705506212721L;
-	private JPanel contentPane;
 	private JTextField txtNombredeusuario;
 	private JPasswordField txtContraseña, txtRepitaContr;
 	private JTextField txtCorreoElectronico;
 	private JLabel lblNombredeusuario, lblContraseña, lblCorreoElectrnico, lblRepita, lblIntroduzca;
-	private JButton btnAceptar, btnCancelar;
+	private JButton btnAceptar;
 	private String Ip_Servidor;
 
+	private Comunicador comunicarse;
+
 	public Registrarse() {
-		Comunicador comunicarse = new Comunicador(this);
-		
-		setResizable(false);
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 347, 281);
+		setBackground(Color.BLACK);
+		comunicarse = new Comunicador(this);
+		Ini();
+		Add();
+		Comp();
+		Actions();
 
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
+	}
 
+	private void Ini() {
 		lblNombredeusuario = new JLabel("Nombre de usuario:");
-		lblNombredeusuario.setHorizontalAlignment(SwingConstants.LEFT);
-		lblNombredeusuario.setBounds(45, 41, 113, 23);
-		contentPane.add(lblNombredeusuario);
-
 		lblContraseña = new JLabel("Contrase\u00F1a:");
-		lblContraseña.setHorizontalAlignment(SwingConstants.LEFT);
-		lblContraseña.setBounds(45, 75, 113, 23);
-		contentPane.add(lblContraseña);
-
 		lblCorreoElectrnico = new JLabel("Correo electr\u00F3nico:");
-		lblCorreoElectrnico.setHorizontalAlignment(SwingConstants.LEFT);
-		lblCorreoElectrnico.setBounds(45, 143, 113, 29);
-		contentPane.add(lblCorreoElectrnico);
-
 		txtNombredeusuario = new JTextField();
-		txtNombredeusuario.setBounds(168, 45, 123, 23);
-		contentPane.add(txtNombredeusuario);
-		txtNombredeusuario.setColumns(10);
-
 		txtContraseña = new JPasswordField();
-		txtContraseña.setBounds(168, 76, 123, 23);
-		contentPane.add(txtContraseña);
-
 		txtCorreoElectronico = new JTextField();
-		txtCorreoElectronico.setBounds(168, 147, 154, 25);
-		contentPane.add(txtCorreoElectronico);
-		txtCorreoElectronico.setColumns(10);
-
 		btnAceptar = new JButton("Aceptar");
+		lblRepita = new JLabel("Repita contrase\u00F1a:");
+		txtRepitaContr = new JPasswordField();
+		lblIntroduzca = new JLabel("Introduzca los datos para registrarse: ");
+
+	}
+
+	private void Add() {
+		setSize(350, 210);
+		setLayout(null);
+
+		setBorder(new EmptyBorder(5, 5, 5, 5));
+		add(lblNombredeusuario);
+		add(lblContraseña);
+		add(lblCorreoElectrnico);
+		add(txtNombredeusuario);
+		add(txtContraseña);
+		add(txtCorreoElectronico);
+		add(btnAceptar);
+		add(lblRepita);
+		add(txtRepitaContr);
+		add(lblIntroduzca);
+	}
+
+	private void Comp() {
+		lblNombredeusuario.setForeground(Color.ORANGE);
+		lblContraseña.setForeground(Color.ORANGE);
+		lblCorreoElectrnico.setForeground(Color.ORANGE);
+		lblRepita.setForeground(Color.ORANGE);
+		lblIntroduzca.setForeground(Color.ORANGE);
+		lblIntroduzca.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNombredeusuario.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNombredeusuario.setBounds(11, 27, 116, 23);
+		lblContraseña.setHorizontalAlignment(SwingConstants.CENTER);
+		lblContraseña.setBounds(11, 61, 116, 23);
+		lblCorreoElectrnico.setHorizontalAlignment(SwingConstants.CENTER);
+		lblCorreoElectrnico.setBounds(11, 130, 116, 23);
+		txtNombredeusuario.setBounds(137, 27, 186, 23);
+		txtNombredeusuario.setColumns(10);
+		txtContraseña.setBounds(137, 62, 186, 23);
+		txtCorreoElectronico.setBounds(137, 132, 186, 23);
+		txtCorreoElectronico.setColumns(10);
+		btnAceptar.setBounds(11, 176, 330, 23);
+		lblRepita.setHorizontalAlignment(SwingConstants.CENTER);
+		lblRepita.setBounds(11, 96, 116, 23);
+		txtRepitaContr.setBounds(137, 93, 186, 23);
+		lblIntroduzca.setFont(new Font("Tahoma", Font.BOLD, 13));
+		lblIntroduzca.setBounds(1, 0, 349, 16);
+	}
+
+	private void Actions() {
 		btnAceptar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String nombre = txtNombredeusuario.getText();
-				char clave[] = txtContraseña.getPassword();	
-				String contraseña = new String(clave);
-				String correo = txtCorreoElectronico.getText();
-				
-				if (!nombre.trim().equals("")) {
-					if (!correo.trim().equals("")) {
-						if (comprobarPass() == true) {
-							
-							try {
-								comunicarse.conexion(nombre, contraseña, correo);
-							} catch (IOException e1) {
-								e1.printStackTrace();
-							}
-			
-						} else {
-							JOptionPane.showMessageDialog(null, "Error, las contraseñas no coindicen.", "Error",
-									JOptionPane.ERROR_MESSAGE);
-							limpiar(2);
-						}
-					} else {
-						JOptionPane.showMessageDialog(null, "Error, debe introducir un nombre usuario.", "Error",
-								JOptionPane.ERROR_MESSAGE);
-					}
-				} else {
-					JOptionPane.showMessageDialog(null, "Error, debe introducir un correo electrónico.", "Error",
-							JOptionPane.ERROR_MESSAGE);
-				}
+				btnAceptarPressed();
 			}
 		});
-		btnAceptar.setBounds(45, 200, 97, 31);
-		contentPane.add(btnAceptar);
-
-		btnCancelar = new JButton("Cancelar");
-		btnCancelar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				dispose();
-			}
-		});
-		btnCancelar.setBounds(179, 200, 97, 31);
-		contentPane.add(btnCancelar);
-
-		lblRepita = new JLabel("Repita contrase\u00F1a:");
-		lblRepita.setHorizontalAlignment(SwingConstants.LEFT);
-		lblRepita.setBounds(45, 109, 113, 23);
-		contentPane.add(lblRepita);
-
-		txtRepitaContr = new JPasswordField();
-		txtRepitaContr.setBounds(168, 106, 123, 23);
-		contentPane.add(txtRepitaContr);
-		
-		lblIntroduzca = new JLabel("Introduzca los datos para registrarse: ");
-		lblIntroduzca.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblIntroduzca.setBounds(27, 11, 304, 19);
-		contentPane.add(lblIntroduzca);
 	}
-	
-	public boolean comprobarPass(){
-		
+
+	private void btnAceptarPressed() {
+		String nombre = txtNombredeusuario.getText();
+		char clave[] = txtContraseña.getPassword();
+		String contraseña = new String(clave);
+		String correo = txtCorreoElectronico.getText();
+
+		if (!nombre.trim().equals("")) {
+			if (!correo.trim().equals("")) {
+				if (comprobarPass() == true) {
+
+					try {
+						comunicarse.conexion(nombre, contraseña, correo);
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					}
+
+				} else {
+					JOptionPane.showMessageDialog(null, "Error, las contraseñas no coindicen.", "Error",
+							JOptionPane.ERROR_MESSAGE);
+					limpiar(2);
+				}
+			} else {
+				JOptionPane.showMessageDialog(null, "Error, debe introducir un nombre usuario.", "Error",
+						JOptionPane.ERROR_MESSAGE);
+			}
+		} else {
+			JOptionPane.showMessageDialog(null, "Error, debe introducir un correo electrónico.", "Error",
+					JOptionPane.ERROR_MESSAGE);
+		}
+	}
+
+	public boolean comprobarPass() {
+
 		char[] uno = txtContraseña.getPassword();
 		char[] dos = txtRepitaContr.getPassword();
-		
-		if(uno.length == 0){
+
+		if (uno.length == 0) {
 			return false;
-		}else{
+		} else {
 			return Arrays.equals(uno, dos);
-		}	
+		}
 	}
-	
-	public void limpiar(int a){
-		
-		if(a == 1){
+
+	public void limpiar(int a) {
+
+		if (a == 1) {
 			txtNombredeusuario.setText("");
 			txtContraseña.setText("");
 			txtRepitaContr.setText("");
 			txtCorreoElectronico.setText("");
 		}
-		if(a == 2){
+		if (a == 2) {
 			txtContraseña.setText("");
 			txtRepitaContr.setText("");
 		}
-	}
+	}	
 }
