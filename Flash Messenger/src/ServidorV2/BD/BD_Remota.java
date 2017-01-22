@@ -2,6 +2,7 @@ package ServidorV2.BD;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
@@ -91,5 +92,23 @@ public class BD_Remota extends BD_Padre{
 			return false;
 		}
 	}
-
+	
+	public boolean hayNuevaVersion(Statement st){
+		String nueva = "no";
+		try {
+			ResultSet rs = stat.executeQuery("select * from actualizaciones");
+			while (rs.next()) {
+				nueva = rs.getString("nuevaVersion");
+			}
+		} catch (SQLException e) {
+			Log_errores.log( Level.SEVERE, "Error: " + e.getMessage(), e );
+			e.printStackTrace();
+		}
+		
+		if(nueva.equals("si")){
+			return true;
+		}else{
+				return false;
+		}
+	}
 }

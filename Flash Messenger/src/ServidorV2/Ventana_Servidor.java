@@ -35,6 +35,7 @@ import java.net.Inet4Address;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.URI;
 import java.net.UnknownHostException;
 import java.sql.Connection;
 import java.sql.Statement;
@@ -50,6 +51,7 @@ import java.awt.event.ActionEvent;
 import java.awt.geom.Ellipse2D;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Desktop;
 import java.awt.Dimension;
 
 import javax.swing.JList;
@@ -85,8 +87,8 @@ public class Ventana_Servidor extends JFrame {
 	private static BD_Padre padre;
 	private H_Comunicacion comunicarse;
 	private static boolean hayInternet = Analisis_Red.TestInternet();
-	private JLabel lbTitulo, lblUsuariosActivos, lbVisualizar, lbOpciones;
-	private JButton btnExpulsar, btnBaseDeDatos, btnRedWifi, btnRegistro, btnEliminar, btnEscanear;
+	private JLabel lbTitulo, lblUsuariosActivos, lbVisualizar, lbOpciones, lbEnlace;
+	private JButton btnExpulsar, btnBaseDeDatos, btnRedWifi, btnActuali, btnEliminar, btnEscanear;
 	private JScrollPane scrollPane1, scrollPane2;
 	private JTable table;
 	private DefaultTableModel modelo;
@@ -120,7 +122,7 @@ public class Ventana_Servidor extends JFrame {
 		p_este = new JPanel();
 		lbOpciones = new JLabel("Opciones");
 		btnBaseDeDatos = new JButton("Base de datos");
-		btnRegistro = new JButton("Registro");
+		btnActuali = new JButton("Actualizar");
 		p_sur = new JPanel();
 		btnDesconectar = new MiBoton("Desconectado");
 		btnConectar = new MiBoton("Conectar");
@@ -148,7 +150,7 @@ public class Ventana_Servidor extends JFrame {
 		p_este.add(lbOpciones);
 		p_este.add(btnBaseDeDatos);
 		p_este.add(btnRedWifi);
-		p_este.add(btnRegistro);
+		p_este.add(btnActuali);
 		p_sur.add(progressBar);
 
 		p_oeste.add(scrollPane1, BorderLayout.CENTER);
@@ -218,8 +220,10 @@ public class Ventana_Servidor extends JFrame {
 				btnDesconectar.setText("Desconectar");
 
 				comunicarse = new H_Comunicacion();
-				comunicarse.start();
-				server.start();
+				if(server.isAlive() == false){
+					comunicarse.start();
+					server.start();
+				}
 			}
 		});
 		btnDesconectar.addActionListener(new ActionListener() {
@@ -229,7 +233,10 @@ public class Ventana_Servidor extends JFrame {
 				btnDesconectar.setBackground(Color.yellow);
 				btnDesconectar.setText("Desconectado");
 				
-				//TODO los hilos del servidor
+				//TODO parar los hilos del servidor
+				
+				comunicarse.interrupt();
+				server.interrupt();
 				
 				if(hayInternet == true){
 					try {
@@ -241,9 +248,49 @@ public class Ventana_Servidor extends JFrame {
 				
 			}
 		});
-		btnRegistro.addActionListener(new ActionListener() {
+		btnActuali.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
+				int c = 6;
+				lbVisualizar.setText("Búsqueda de actualizaciones");
+				lbEnlace = new JLabel();
+
+				if (remota.hayNuevaVersion(stat) == true) {
+
+					String enlace = "https://github.com/aitorugarte/Flash-Messenger";
+					lbEnlace.setText("<html><a href=" + enlace + "> ¡Nueva versión encontrada!</a></html>");
+					
+					lbEnlace.addMouseListener(new MouseAdapter() {
+						@Override
+						public void mouseClicked(MouseEvent arg0) {
+							try {
+								if (Desktop.isDesktopSupported()) {
+									Desktop desktop = Desktop.getDesktop();
+									if (desktop.isSupported(Desktop.Action.BROWSE)) {
+										desktop.browse(new URI(enlace));
+									}
+								}
+							} catch (Exception e) {
+								e.printStackTrace();
+							}
+						}
+					});
+				} else {
+					lbEnlace.setText("Ya tienes la última versión.");
+				}
+				lbEnlace.setFont(new Font("Tahoma", Font.BOLD, 12));
+				lbEnlace.setHorizontalAlignment(SwingConstants.CENTER);
+				scrollPane2.setViewportView(lbEnlace);
+
+				if (p_centro.isAncestorOf(btnEscanear)) {
+					p_centro.remove(btnEscanear);
+					c = 5;
+				}
+				if (p_centro.isAncestorOf(btnEliminar)) {
+					p_centro.remove(btnEliminar);
+					c = 5;
+				}
+				contentPane.setBorder(new EmptyBorder(5, 5, 5, c));
+
 			}
 		});
 	}
@@ -253,6 +300,7 @@ public class Ventana_Servidor extends JFrame {
 			runServer();
 		}
 	};
+	
 	public void cargarTabla() {
 		int c = 6;
 		modelo = new DefaultTableModel();
@@ -322,10 +370,10 @@ public class Ventana_Servidor extends JFrame {
 			p_centro.remove(btnEliminar);
 			c = 5;
 		}
-		if (scrollPane2.isAncestorOf(table)){
+		if (scrollPane2.isAncestorOf(table) || scrollPane2.isAncestorOf(lbEnlace)){
 			scrollPane2.setViewportView(null);;
 		}
-
+		
 		p_centro.add(btnEscanear, BorderLayout.SOUTH);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, c)); // Para que se actualice la ventana y aparezca el botón
 
@@ -362,6 +410,8 @@ public class Ventana_Servidor extends JFrame {
 			for (int i = 0; i < puertos.size(); i++) {
 				model.addElement(puertos.get(i));
 			}
+			cargarListaPuertos();
+	//TODO
 		}
 	};
 	//Método que busca el usuario y la contraseña en la BD
@@ -424,15 +474,13 @@ public class Ventana_Servidor extends JFrame {
 		public void runServer() {
 
 			ServerSocket servidor1 = null;
-		
-			boolean activo = true;
 			
 			try {
 
 				servidor1 = new ServerSocket(8000);
-
 				
-				while (activo) {
+				
+				while (true) {
 		
 					Socket socket = null;
 				

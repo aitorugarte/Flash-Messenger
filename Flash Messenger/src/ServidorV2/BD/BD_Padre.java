@@ -128,7 +128,7 @@ public class BD_Padre {
 		
 	}
 	
-	
+
 	// Devuelve el string "securizado" para volcarlo en SQL
 	// (Implementación 1) Sustituye ' por '' y quita saltos de línea
 	// (Implementación 2) Mantiene solo los caracteres seguros en español

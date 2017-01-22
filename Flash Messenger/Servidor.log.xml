@@ -602,3 +602,283 @@
   </exception>
 </record>
 </log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2017-01-22T13:04:57</date>
+  <millis>1485086697244</millis>
+  <sequence>0</sequence>
+  <logger>ServidorV2.Logs.Log_errores</logger>
+  <level>SEVERE</level>
+  <class>ServidorV2.Logs.Log_errores</class>
+  <method>log</method>
+  <thread>23</thread>
+  <message>Error al iniciar el hilo H_Comunicación: Address already in use: JVM_Bind</message>
+  <exception>
+    <message>java.net.BindException: Address already in use: JVM_Bind</message>
+    <frame>
+      <class>java.net.DualStackPlainSocketImpl</class>
+      <method>bind0</method>
+    </frame>
+    <frame>
+      <class>java.net.DualStackPlainSocketImpl</class>
+      <method>socketBind</method>
+    </frame>
+    <frame>
+      <class>java.net.AbstractPlainSocketImpl</class>
+      <method>bind</method>
+    </frame>
+    <frame>
+      <class>java.net.PlainSocketImpl</class>
+      <method>bind</method>
+    </frame>
+    <frame>
+      <class>java.net.ServerSocket</class>
+      <method>bind</method>
+    </frame>
+    <frame>
+      <class>java.net.ServerSocket</class>
+      <method>&lt;init&gt;</method>
+    </frame>
+    <frame>
+      <class>java.net.ServerSocket</class>
+      <method>&lt;init&gt;</method>
+    </frame>
+    <frame>
+      <class>ServidorV2.Hilos.H_Comunicacion</class>
+      <method>recibirDatos</method>
+      <line>33</line>
+    </frame>
+    <frame>
+      <class>ServidorV2.Hilos.H_Comunicacion</class>
+      <method>run</method>
+      <line>73</line>
+    </frame>
+  </exception>
+</record>
+</log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2017-01-22T13:16:25</date>
+  <millis>1485087385517</millis>
+  <sequence>0</sequence>
+  <logger>ServidorV2.Logs.Log_errores</logger>
+  <level>SEVERE</level>
+  <class>ServidorV2.Logs.Log_errores</class>
+  <method>log</method>
+  <thread>24</thread>
+  <message>Error al iniciar el hilo H_Comunicación: Address already in use: JVM_Bind</message>
+  <exception>
+    <message>java.net.BindException: Address already in use: JVM_Bind</message>
+    <frame>
+      <class>java.net.DualStackPlainSocketImpl</class>
+      <method>bind0</method>
+    </frame>
+    <frame>
+      <class>java.net.DualStackPlainSocketImpl</class>
+      <method>socketBind</method>
+    </frame>
+    <frame>
+      <class>java.net.AbstractPlainSocketImpl</class>
+      <method>bind</method>
+    </frame>
+    <frame>
+      <class>java.net.PlainSocketImpl</class>
+      <method>bind</method>
+    </frame>
+    <frame>
+      <class>java.net.ServerSocket</class>
+      <method>bind</method>
+    </frame>
+    <frame>
+      <class>java.net.ServerSocket</class>
+      <method>&lt;init&gt;</method>
+    </frame>
+    <frame>
+      <class>java.net.ServerSocket</class>
+      <method>&lt;init&gt;</method>
+    </frame>
+    <frame>
+      <class>ServidorV2.Hilos.H_Comunicacion</class>
+      <method>recibirDatos</method>
+      <line>33</line>
+    </frame>
+    <frame>
+      <class>ServidorV2.Hilos.H_Comunicacion</class>
+      <method>run</method>
+      <line>73</line>
+    </frame>
+  </exception>
+</record>
+</log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2017-01-22T13:18:20</date>
+  <millis>1485087500047</millis>
+  <sequence>0</sequence>
+  <logger>ServidorV2.Logs.Log_errores</logger>
+  <level>SEVERE</level>
+  <class>ServidorV2.Logs.Log_errores</class>
+  <method>log</method>
+  <thread>23</thread>
+  <message>Error al iniciar el hilo H_Comunicación: Address already in use: JVM_Bind</message>
+  <exception>
+    <message>java.net.BindException: Address already in use: JVM_Bind</message>
+    <frame>
+      <class>java.net.DualStackPlainSocketImpl</class>
+      <method>bind0</method>
+    </frame>
+    <frame>
+      <class>java.net.DualStackPlainSocketImpl</class>
+      <method>socketBind</method>
+    </frame>
+    <frame>
+      <class>java.net.AbstractPlainSocketImpl</class>
+      <method>bind</method>
+    </frame>
+    <frame>
+      <class>java.net.PlainSocketImpl</class>
+      <method>bind</method>
+    </frame>
+    <frame>
+      <class>java.net.ServerSocket</class>
+      <method>bind</method>
+    </frame>
+    <frame>
+      <class>java.net.ServerSocket</class>
+      <method>&lt;init&gt;</method>
+    </frame>
+    <frame>
+      <class>java.net.ServerSocket</class>
+      <method>&lt;init&gt;</method>
+    </frame>
+    <frame>
+      <class>ServidorV2.Hilos.H_Comunicacion</class>
+      <method>recibirDatos</method>
+      <line>33</line>
+    </frame>
+    <frame>
+      <class>ServidorV2.Hilos.H_Comunicacion</class>
+      <method>run</method>
+      <line>73</line>
+    </frame>
+  </exception>
+</record>
+</log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2017-01-22T13:30:07</date>
+  <millis>1485088207860</millis>
+  <sequence>0</sequence>
+  <logger>ServidorV2.Logs.Log_errores</logger>
+  <level>SEVERE</level>
+  <class>ServidorV2.Logs.Log_errores</class>
+  <method>log</method>
+  <thread>24</thread>
+  <message>Error al iniciar el hilo H_Comunicación: Address already in use: JVM_Bind</message>
+  <exception>
+    <message>java.net.BindException: Address already in use: JVM_Bind</message>
+    <frame>
+      <class>java.net.DualStackPlainSocketImpl</class>
+      <method>bind0</method>
+    </frame>
+    <frame>
+      <class>java.net.DualStackPlainSocketImpl</class>
+      <method>socketBind</method>
+    </frame>
+    <frame>
+      <class>java.net.AbstractPlainSocketImpl</class>
+      <method>bind</method>
+    </frame>
+    <frame>
+      <class>java.net.PlainSocketImpl</class>
+      <method>bind</method>
+    </frame>
+    <frame>
+      <class>java.net.ServerSocket</class>
+      <method>bind</method>
+    </frame>
+    <frame>
+      <class>java.net.ServerSocket</class>
+      <method>&lt;init&gt;</method>
+    </frame>
+    <frame>
+      <class>java.net.ServerSocket</class>
+      <method>&lt;init&gt;</method>
+    </frame>
+    <frame>
+      <class>ServidorV2.Hilos.H_Comunicacion</class>
+      <method>recibirDatos</method>
+      <line>33</line>
+    </frame>
+    <frame>
+      <class>ServidorV2.Hilos.H_Comunicacion</class>
+      <method>run</method>
+      <line>73</line>
+    </frame>
+  </exception>
+</record>
+</log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2017-01-22T13:44:44</date>
+  <millis>1485089084155</millis>
+  <sequence>0</sequence>
+  <logger>ServidorV2.Logs.Log_errores</logger>
+  <level>SEVERE</level>
+  <class>ServidorV2.Logs.Log_errores</class>
+  <method>log</method>
+  <thread>25</thread>
+  <message>Error al iniciar el hilo H_Comunicación: Address already in use: JVM_Bind</message>
+  <exception>
+    <message>java.net.BindException: Address already in use: JVM_Bind</message>
+    <frame>
+      <class>java.net.DualStackPlainSocketImpl</class>
+      <method>bind0</method>
+    </frame>
+    <frame>
+      <class>java.net.DualStackPlainSocketImpl</class>
+      <method>socketBind</method>
+    </frame>
+    <frame>
+      <class>java.net.AbstractPlainSocketImpl</class>
+      <method>bind</method>
+    </frame>
+    <frame>
+      <class>java.net.PlainSocketImpl</class>
+      <method>bind</method>
+    </frame>
+    <frame>
+      <class>java.net.ServerSocket</class>
+      <method>bind</method>
+    </frame>
+    <frame>
+      <class>java.net.ServerSocket</class>
+      <method>&lt;init&gt;</method>
+    </frame>
+    <frame>
+      <class>java.net.ServerSocket</class>
+      <method>&lt;init&gt;</method>
+    </frame>
+    <frame>
+      <class>ServidorV2.Hilos.H_Comunicacion</class>
+      <method>recibirDatos</method>
+      <line>33</line>
+    </frame>
+    <frame>
+      <class>ServidorV2.Hilos.H_Comunicacion</class>
+      <method>run</method>
+      <line>73</line>
+    </frame>
+  </exception>
+</record>
+</log>
