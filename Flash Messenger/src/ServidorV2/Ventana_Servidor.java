@@ -5,6 +5,8 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
+import org.sqlite.SQLiteConfig.SynchronousMode;
+
 import ServidorV2.Ventana_Servidor;
 import ServidorV2.BD.BD_Local;
 import ServidorV2.BD.BD_Padre;
@@ -18,6 +20,7 @@ import ServidorV2.Logs.Log_errores;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
+import javax.swing.Timer;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 
@@ -109,6 +112,7 @@ public class Ventana_Servidor extends JFrame {
 		Add();
 		Comp();
 		Actions();
+		RefrescarConexiones(null);
 	}
 
 	private void Ini() {
@@ -130,7 +134,8 @@ public class Ventana_Servidor extends JFrame {
 		p_sur = new JPanel();
 		btnDesconectar = new MiBoton("Desconectado");
 		btnConectar = new MiBoton("Conectar");
-		list_activos = new JList();
+		list_activos = new JList<String>();
+		model_activos = new DefaultListModel<String>();
 		progressBar = new JProgressBar();
 	}
 
@@ -202,6 +207,11 @@ public class Ventana_Servidor extends JFrame {
 						e1.printStackTrace();
 					}
 				}
+			}
+		});
+		btnExpulsar.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent arg0){
+				eliminarNombre();
 			}
 		});
 		btnBaseDeDatos.addActionListener(new ActionListener() {
@@ -380,7 +390,57 @@ public class Ventana_Servidor extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, c)); // Para que se actualice la ventana y aparezca el botón
 
 	}
+	private Timer conect;
+	
+	private void RefrescarConexiones(ActionEvent evt) {
+		ActionListener taskPerformer = new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				agregarNombre();
+			}
+		};
 
+		conect = new Timer(3000, taskPerformer);
+		conect.start();
+	}
+	public void agregarNombre(){
+		//TODO eliminar nombres que no estén en la lista
+		
+		int tamanio = H_Servidor.clientesActivos.size();
+		H_Servidor user = null;
+		String datos = "";
+	
+			for (int i = 0; i < tamanio; i++) {
+				
+				user = H_Servidor.clientesActivos.get(i);
+				datos = user.getNombre() + "  " + user.getIp(); 
+	
+				if(model_activos.size() == 0){
+					model_activos.addElement(datos);
+				}
+				for (int j = 0; j < model_activos.size(); j++) {
+					if(!datos.equals(model_activos.get(j))){
+						model_activos.addElement(datos);
+					}
+				}	
+			
+			}
+				list_activos.setModel(model_activos);
+
+	}
+	public void eliminarNombre(){
+		
+		H_Servidor user = null;
+		Integer indice = list_activos.getSelectedIndex();
+		
+		try{
+		model_activos.removeElementAt(indice); //Borramos al usuario de la lista
+		user = H_Servidor.clientesActivos.get(indice);
+		user.desconectar(); //Echamos al usuario del servidor :)	
+		}catch(IndexOutOfBoundsException e){
+			Log_errores.log( Level.SEVERE, "Error al eliminar al usuario. ", e );
+		}
+		
+	}
 	Thread iniciar = new Thread() {
 		@Override
 		public void run() {

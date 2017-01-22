@@ -35,14 +35,12 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import ClienteV2.Encriptado.CesarRecursivo;
 import ClienteV2.LogIn.Fichero;
 import ClienteV2.LogIn.PanelForm;
-import ServidorV2.ListaActivos;
 import javax.swing.JToggleButton;
 
 public class GUI_Cliente extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1458864985101903804L;
 	private JPanel contentPane;
-	private JSplitPane splitPane;
 	private JPanel panUsus, panChat;
 	private JButton btnEnviar;
 	private JTextField textEnviar;
@@ -53,13 +51,13 @@ public class GUI_Cliente extends JFrame implements ActionListener {
 	private String usuario;
 	private JScrollPane scrollPane;
 	private JEditorPane editorPane;
-	private String seFue, entra, cargarTxt = "", cargarImg = "";
+	private String/* seFue, entra, */cargarTxt = "", cargarImg = "";
 	private JFileChooser fileChooser;
 	private JButton btnImg;
-	private String I_linea = "<br>", F_linea = "</br>";
+	/*private String I_linea = "<br>", F_linea = "</br>";
 	private String I_tamanio = "<FONT SIZE=" + 4 + ">", F_tamanio = "</FONT>";
 	private String I_cursiva = "<I>", F_cursiva = "</I>";
-	private String I_sub = "<SUB>", F_sub = "</SUB>";
+	private String I_sub = "<SUB>", F_sub = "</SUB>";*/
 	private String texto = "";
 
 	int x[] = { 10, 150, 160, 170, 180, 680, 690, 690, 680, 180, 170, 160, 150, 10, 0, 0, 10 };
@@ -67,7 +65,6 @@ public class GUI_Cliente extends JFrame implements ActionListener {
 	private PanelForm PF = new PanelForm(710, 420, x, y, "images/fondoo.jpg");
 
 	public GUI_Cliente() {
-
 		Ini();
 		Add();
 		Comp();
@@ -122,10 +119,10 @@ public class GUI_Cliente extends JFrame implements ActionListener {
 		// Le añadimos los filtros
 		FileNameExtensionFilter filter = new FileNameExtensionFilter("JPEG", "jpg", "jpeg", "jpe", "jfif");
 		FileNameExtensionFilter filter2 = new FileNameExtensionFilter("PNG", "png");
-		FileNameExtensionFilter filter3 = new FileNameExtensionFilter("TXT", "txt");
+	//	FileNameExtensionFilter filter3 = new FileNameExtensionFilter("TXT", "txt");
 		fileChooser.setFileFilter(filter);
 		fileChooser.setFileFilter(filter2);
-		fileChooser.setFileFilter(filter3);
+	//	fileChooser.setFileFilter(filter3);
 	}
 
 	private void IniciarCliente() {
@@ -140,7 +137,6 @@ public class GUI_Cliente extends JFrame implements ActionListener {
 	private void Ini() {
 		MoverScreen = new JLabel();
 		contentPane = new JPanel();
-		splitPane = new JSplitPane();
 		panUsus = new JPanel();
 		list = new JList<String>();
 		panChat = new JPanel();
@@ -177,15 +173,6 @@ public class GUI_Cliente extends JFrame implements ActionListener {
 		panChat.add(lblConver);
 		panChat.add(scrollPane);
 		panChat.add(btnImg);
-
-		 /*contentPane.setLayout(null);
-		 contentPane.add(panUsus);
-		 contentPane.add(panChat);
-		 contentPane.add(Maximizar);
-		 contentPane.add(Salir);
-		 contentPane.add(Minimizar);
-		 contentPane.add(Desplegar);
-		 contentPane.add(MoverScreen);*/
 
 		setBackground(new Color(0, 0, 0, 0));
 		PF.setLayout(null);
@@ -296,7 +283,7 @@ public class GUI_Cliente extends JFrame implements ActionListener {
 
 		Maximizar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				//TODO
 			}
 		});
 		Salir.addActionListener(new ActionListener() {
@@ -305,12 +292,14 @@ public class GUI_Cliente extends JFrame implements ActionListener {
 			}
 		});
 		Minimizar.addActionListener(new ActionListener() {
+			@SuppressWarnings("deprecation")
 			public void actionPerformed(ActionEvent e) {
 				setExtendedState(GUI_Cliente.CROSSHAIR_CURSOR);
 			}
 		});
 
 		textEnviar.addKeyListener(new KeyAdapter() {
+			@SuppressWarnings("static-access")
 			@Override
 			public void keyPressed(KeyEvent e) {
 				if (e.VK_ENTER == e.getKeyCode()) {
