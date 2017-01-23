@@ -80,10 +80,9 @@ public class Principal_Cliente {
 			// and feel.
 		}
 
-		 BarraProgreso barra = new BarraProgreso();
-		 barra.setIconImage(Toolkit.getDefaultToolkit().getImage("images/logo.jpg"));
-		 barra.setVisible(true);
-
+		RayoProgreso carga = new RayoProgreso();
+		carga.setIconImage(Toolkit.getDefaultToolkit().getImage("images/logo.jpg"));
+		carga.setVisible(true);
 		Conexion conexion = new Conexion();
 		
 		if (conexion.TestInternet() == true) {
@@ -97,7 +96,9 @@ public class Principal_Cliente {
 			DireccionIp();
 			ip = direcciones.get(0);
 		}
-		barra.dispose();
+		carga.StopSimulacion(null);
+		carga.dispose();
+	
 		Login inicio = new Login();
 		
 		inicio.setIconImage(Toolkit.getDefaultToolkit().getImage("images/logo.jpg"));
