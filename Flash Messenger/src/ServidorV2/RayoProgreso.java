@@ -12,7 +12,6 @@ import javax.swing.JProgressBar;
 import javax.swing.Timer;
 import javax.swing.border.EmptyBorder;
 
-import ClienteV2.LogIn.PanelForm;
 
 public class RayoProgreso extends JFrame {
 

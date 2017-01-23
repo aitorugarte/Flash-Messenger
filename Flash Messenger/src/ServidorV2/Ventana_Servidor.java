@@ -161,7 +161,7 @@ public class Ventana_Servidor extends JFrame {
 		p_este.add(btnRedWifi);
 		p_este.add(btnActuali);
 		p_sur.add(progressBar);
-
+		
 		p_oeste.add(scrollPane1, BorderLayout.CENTER);
 		p_oeste.add(btnExpulsar, BorderLayout.SOUTH);
 		p_centro.add(lbVisualizar, BorderLayout.NORTH);
