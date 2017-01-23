@@ -10,6 +10,9 @@ import javax.swing.JOptionPane;
 
 import ServidorV2.Logs.Log_errores;
 
+/*
+ * Clase de la base de datos local, en el propio pc
+ */
 public class BD_Local extends BD_Padre{
 
 	private static BD_Local mybd;

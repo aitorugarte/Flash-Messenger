@@ -5,23 +5,6 @@ package ClienteV2.Encriptado;
  */
 public class CesarRecursivo {
 
-	public static void main(String[] args) {
-		
-	String texto1 = "hola";
-	String texto2 = "HoLa";
-	String texto3 = "Aitor Ugarte Gomez";
-	
-	String cifrado1 = recorrer(1, "", texto1, 0);
-	String cifrado2 = recorrer(1, "", texto2, 0);
-	String cifrado3 = recorrer(1, "", texto3, 0);
-	
-	System.out.println(texto1 + " => " + recorrer(1, "", texto1, 0) + " => " + recorrer(2, cifrado1, "", 0));
-	System.out.println(texto2 + " => " + recorrer(1, "", texto2, 0) + " => " + recorrer(2, cifrado2, "", 0));
-	System.out.println(texto3 + " => " + recorrer(1, "", texto3, 0) + " => " + recorrer(2, cifrado3, "", 0));
-
-	
-	}
-
 	/**
 	 * Método que cifra cada letra de un String
 	 * @param opcion 1 cifrar, 2 descifrar 

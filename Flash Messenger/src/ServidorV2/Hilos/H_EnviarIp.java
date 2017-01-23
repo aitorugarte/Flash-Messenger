@@ -8,8 +8,6 @@ import java.net.MulticastSocket;
 import java.nio.charset.Charset;
 import java.util.logging.Level;
 
-import javax.swing.JButton;
-
 import ServidorV2.Logs.Log_errores;
 
 /*

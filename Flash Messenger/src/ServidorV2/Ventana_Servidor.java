@@ -76,7 +76,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-/*
+/**
+ * @author Aitor Ugarte, Joseba García, Javier Pérez
  * Clase principal del Servidor
  */
 public class Ventana_Servidor extends JFrame {
@@ -90,7 +91,7 @@ public class Ventana_Servidor extends JFrame {
 	private static BD_Local local;
 	private static BD_Padre padre;
 	private H_Comunicacion comunicarse;
-	private static boolean hayInternet = Analisis_Red.TestInternet();
+	private static boolean hayInternet;
 	private JLabel lbTitulo, lblUsuariosActivos, lbVisualizar, lbOpciones, lbEnlace;
 	private JButton btnExpulsar, btnBaseDeDatos, btnRedWifi, btnActuali, btnEliminar, btnEscanear;
 	private JScrollPane scrollPane1, scrollPane2;
@@ -103,8 +104,6 @@ public class Ventana_Servidor extends JFrame {
 	public static ArrayList<Integer> puertos;
 	public static ArrayList<String[]> usuarios;
 	private MiBoton btnDesconectar, btnConectar;
-
-
 	public static JProgressBar progressBar;
 
 	public Ventana_Servidor() {
@@ -137,6 +136,7 @@ public class Ventana_Servidor extends JFrame {
 		list_activos = new JList<String>();
 		model_activos = new DefaultListModel<String>();
 		progressBar = new JProgressBar();
+		progressBar.setStringPainted(true);
 	}
 
 	private void Add() {
@@ -192,7 +192,6 @@ public class Ventana_Servidor extends JFrame {
 		lbOpciones.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lbOpciones.setHorizontalAlignment(SwingConstants.CENTER);
 		progressBar.setBackground(Color.ORANGE);
-		progressBar.setStringPainted(true);
 		btnDesconectar.setBackground(Color.yellow);
 	}
 
@@ -265,7 +264,7 @@ public class Ventana_Servidor extends JFrame {
 				int c = 6;
 				lbVisualizar.setText("Búsqueda de actualizaciones");
 				lbEnlace = new JLabel();
-
+				if(hayInternet == true){
 				if (remota.hayNuevaVersion(stat) == false) {
 
 					String enlace = "https://github.com/aitorugarte/Flash-Messenger";
@@ -289,6 +288,9 @@ public class Ventana_Servidor extends JFrame {
 				} else {
 					lbEnlace.setText("Ya tienes la última versión.");
 				}
+				}else{
+					lbEnlace.setText("No dispones de conexión a internet.");
+				}
 				lbEnlace.setFont(new Font("Tahoma", Font.BOLD, 12));
 				lbEnlace.setHorizontalAlignment(SwingConstants.CENTER);
 				scrollPane2.setViewportView(lbEnlace);
@@ -306,6 +308,9 @@ public class Ventana_Servidor extends JFrame {
 			}
 		});
 	}
+	/*
+	 * Hilo que inicia el serverSocket del servidor
+	 */
 	Thread server = new Thread(){
 		@Override
 		public void run(){
@@ -313,6 +318,9 @@ public class Ventana_Servidor extends JFrame {
 		}
 	};
 	
+	/*
+	 * Método que carga la tabla con el contenido de la base de datos
+	 */
 	public void cargarTabla() {
 		int c = 6;
 		modelo = new DefaultTableModel();
@@ -332,8 +340,9 @@ public class Ventana_Servidor extends JFrame {
 			@Override
 			public void focusGained(FocusEvent e) {
 				if (table.getSelectedRow() != -1) {
-					System.out.println("Fila modificada: " + table.getSelectedRow());
-					System.out.println("Cambios guardados.");
+					//TODO poder modificar el contenido de la base de datos desde la tabla
+					/*System.out.println("Fila modificada: " + table.getSelectedRow());
+					System.out.println("Cambios guardados.");*/
 				}
 			}
 		});
@@ -352,7 +361,8 @@ public class Ventana_Servidor extends JFrame {
 		btnEliminar = new JButton("Eliminar");
 		btnEliminar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("Fila número: " + table.getSelectedRow());
+				//TODO poder eliminar
+				//System.out.println("Fila número: " + table.getSelectedRow());
 			}
 		});
 		
@@ -361,6 +371,9 @@ public class Ventana_Servidor extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, c)); // Para que se actualice la ventana y aparezca el botón
 	}
 
+	/*
+	 * Método que carga la lista de los puertos abiertos del wifi
+	 */
 	public void cargarListaPuertos() {
 		int c = 6;
 		if (model != null) {
@@ -371,10 +384,12 @@ public class Ventana_Servidor extends JFrame {
 		btnEscanear = new JButton("Escanear red");
 		btnEscanear.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+		
 				lista = new JList<Integer>();
 				model = new DefaultListModel<>();
 				progressBar.setMaximum(65535);
 				iniciar.start();
+			
 			}
 		});
 		lbVisualizar.setText("Puertos abiertos en la red wifi");
@@ -391,18 +406,23 @@ public class Ventana_Servidor extends JFrame {
 
 	}
 	private Timer conect;
-	
+	/*
+	 * Refresca la lista de usuarios activos cada 3 segundos
+	 */
 	private void RefrescarConexiones(ActionEvent evt) {
 		ActionListener taskPerformer = new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				agregarNombre();
+				gestionarActivos();
 			}
 		};
 
 		conect = new Timer(3000, taskPerformer);
 		conect.start();
 	}
-	public void agregarNombre(){
+	/*
+	 * Método que añade los usuarios nuevos a la lista de usuarios activos
+	 */
+	public void gestionarActivos(){
 		//TODO eliminar nombres que no estén en la lista
 		
 		int tamanio = H_Servidor.clientesActivos.size();
@@ -421,12 +441,14 @@ public class Ventana_Servidor extends JFrame {
 					if(!datos.equals(model_activos.get(j))){
 						model_activos.addElement(datos);
 					}
-				}	
-			
+				}		
 			}
 				list_activos.setModel(model_activos);
 
 	}
+	/*
+	 * Mëtodo que permite echar del servidor al usuario seleccionado
+	 */
 	public void eliminarNombre(){
 		
 		H_Servidor user = null;
@@ -441,6 +463,9 @@ public class Ventana_Servidor extends JFrame {
 		}
 		
 	}
+	/*
+	 * Hilo encargado de realizar el escaneo de puertos del wifi
+	 */
 	Thread iniciar = new Thread() {
 		@Override
 		public void run() {
@@ -448,7 +473,7 @@ public class Ventana_Servidor extends JFrame {
 			ExecutorService executor = Executors.newCachedThreadPool();
 			int inicio = 1;
 			int fin = 100;
-			long s = System.currentTimeMillis();
+	//		long s = System.currentTimeMillis();
 			while (fin <= 65500) {
 				executor.execute(new ejecutarTareas(inicio, fin));
 				inicio += 100;
@@ -464,7 +489,7 @@ public class Ventana_Servidor extends JFrame {
 				e2.printStackTrace();
 			}
 
-			System.out.println("Ha tardado: " + (System.currentTimeMillis() - s) / 1000 + " segundos");
+		//	System.out.println("Ha tardado: " + (System.currentTimeMillis() - s) / 1000 + " segundos");
 			progressBar.setValue(65535);
 
 			puertos = Analisis_Red.almacen;
@@ -475,7 +500,9 @@ public class Ventana_Servidor extends JFrame {
 			cargarListaPuertos();
 		}
 	};
-	//Método que busca el usuario y la contraseña en la BD
+	/*
+	 * Método que busca el usuario y la contraseña en la BD
+	 */
 		public static boolean buscarUsuario(String usuario){
 			boolean hay = padre.existeUsuario(usuario, stat, conex);
 			return hay;
@@ -584,7 +611,9 @@ public class Ventana_Servidor extends JFrame {
 			// and feel.
 		}
 		Image icon = Toolkit.getDefaultToolkit().getImage("images/logo.jpg");
-
+		RayoProgreso rayo = new RayoProgreso();
+		rayo.setVisible(true);
+		hayInternet = Analisis_Red.TestInternet();
 		if(hayInternet == true){
 			remota = BD_Remota.getBD();
 			stat = remota.getStat();
@@ -611,6 +640,8 @@ public class Ventana_Servidor extends JFrame {
 		}
 		Ventana_Servidor servidor = new Ventana_Servidor();
 		servidor.setIconImage(icon);
+		rayo.StopSimulacion(null);
+		rayo.dispose();
 		servidor.setVisible(true);
 
 	}

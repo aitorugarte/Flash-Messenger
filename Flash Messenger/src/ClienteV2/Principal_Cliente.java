@@ -16,8 +16,9 @@ import javax.swing.UIManager.LookAndFeelInfo;
 import ClienteV2.BD.Conexion;
 import ClienteV2.LogIn.Login;
 
-/*
+/**
  * Clase principal del cliente
+ * @author Aitor Ugarte, Joseba García, Javier Pérez
  */
 public class Principal_Cliente {
 
@@ -35,7 +36,9 @@ public class Principal_Cliente {
 		}
 
 	}
-
+	/*
+	 * Método que que recibe la ip del servidor en el Broadcast
+	 */
 	public static void DireccionIp() throws UnknownHostException, IOException {
 
 		// Reseteamos las variables para evitar acumulaciones

@@ -362,7 +362,6 @@ public class GUI_Cliente extends JFrame implements ActionListener {
 			cargarTxt = "<FONT SIZE=" + 4 + "><DIV align=\"right\">" + getUsuario() + " => " + mensaje
 					+ "</DIV></FONT></br>";
 		} else {
-			System.out.println("Se debería de mostrar: " + mensaje);
 			cargarTxt = "<FONT SIZE=" + 4 + "><DIV align=\"left\">" + mensaje + "</DIV></FONT></br>";
 		}
 		texto = texto + cargarTxt;

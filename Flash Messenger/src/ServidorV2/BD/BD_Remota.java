@@ -12,6 +12,9 @@ import javax.swing.JOptionPane;
 import ServidorV2.Logs.Datos;
 import ServidorV2.Logs.Log_errores;
 
+/*
+ * Clase de la base de datos remota
+ */
 public class BD_Remota extends BD_Padre{
 
 	private static Datos datos = new Datos();
@@ -78,7 +81,12 @@ public class BD_Remota extends BD_Padre{
 			return false;
 		}
 	}
-	
+	/**
+	 * Método que borra la ip del servidor de la tabla servidor
+	 * @param st
+	 * @param ip del servidor
+	 * @return
+	 */
 	public boolean servidorDelete(Statement st, String ip){
 		String sentSQL = "";
 		try {
@@ -94,7 +102,11 @@ public class BD_Remota extends BD_Padre{
 			return false;
 		}
 	}
-	
+	/**
+	 * Método que compara la versión del servidor actual con la última versión
+	 * @param st
+	 * @return true si está actualizado, false si no
+	 */
 	public boolean hayNuevaVersion(Statement st){
 		String version = "0";
 		try {

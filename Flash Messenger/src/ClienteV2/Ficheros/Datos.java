@@ -1,4 +1,4 @@
-package ServidorV2.Logs;
+package ClienteV2.Ficheros;
 
 import java.io.FileInputStream;
 import java.io.IOException;

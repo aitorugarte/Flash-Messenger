@@ -14,14 +14,19 @@ import java.util.logging.Level;
 
 import javax.swing.JOptionPane;
 
+import ServidorV2.Logs.Datos;
 import ServidorV2.Logs.Log_errores;
 
+/*
+ * Clase que realiza la conexión a la base de datos remota
+ */
 public class Conexion {
 
-	private String host = "sql7.freesqldatabase.com";
-	private String nombre_BD = "sql7143768";
-	private String usuario = "sql7143768";
-	private String pass = "edl72lc3Wt";
+	private static Datos datos = new Datos();
+	private static String host = datos.getProperties("resources/Flash.properties", "host");
+	private static String nombre_BD = datos.getProperties("resources/Flash.properties", "nombre");
+	private static String usuario = datos.getProperties("resources/Flash.properties", "usuario");
+	private static String pass = datos.getProperties("resources/Flash.properties", "contrasenia");
 	public ArrayList<String> ips = new ArrayList<String>();
 
 

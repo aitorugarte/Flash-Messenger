@@ -16,6 +16,10 @@ import ClienteV2.H_Cliente;
 import ClienteV2.Principal_Cliente;
 import ClienteV2.Ficheros.Almacenamiento;
 
+/*
+ * Clase encargada de enviar al servidor los datos del
+ * LogIn y del registro
+ */
 public class Comunicador {
 	
 	   private DataOutputStream salida;
@@ -30,7 +34,10 @@ public class Comunicador {
 		   this.registro = registro;
 	   }
 	   /**
-	    * @param emails como un array
+	    * Método que envía los datos
+	    * @param usuario nombre del usuario
+	    * @param contraseña del usuario
+	    * @param emails array que contiene el email
 	    */
 	public void conexion(String usuario, String contraseña, String ...emails) throws IOException {
 		
@@ -79,7 +86,6 @@ public class Comunicador {
 						JOptionPane.ERROR_MESSAGE);
 			}
 			else if(respuesta.equals("done")){
-			//	registro.dispose();
 				JOptionPane.showMessageDialog(registro, "Registro completado exitósamente.");
 			}
 			

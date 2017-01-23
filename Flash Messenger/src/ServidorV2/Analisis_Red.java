@@ -8,6 +8,9 @@ import java.util.ArrayList;
 
 import ServidorV2.Ventana_Servidor;
 
+/*
+ * Método que analiza los puertos de la red wifi
+ */
 public class Analisis_Red {
 
 	private static int c = 100;
@@ -75,7 +78,6 @@ public class Analisis_Red {
 	 * abierto o cerrado
 	 * 
 	 * @return true si está abierto
-	 * 
 	 * @return false si está cerrado
 	 */
 	private static boolean TestPuerto() {

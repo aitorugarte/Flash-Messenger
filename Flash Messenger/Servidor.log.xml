@@ -1,115 +1,179 @@
 <?xml version="1.0" encoding="windows-1252" standalone="no"?>
 <!DOCTYPE log SYSTEM "logger.dtd">
 <log>
-</log>
-<?xml version="1.0" encoding="windows-1252" standalone="no"?>
-<!DOCTYPE log SYSTEM "logger.dtd">
-<log>
-</log>
-<?xml version="1.0" encoding="windows-1252" standalone="no"?>
-<!DOCTYPE log SYSTEM "logger.dtd">
-<log>
 <record>
-  <date>2017-01-22T18:32:41</date>
-  <millis>1485106361490</millis>
+  <date>2017-01-23T07:32:50</date>
+  <millis>1485153170412</millis>
   <sequence>0</sequence>
   <logger>ServidorV2.Logs.Log_errores</logger>
   <level>SEVERE</level>
   <class>ServidorV2.Logs.Log_errores</class>
   <method>log</method>
-  <thread>16</thread>
-  <message>Error Address already in use: JVM_Bind</message>
+  <thread>18</thread>
+  <message>Error al eliminar al usuario. </message>
   <exception>
-    <message>java.net.BindException: Address already in use: JVM_Bind</message>
+    <message>java.lang.ArrayIndexOutOfBoundsException: Array index out of range: -1</message>
     <frame>
-      <class>java.net.DualStackPlainSocketImpl</class>
-      <method>bind0</method>
+      <class>java.util.Vector</class>
+      <method>removeElementAt</method>
     </frame>
     <frame>
-      <class>java.net.DualStackPlainSocketImpl</class>
-      <method>socketBind</method>
-    </frame>
-    <frame>
-      <class>java.net.AbstractPlainSocketImpl</class>
-      <method>bind</method>
-    </frame>
-    <frame>
-      <class>java.net.PlainSocketImpl</class>
-      <method>bind</method>
-    </frame>
-    <frame>
-      <class>java.net.ServerSocket</class>
-      <method>bind</method>
-    </frame>
-    <frame>
-      <class>java.net.ServerSocket</class>
-      <method>&lt;init&gt;</method>
-    </frame>
-    <frame>
-      <class>java.net.ServerSocket</class>
-      <method>&lt;init&gt;</method>
+      <class>javax.swing.DefaultListModel</class>
+      <method>removeElementAt</method>
     </frame>
     <frame>
       <class>ServidorV2.Ventana_Servidor</class>
-      <method>runServer</method>
-      <line>478</line>
+      <method>eliminarNombre</method>
+      <line>440</line>
     </frame>
     <frame>
-      <class>ServidorV2.Ventana_Servidor$1</class>
+      <class>ServidorV2.Ventana_Servidor$4</class>
+      <method>actionPerformed</method>
+      <line>214</line>
+    </frame>
+    <frame>
+      <class>javax.swing.AbstractButton</class>
+      <method>fireActionPerformed</method>
+    </frame>
+    <frame>
+      <class>javax.swing.AbstractButton$Handler</class>
+      <method>actionPerformed</method>
+    </frame>
+    <frame>
+      <class>javax.swing.DefaultButtonModel</class>
+      <method>fireActionPerformed</method>
+    </frame>
+    <frame>
+      <class>javax.swing.DefaultButtonModel</class>
+      <method>setPressed</method>
+    </frame>
+    <frame>
+      <class>javax.swing.plaf.basic.BasicButtonListener</class>
+      <method>mouseReleased</method>
+    </frame>
+    <frame>
+      <class>java.awt.Component</class>
+      <method>processMouseEvent</method>
+    </frame>
+    <frame>
+      <class>javax.swing.JComponent</class>
+      <method>processMouseEvent</method>
+    </frame>
+    <frame>
+      <class>java.awt.Component</class>
+      <method>processEvent</method>
+    </frame>
+    <frame>
+      <class>java.awt.Container</class>
+      <method>processEvent</method>
+    </frame>
+    <frame>
+      <class>java.awt.Component</class>
+      <method>dispatchEventImpl</method>
+    </frame>
+    <frame>
+      <class>java.awt.Container</class>
+      <method>dispatchEventImpl</method>
+    </frame>
+    <frame>
+      <class>java.awt.Component</class>
+      <method>dispatchEvent</method>
+    </frame>
+    <frame>
+      <class>java.awt.LightweightDispatcher</class>
+      <method>retargetMouseEvent</method>
+    </frame>
+    <frame>
+      <class>java.awt.LightweightDispatcher</class>
+      <method>processMouseEvent</method>
+    </frame>
+    <frame>
+      <class>java.awt.LightweightDispatcher</class>
+      <method>dispatchEvent</method>
+    </frame>
+    <frame>
+      <class>java.awt.Container</class>
+      <method>dispatchEventImpl</method>
+    </frame>
+    <frame>
+      <class>java.awt.Window</class>
+      <method>dispatchEventImpl</method>
+    </frame>
+    <frame>
+      <class>java.awt.Component</class>
+      <method>dispatchEvent</method>
+    </frame>
+    <frame>
+      <class>java.awt.EventQueue</class>
+      <method>dispatchEventImpl</method>
+    </frame>
+    <frame>
+      <class>java.awt.EventQueue</class>
+      <method>access$500</method>
+    </frame>
+    <frame>
+      <class>java.awt.EventQueue$3</class>
       <method>run</method>
-      <line>298</line>
-    </frame>
-  </exception>
-</record>
-<record>
-  <date>2017-01-22T18:32:41</date>
-  <millis>1485106361490</millis>
-  <sequence>1</sequence>
-  <logger>ServidorV2.Logs.Log_errores</logger>
-  <level>SEVERE</level>
-  <class>ServidorV2.Logs.Log_errores</class>
-  <method>log</method>
-  <thread>22</thread>
-  <message>Error al iniciar el hilo H_Comunicación: Address already in use: JVM_Bind</message>
-  <exception>
-    <message>java.net.BindException: Address already in use: JVM_Bind</message>
-    <frame>
-      <class>java.net.DualStackPlainSocketImpl</class>
-      <method>bind0</method>
     </frame>
     <frame>
-      <class>java.net.DualStackPlainSocketImpl</class>
-      <method>socketBind</method>
-    </frame>
-    <frame>
-      <class>java.net.AbstractPlainSocketImpl</class>
-      <method>bind</method>
-    </frame>
-    <frame>
-      <class>java.net.PlainSocketImpl</class>
-      <method>bind</method>
-    </frame>
-    <frame>
-      <class>java.net.ServerSocket</class>
-      <method>bind</method>
-    </frame>
-    <frame>
-      <class>java.net.ServerSocket</class>
-      <method>&lt;init&gt;</method>
-    </frame>
-    <frame>
-      <class>java.net.ServerSocket</class>
-      <method>&lt;init&gt;</method>
-    </frame>
-    <frame>
-      <class>ServidorV2.Hilos.H_Comunicacion</class>
-      <method>recibirDatos</method>
-      <line>33</line>
-    </frame>
-    <frame>
-      <class>ServidorV2.Hilos.H_Comunicacion</class>
+      <class>java.awt.EventQueue$3</class>
       <method>run</method>
-      <line>73</line>
+    </frame>
+    <frame>
+      <class>java.security.AccessController</class>
+      <method>doPrivileged</method>
+    </frame>
+    <frame>
+      <class>java.security.ProtectionDomain$JavaSecurityAccessImpl</class>
+      <method>doIntersectionPrivilege</method>
+    </frame>
+    <frame>
+      <class>java.security.ProtectionDomain$JavaSecurityAccessImpl</class>
+      <method>doIntersectionPrivilege</method>
+    </frame>
+    <frame>
+      <class>java.awt.EventQueue$4</class>
+      <method>run</method>
+    </frame>
+    <frame>
+      <class>java.awt.EventQueue$4</class>
+      <method>run</method>
+    </frame>
+    <frame>
+      <class>java.security.AccessController</class>
+      <method>doPrivileged</method>
+    </frame>
+    <frame>
+      <class>java.security.ProtectionDomain$JavaSecurityAccessImpl</class>
+      <method>doIntersectionPrivilege</method>
+    </frame>
+    <frame>
+      <class>java.awt.EventQueue</class>
+      <method>dispatchEvent</method>
+    </frame>
+    <frame>
+      <class>java.awt.EventDispatchThread</class>
+      <method>pumpOneEventForFilters</method>
+    </frame>
+    <frame>
+      <class>java.awt.EventDispatchThread</class>
+      <method>pumpEventsForFilter</method>
+    </frame>
+    <frame>
+      <class>java.awt.EventDispatchThread</class>
+      <method>pumpEventsForHierarchy</method>
+    </frame>
+    <frame>
+      <class>java.awt.EventDispatchThread</class>
+      <method>pumpEvents</method>
+    </frame>
+    <frame>
+      <class>java.awt.EventDispatchThread</class>
+      <method>pumpEvents</method>
+    </frame>
+    <frame>
+      <class>java.awt.EventDispatchThread</class>
+      <method>run</method>
     </frame>
   </exception>
 </record>
@@ -117,135 +181,76 @@
 <?xml version="1.0" encoding="windows-1252" standalone="no"?>
 <!DOCTYPE log SYSTEM "logger.dtd">
 <log>
-</log>
-<?xml version="1.0" encoding="windows-1252" standalone="no"?>
-<!DOCTYPE log SYSTEM "logger.dtd">
-<log>
 <record>
-  <date>2017-01-22T21:13:05</date>
-  <millis>1485115985303</millis>
+  <date>2017-01-23T08:12:57</date>
+  <millis>1485155577204</millis>
   <sequence>0</sequence>
   <logger>ServidorV2.Logs.Log_errores</logger>
   <level>SEVERE</level>
   <class>ServidorV2.Logs.Log_errores</class>
   <method>log</method>
   <thread>1</thread>
-  <message>No se ha podido establecer la conexión: Communications link failure
-
-The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.</message>
+  <message>Puerto cerrado: Connection timed out: connect</message>
   <exception>
-    <message>com.mysql.jdbc.exceptions.jdbc4.CommunicationsException: Communications link failure
-
-The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.</message>
+    <message>java.net.ConnectException: Connection timed out: connect</message>
     <frame>
-      <class>sun.reflect.NativeConstructorAccessorImpl</class>
-      <method>newInstance0</method>
+      <class>java.net.DualStackPlainSocketImpl</class>
+      <method>connect0</method>
     </frame>
     <frame>
-      <class>sun.reflect.NativeConstructorAccessorImpl</class>
-      <method>newInstance</method>
+      <class>java.net.DualStackPlainSocketImpl</class>
+      <method>socketConnect</method>
     </frame>
     <frame>
-      <class>sun.reflect.DelegatingConstructorAccessorImpl</class>
-      <method>newInstance</method>
+      <class>java.net.AbstractPlainSocketImpl</class>
+      <method>doConnect</method>
     </frame>
     <frame>
-      <class>java.lang.reflect.Constructor</class>
-      <method>newInstance</method>
+      <class>java.net.AbstractPlainSocketImpl</class>
+      <method>connectToAddress</method>
     </frame>
     <frame>
-      <class>com.mysql.jdbc.Util</class>
-      <method>handleNewInstance</method>
-      <line>404</line>
-    </frame>
-    <frame>
-      <class>com.mysql.jdbc.SQLError</class>
-      <method>createCommunicationsException</method>
-      <line>988</line>
-    </frame>
-    <frame>
-      <class>com.mysql.jdbc.MysqlIO</class>
-      <method>&lt;init&gt;</method>
-      <line>341</line>
-    </frame>
-    <frame>
-      <class>com.mysql.jdbc.ConnectionImpl</class>
-      <method>coreConnect</method>
-      <line>2251</line>
-    </frame>
-    <frame>
-      <class>com.mysql.jdbc.ConnectionImpl</class>
-      <method>connectOneTryOnly</method>
-      <line>2284</line>
-    </frame>
-    <frame>
-      <class>com.mysql.jdbc.ConnectionImpl</class>
-      <method>createNewIO</method>
-      <line>2083</line>
-    </frame>
-    <frame>
-      <class>com.mysql.jdbc.ConnectionImpl</class>
-      <method>&lt;init&gt;</method>
-      <line>806</line>
-    </frame>
-    <frame>
-      <class>com.mysql.jdbc.JDBC4Connection</class>
-      <method>&lt;init&gt;</method>
-      <line>47</line>
-    </frame>
-    <frame>
-      <class>sun.reflect.NativeConstructorAccessorImpl</class>
-      <method>newInstance0</method>
-    </frame>
-    <frame>
-      <class>sun.reflect.NativeConstructorAccessorImpl</class>
-      <method>newInstance</method>
-    </frame>
-    <frame>
-      <class>sun.reflect.DelegatingConstructorAccessorImpl</class>
-      <method>newInstance</method>
-    </frame>
-    <frame>
-      <class>java.lang.reflect.Constructor</class>
-      <method>newInstance</method>
-    </frame>
-    <frame>
-      <class>com.mysql.jdbc.Util</class>
-      <method>handleNewInstance</method>
-      <line>404</line>
-    </frame>
-    <frame>
-      <class>com.mysql.jdbc.ConnectionImpl</class>
-      <method>getInstance</method>
-      <line>410</line>
-    </frame>
-    <frame>
-      <class>com.mysql.jdbc.NonRegisteringDriver</class>
+      <class>java.net.AbstractPlainSocketImpl</class>
       <method>connect</method>
-      <line>328</line>
     </frame>
     <frame>
-      <class>java.sql.DriverManager</class>
-      <method>getConnection</method>
+      <class>java.net.PlainSocketImpl</class>
+      <method>connect</method>
     </frame>
     <frame>
-      <class>java.sql.DriverManager</class>
-      <method>getConnection</method>
+      <class>java.net.SocksSocketImpl</class>
+      <method>connect</method>
     </frame>
     <frame>
-      <class>ServidorV2.BD.BD_Remota</class>
-      <method>initBD</method>
-      <line>41</line>
+      <class>java.net.Socket</class>
+      <method>connect</method>
     </frame>
     <frame>
-      <class>ServidorV2.BD.BD_Remota</class>
-      <method>getBD</method>
-      <line>31</line>
+      <class>java.net.Socket</class>
+      <method>connect</method>
     </frame>
     <frame>
-      <class>ServidorV2.Ventana_Servidor</class>
+      <class>java.net.Socket</class>
+      <method>&lt;init&gt;</method>
+    </frame>
+    <frame>
+      <class>java.net.Socket</class>
+      <method>&lt;init&gt;</method>
+    </frame>
+    <frame>
+      <class>ClienteV2.BD.Conexion</class>
+      <method>TestPuerto</method>
+      <line>117</line>
+    </frame>
+    <frame>
+      <class>ClienteV2.BD.Conexion</class>
+      <method>TestInternet</method>
+      <line>88</line>
+    </frame>
+    <frame>
+      <class>ClienteV2.Principal_Cliente</class>
       <method>main</method>
-      <line>526</line>
+      <line>88</line>
     </frame>
   </exception>
 </record>
@@ -253,711 +258,76 @@ The last packet sent successfully to the server was 0 milliseconds ago. The driv
 <?xml version="1.0" encoding="windows-1252" standalone="no"?>
 <!DOCTYPE log SYSTEM "logger.dtd">
 <log>
-</log>
-<?xml version="1.0" encoding="windows-1252" standalone="no"?>
-<!DOCTYPE log SYSTEM "logger.dtd">
-<log>
 <record>
-  <date>2017-01-22T22:57:05</date>
-  <millis>1485122225406</millis>
+  <date>2017-01-23T08:21:32</date>
+  <millis>1485156092890</millis>
   <sequence>0</sequence>
   <logger>ServidorV2.Logs.Log_errores</logger>
   <level>SEVERE</level>
   <class>ServidorV2.Logs.Log_errores</class>
   <method>log</method>
-  <thread>19</thread>
-  <message>Error al eliminar al usuario. </message>
+  <thread>1</thread>
+  <message>Puerto cerrado: Connection timed out: connect</message>
   <exception>
-    <message>java.lang.ArrayIndexOutOfBoundsException: Array index out of range: -1</message>
+    <message>java.net.ConnectException: Connection timed out: connect</message>
     <frame>
-      <class>java.util.Vector</class>
-      <method>removeElementAt</method>
+      <class>java.net.DualStackPlainSocketImpl</class>
+      <method>connect0</method>
     </frame>
     <frame>
-      <class>javax.swing.DefaultListModel</class>
-      <method>removeElementAt</method>
+      <class>java.net.DualStackPlainSocketImpl</class>
+      <method>socketConnect</method>
     </frame>
     <frame>
-      <class>ServidorV2.Ventana_Servidor</class>
-      <method>eliminarNombre</method>
-      <line>436</line>
+      <class>java.net.AbstractPlainSocketImpl</class>
+      <method>doConnect</method>
     </frame>
     <frame>
-      <class>ServidorV2.Ventana_Servidor$4</class>
-      <method>actionPerformed</method>
-      <line>214</line>
+      <class>java.net.AbstractPlainSocketImpl</class>
+      <method>connectToAddress</method>
     </frame>
     <frame>
-      <class>javax.swing.AbstractButton</class>
-      <method>fireActionPerformed</method>
+      <class>java.net.AbstractPlainSocketImpl</class>
+      <method>connect</method>
     </frame>
     <frame>
-      <class>javax.swing.AbstractButton$Handler</class>
-      <method>actionPerformed</method>
+      <class>java.net.PlainSocketImpl</class>
+      <method>connect</method>
     </frame>
     <frame>
-      <class>javax.swing.DefaultButtonModel</class>
-      <method>fireActionPerformed</method>
+      <class>java.net.SocksSocketImpl</class>
+      <method>connect</method>
     </frame>
     <frame>
-      <class>javax.swing.DefaultButtonModel</class>
-      <method>setPressed</method>
+      <class>java.net.Socket</class>
+      <method>connect</method>
     </frame>
     <frame>
-      <class>javax.swing.plaf.basic.BasicButtonListener</class>
-      <method>mouseReleased</method>
+      <class>java.net.Socket</class>
+      <method>connect</method>
     </frame>
     <frame>
-      <class>java.awt.Component</class>
-      <method>processMouseEvent</method>
+      <class>java.net.Socket</class>
+      <method>&lt;init&gt;</method>
     </frame>
     <frame>
-      <class>javax.swing.JComponent</class>
-      <method>processMouseEvent</method>
+      <class>java.net.Socket</class>
+      <method>&lt;init&gt;</method>
     </frame>
     <frame>
-      <class>java.awt.Component</class>
-      <method>processEvent</method>
+      <class>ClienteV2.BD.Conexion</class>
+      <method>TestPuerto</method>
+      <line>117</line>
     </frame>
     <frame>
-      <class>java.awt.Container</class>
-      <method>processEvent</method>
+      <class>ClienteV2.BD.Conexion</class>
+      <method>TestInternet</method>
+      <line>88</line>
     </frame>
     <frame>
-      <class>java.awt.Component</class>
-      <method>dispatchEventImpl</method>
-    </frame>
-    <frame>
-      <class>java.awt.Container</class>
-      <method>dispatchEventImpl</method>
-    </frame>
-    <frame>
-      <class>java.awt.Component</class>
-      <method>dispatchEvent</method>
-    </frame>
-    <frame>
-      <class>java.awt.LightweightDispatcher</class>
-      <method>retargetMouseEvent</method>
-    </frame>
-    <frame>
-      <class>java.awt.LightweightDispatcher</class>
-      <method>processMouseEvent</method>
-    </frame>
-    <frame>
-      <class>java.awt.LightweightDispatcher</class>
-      <method>dispatchEvent</method>
-    </frame>
-    <frame>
-      <class>java.awt.Container</class>
-      <method>dispatchEventImpl</method>
-    </frame>
-    <frame>
-      <class>java.awt.Window</class>
-      <method>dispatchEventImpl</method>
-    </frame>
-    <frame>
-      <class>java.awt.Component</class>
-      <method>dispatchEvent</method>
-    </frame>
-    <frame>
-      <class>java.awt.EventQueue</class>
-      <method>dispatchEventImpl</method>
-    </frame>
-    <frame>
-      <class>java.awt.EventQueue</class>
-      <method>access$500</method>
-    </frame>
-    <frame>
-      <class>java.awt.EventQueue$3</class>
-      <method>run</method>
-    </frame>
-    <frame>
-      <class>java.awt.EventQueue$3</class>
-      <method>run</method>
-    </frame>
-    <frame>
-      <class>java.security.AccessController</class>
-      <method>doPrivileged</method>
-    </frame>
-    <frame>
-      <class>java.security.ProtectionDomain$JavaSecurityAccessImpl</class>
-      <method>doIntersectionPrivilege</method>
-    </frame>
-    <frame>
-      <class>java.security.ProtectionDomain$JavaSecurityAccessImpl</class>
-      <method>doIntersectionPrivilege</method>
-    </frame>
-    <frame>
-      <class>java.awt.EventQueue$4</class>
-      <method>run</method>
-    </frame>
-    <frame>
-      <class>java.awt.EventQueue$4</class>
-      <method>run</method>
-    </frame>
-    <frame>
-      <class>java.security.AccessController</class>
-      <method>doPrivileged</method>
-    </frame>
-    <frame>
-      <class>java.security.ProtectionDomain$JavaSecurityAccessImpl</class>
-      <method>doIntersectionPrivilege</method>
-    </frame>
-    <frame>
-      <class>java.awt.EventQueue</class>
-      <method>dispatchEvent</method>
-    </frame>
-    <frame>
-      <class>java.awt.EventDispatchThread</class>
-      <method>pumpOneEventForFilters</method>
-    </frame>
-    <frame>
-      <class>java.awt.EventDispatchThread</class>
-      <method>pumpEventsForFilter</method>
-    </frame>
-    <frame>
-      <class>java.awt.EventDispatchThread</class>
-      <method>pumpEventsForHierarchy</method>
-    </frame>
-    <frame>
-      <class>java.awt.EventDispatchThread</class>
-      <method>pumpEvents</method>
-    </frame>
-    <frame>
-      <class>java.awt.EventDispatchThread</class>
-      <method>pumpEvents</method>
-    </frame>
-    <frame>
-      <class>java.awt.EventDispatchThread</class>
-      <method>run</method>
-    </frame>
-  </exception>
-</record>
-<record>
-  <date>2017-01-22T22:57:09</date>
-  <millis>1485122229021</millis>
-  <sequence>1</sequence>
-  <logger>ServidorV2.Logs.Log_errores</logger>
-  <level>SEVERE</level>
-  <class>ServidorV2.Logs.Log_errores</class>
-  <method>log</method>
-  <thread>19</thread>
-  <message>Error al eliminar al usuario. </message>
-  <exception>
-    <message>java.lang.ArrayIndexOutOfBoundsException: Array index out of range: -1</message>
-    <frame>
-      <class>java.util.Vector</class>
-      <method>removeElementAt</method>
-    </frame>
-    <frame>
-      <class>javax.swing.DefaultListModel</class>
-      <method>removeElementAt</method>
-    </frame>
-    <frame>
-      <class>ServidorV2.Ventana_Servidor</class>
-      <method>eliminarNombre</method>
-      <line>436</line>
-    </frame>
-    <frame>
-      <class>ServidorV2.Ventana_Servidor$4</class>
-      <method>actionPerformed</method>
-      <line>214</line>
-    </frame>
-    <frame>
-      <class>javax.swing.AbstractButton</class>
-      <method>fireActionPerformed</method>
-    </frame>
-    <frame>
-      <class>javax.swing.AbstractButton$Handler</class>
-      <method>actionPerformed</method>
-    </frame>
-    <frame>
-      <class>javax.swing.DefaultButtonModel</class>
-      <method>fireActionPerformed</method>
-    </frame>
-    <frame>
-      <class>javax.swing.DefaultButtonModel</class>
-      <method>setPressed</method>
-    </frame>
-    <frame>
-      <class>javax.swing.plaf.basic.BasicButtonListener</class>
-      <method>mouseReleased</method>
-    </frame>
-    <frame>
-      <class>java.awt.Component</class>
-      <method>processMouseEvent</method>
-    </frame>
-    <frame>
-      <class>javax.swing.JComponent</class>
-      <method>processMouseEvent</method>
-    </frame>
-    <frame>
-      <class>java.awt.Component</class>
-      <method>processEvent</method>
-    </frame>
-    <frame>
-      <class>java.awt.Container</class>
-      <method>processEvent</method>
-    </frame>
-    <frame>
-      <class>java.awt.Component</class>
-      <method>dispatchEventImpl</method>
-    </frame>
-    <frame>
-      <class>java.awt.Container</class>
-      <method>dispatchEventImpl</method>
-    </frame>
-    <frame>
-      <class>java.awt.Component</class>
-      <method>dispatchEvent</method>
-    </frame>
-    <frame>
-      <class>java.awt.LightweightDispatcher</class>
-      <method>retargetMouseEvent</method>
-    </frame>
-    <frame>
-      <class>java.awt.LightweightDispatcher</class>
-      <method>processMouseEvent</method>
-    </frame>
-    <frame>
-      <class>java.awt.LightweightDispatcher</class>
-      <method>dispatchEvent</method>
-    </frame>
-    <frame>
-      <class>java.awt.Container</class>
-      <method>dispatchEventImpl</method>
-    </frame>
-    <frame>
-      <class>java.awt.Window</class>
-      <method>dispatchEventImpl</method>
-    </frame>
-    <frame>
-      <class>java.awt.Component</class>
-      <method>dispatchEvent</method>
-    </frame>
-    <frame>
-      <class>java.awt.EventQueue</class>
-      <method>dispatchEventImpl</method>
-    </frame>
-    <frame>
-      <class>java.awt.EventQueue</class>
-      <method>access$500</method>
-    </frame>
-    <frame>
-      <class>java.awt.EventQueue$3</class>
-      <method>run</method>
-    </frame>
-    <frame>
-      <class>java.awt.EventQueue$3</class>
-      <method>run</method>
-    </frame>
-    <frame>
-      <class>java.security.AccessController</class>
-      <method>doPrivileged</method>
-    </frame>
-    <frame>
-      <class>java.security.ProtectionDomain$JavaSecurityAccessImpl</class>
-      <method>doIntersectionPrivilege</method>
-    </frame>
-    <frame>
-      <class>java.security.ProtectionDomain$JavaSecurityAccessImpl</class>
-      <method>doIntersectionPrivilege</method>
-    </frame>
-    <frame>
-      <class>java.awt.EventQueue$4</class>
-      <method>run</method>
-    </frame>
-    <frame>
-      <class>java.awt.EventQueue$4</class>
-      <method>run</method>
-    </frame>
-    <frame>
-      <class>java.security.AccessController</class>
-      <method>doPrivileged</method>
-    </frame>
-    <frame>
-      <class>java.security.ProtectionDomain$JavaSecurityAccessImpl</class>
-      <method>doIntersectionPrivilege</method>
-    </frame>
-    <frame>
-      <class>java.awt.EventQueue</class>
-      <method>dispatchEvent</method>
-    </frame>
-    <frame>
-      <class>java.awt.EventDispatchThread</class>
-      <method>pumpOneEventForFilters</method>
-    </frame>
-    <frame>
-      <class>java.awt.EventDispatchThread</class>
-      <method>pumpEventsForFilter</method>
-    </frame>
-    <frame>
-      <class>java.awt.EventDispatchThread</class>
-      <method>pumpEventsForHierarchy</method>
-    </frame>
-    <frame>
-      <class>java.awt.EventDispatchThread</class>
-      <method>pumpEvents</method>
-    </frame>
-    <frame>
-      <class>java.awt.EventDispatchThread</class>
-      <method>pumpEvents</method>
-    </frame>
-    <frame>
-      <class>java.awt.EventDispatchThread</class>
-      <method>run</method>
-    </frame>
-  </exception>
-</record>
-<record>
-  <date>2017-01-22T22:57:10</date>
-  <millis>1485122230977</millis>
-  <sequence>2</sequence>
-  <logger>ServidorV2.Logs.Log_errores</logger>
-  <level>SEVERE</level>
-  <class>ServidorV2.Logs.Log_errores</class>
-  <method>log</method>
-  <thread>19</thread>
-  <message>Error al eliminar al usuario. </message>
-  <exception>
-    <message>java.lang.ArrayIndexOutOfBoundsException: Array index out of range: -1</message>
-    <frame>
-      <class>java.util.Vector</class>
-      <method>removeElementAt</method>
-    </frame>
-    <frame>
-      <class>javax.swing.DefaultListModel</class>
-      <method>removeElementAt</method>
-    </frame>
-    <frame>
-      <class>ServidorV2.Ventana_Servidor</class>
-      <method>eliminarNombre</method>
-      <line>436</line>
-    </frame>
-    <frame>
-      <class>ServidorV2.Ventana_Servidor$4</class>
-      <method>actionPerformed</method>
-      <line>214</line>
-    </frame>
-    <frame>
-      <class>javax.swing.AbstractButton</class>
-      <method>fireActionPerformed</method>
-    </frame>
-    <frame>
-      <class>javax.swing.AbstractButton$Handler</class>
-      <method>actionPerformed</method>
-    </frame>
-    <frame>
-      <class>javax.swing.DefaultButtonModel</class>
-      <method>fireActionPerformed</method>
-    </frame>
-    <frame>
-      <class>javax.swing.DefaultButtonModel</class>
-      <method>setPressed</method>
-    </frame>
-    <frame>
-      <class>javax.swing.plaf.basic.BasicButtonListener</class>
-      <method>mouseReleased</method>
-    </frame>
-    <frame>
-      <class>java.awt.Component</class>
-      <method>processMouseEvent</method>
-    </frame>
-    <frame>
-      <class>javax.swing.JComponent</class>
-      <method>processMouseEvent</method>
-    </frame>
-    <frame>
-      <class>java.awt.Component</class>
-      <method>processEvent</method>
-    </frame>
-    <frame>
-      <class>java.awt.Container</class>
-      <method>processEvent</method>
-    </frame>
-    <frame>
-      <class>java.awt.Component</class>
-      <method>dispatchEventImpl</method>
-    </frame>
-    <frame>
-      <class>java.awt.Container</class>
-      <method>dispatchEventImpl</method>
-    </frame>
-    <frame>
-      <class>java.awt.Component</class>
-      <method>dispatchEvent</method>
-    </frame>
-    <frame>
-      <class>java.awt.LightweightDispatcher</class>
-      <method>retargetMouseEvent</method>
-    </frame>
-    <frame>
-      <class>java.awt.LightweightDispatcher</class>
-      <method>processMouseEvent</method>
-    </frame>
-    <frame>
-      <class>java.awt.LightweightDispatcher</class>
-      <method>dispatchEvent</method>
-    </frame>
-    <frame>
-      <class>java.awt.Container</class>
-      <method>dispatchEventImpl</method>
-    </frame>
-    <frame>
-      <class>java.awt.Window</class>
-      <method>dispatchEventImpl</method>
-    </frame>
-    <frame>
-      <class>java.awt.Component</class>
-      <method>dispatchEvent</method>
-    </frame>
-    <frame>
-      <class>java.awt.EventQueue</class>
-      <method>dispatchEventImpl</method>
-    </frame>
-    <frame>
-      <class>java.awt.EventQueue</class>
-      <method>access$500</method>
-    </frame>
-    <frame>
-      <class>java.awt.EventQueue$3</class>
-      <method>run</method>
-    </frame>
-    <frame>
-      <class>java.awt.EventQueue$3</class>
-      <method>run</method>
-    </frame>
-    <frame>
-      <class>java.security.AccessController</class>
-      <method>doPrivileged</method>
-    </frame>
-    <frame>
-      <class>java.security.ProtectionDomain$JavaSecurityAccessImpl</class>
-      <method>doIntersectionPrivilege</method>
-    </frame>
-    <frame>
-      <class>java.security.ProtectionDomain$JavaSecurityAccessImpl</class>
-      <method>doIntersectionPrivilege</method>
-    </frame>
-    <frame>
-      <class>java.awt.EventQueue$4</class>
-      <method>run</method>
-    </frame>
-    <frame>
-      <class>java.awt.EventQueue$4</class>
-      <method>run</method>
-    </frame>
-    <frame>
-      <class>java.security.AccessController</class>
-      <method>doPrivileged</method>
-    </frame>
-    <frame>
-      <class>java.security.ProtectionDomain$JavaSecurityAccessImpl</class>
-      <method>doIntersectionPrivilege</method>
-    </frame>
-    <frame>
-      <class>java.awt.EventQueue</class>
-      <method>dispatchEvent</method>
-    </frame>
-    <frame>
-      <class>java.awt.EventDispatchThread</class>
-      <method>pumpOneEventForFilters</method>
-    </frame>
-    <frame>
-      <class>java.awt.EventDispatchThread</class>
-      <method>pumpEventsForFilter</method>
-    </frame>
-    <frame>
-      <class>java.awt.EventDispatchThread</class>
-      <method>pumpEventsForHierarchy</method>
-    </frame>
-    <frame>
-      <class>java.awt.EventDispatchThread</class>
-      <method>pumpEvents</method>
-    </frame>
-    <frame>
-      <class>java.awt.EventDispatchThread</class>
-      <method>pumpEvents</method>
-    </frame>
-    <frame>
-      <class>java.awt.EventDispatchThread</class>
-      <method>run</method>
-    </frame>
-  </exception>
-</record>
-<record>
-  <date>2017-01-22T22:57:15</date>
-  <millis>1485122235899</millis>
-  <sequence>3</sequence>
-  <logger>ServidorV2.Logs.Log_errores</logger>
-  <level>SEVERE</level>
-  <class>ServidorV2.Logs.Log_errores</class>
-  <method>log</method>
-  <thread>19</thread>
-  <message>Error al eliminar al usuario. </message>
-  <exception>
-    <message>java.lang.ArrayIndexOutOfBoundsException: Array index out of range: -1</message>
-    <frame>
-      <class>java.util.Vector</class>
-      <method>removeElementAt</method>
-    </frame>
-    <frame>
-      <class>javax.swing.DefaultListModel</class>
-      <method>removeElementAt</method>
-    </frame>
-    <frame>
-      <class>ServidorV2.Ventana_Servidor</class>
-      <method>eliminarNombre</method>
-      <line>436</line>
-    </frame>
-    <frame>
-      <class>ServidorV2.Ventana_Servidor$4</class>
-      <method>actionPerformed</method>
-      <line>214</line>
-    </frame>
-    <frame>
-      <class>javax.swing.AbstractButton</class>
-      <method>fireActionPerformed</method>
-    </frame>
-    <frame>
-      <class>javax.swing.AbstractButton$Handler</class>
-      <method>actionPerformed</method>
-    </frame>
-    <frame>
-      <class>javax.swing.DefaultButtonModel</class>
-      <method>fireActionPerformed</method>
-    </frame>
-    <frame>
-      <class>javax.swing.DefaultButtonModel</class>
-      <method>setPressed</method>
-    </frame>
-    <frame>
-      <class>javax.swing.plaf.basic.BasicButtonListener</class>
-      <method>mouseReleased</method>
-    </frame>
-    <frame>
-      <class>java.awt.Component</class>
-      <method>processMouseEvent</method>
-    </frame>
-    <frame>
-      <class>javax.swing.JComponent</class>
-      <method>processMouseEvent</method>
-    </frame>
-    <frame>
-      <class>java.awt.Component</class>
-      <method>processEvent</method>
-    </frame>
-    <frame>
-      <class>java.awt.Container</class>
-      <method>processEvent</method>
-    </frame>
-    <frame>
-      <class>java.awt.Component</class>
-      <method>dispatchEventImpl</method>
-    </frame>
-    <frame>
-      <class>java.awt.Container</class>
-      <method>dispatchEventImpl</method>
-    </frame>
-    <frame>
-      <class>java.awt.Component</class>
-      <method>dispatchEvent</method>
-    </frame>
-    <frame>
-      <class>java.awt.LightweightDispatcher</class>
-      <method>retargetMouseEvent</method>
-    </frame>
-    <frame>
-      <class>java.awt.LightweightDispatcher</class>
-      <method>processMouseEvent</method>
-    </frame>
-    <frame>
-      <class>java.awt.LightweightDispatcher</class>
-      <method>dispatchEvent</method>
-    </frame>
-    <frame>
-      <class>java.awt.Container</class>
-      <method>dispatchEventImpl</method>
-    </frame>
-    <frame>
-      <class>java.awt.Window</class>
-      <method>dispatchEventImpl</method>
-    </frame>
-    <frame>
-      <class>java.awt.Component</class>
-      <method>dispatchEvent</method>
-    </frame>
-    <frame>
-      <class>java.awt.EventQueue</class>
-      <method>dispatchEventImpl</method>
-    </frame>
-    <frame>
-      <class>java.awt.EventQueue</class>
-      <method>access$500</method>
-    </frame>
-    <frame>
-      <class>java.awt.EventQueue$3</class>
-      <method>run</method>
-    </frame>
-    <frame>
-      <class>java.awt.EventQueue$3</class>
-      <method>run</method>
-    </frame>
-    <frame>
-      <class>java.security.AccessController</class>
-      <method>doPrivileged</method>
-    </frame>
-    <frame>
-      <class>java.security.ProtectionDomain$JavaSecurityAccessImpl</class>
-      <method>doIntersectionPrivilege</method>
-    </frame>
-    <frame>
-      <class>java.security.ProtectionDomain$JavaSecurityAccessImpl</class>
-      <method>doIntersectionPrivilege</method>
-    </frame>
-    <frame>
-      <class>java.awt.EventQueue$4</class>
-      <method>run</method>
-    </frame>
-    <frame>
-      <class>java.awt.EventQueue$4</class>
-      <method>run</method>
-    </frame>
-    <frame>
-      <class>java.security.AccessController</class>
-      <method>doPrivileged</method>
-    </frame>
-    <frame>
-      <class>java.security.ProtectionDomain$JavaSecurityAccessImpl</class>
-      <method>doIntersectionPrivilege</method>
-    </frame>
-    <frame>
-      <class>java.awt.EventQueue</class>
-      <method>dispatchEvent</method>
-    </frame>
-    <frame>
-      <class>java.awt.EventDispatchThread</class>
-      <method>pumpOneEventForFilters</method>
-    </frame>
-    <frame>
-      <class>java.awt.EventDispatchThread</class>
-      <method>pumpEventsForFilter</method>
-    </frame>
-    <frame>
-      <class>java.awt.EventDispatchThread</class>
-      <method>pumpEventsForHierarchy</method>
-    </frame>
-    <frame>
-      <class>java.awt.EventDispatchThread</class>
-      <method>pumpEvents</method>
-    </frame>
-    <frame>
-      <class>java.awt.EventDispatchThread</class>
-      <method>pumpEvents</method>
-    </frame>
-    <frame>
-      <class>java.awt.EventDispatchThread</class>
-      <method>run</method>
+      <class>ClienteV2.Principal_Cliente</class>
+      <method>main</method>
+      <line>88</line>
     </frame>
   </exception>
 </record>

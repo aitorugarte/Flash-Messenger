@@ -2,14 +2,11 @@ package ServidorV2.Hilos;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.net.InetAddress;
 import java.net.Socket;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -22,7 +19,6 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
 import ServidorV2.Ventana_Servidor;
-import ServidorV2.BD.BD_Padre;
 import ServidorV2.Logs.Log_chat;
 import ServidorV2.Logs.Log_errores;
 

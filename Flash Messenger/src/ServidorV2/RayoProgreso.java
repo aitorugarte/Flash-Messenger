@@ -1,5 +1,8 @@
-package ClienteV2;
+package ServidorV2;
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.EventQueue;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -11,15 +14,16 @@ import javax.swing.border.EmptyBorder;
 
 import ClienteV2.LogIn.PanelForm;
 
-/*
- * Clase de la barrade progreso con forma de rayo
- */
 public class RayoProgreso extends JFrame {
 
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = 1L;
+
 	private Timer Simulacion;
 	private int X = 0; // Dimensión X del frame
-	private int Xmax = 1000; // Final del despliegue
+	private int Xmax = 1000; // Final del despliegue!
 	private int velocidad = 5;
 	private JPanel contentPane;
 	private BarraProgreso progressBar = new BarraProgreso(Xmax);
@@ -68,9 +72,6 @@ public class RayoProgreso extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 	}
 
-	/*
-	 * Método del movimiento del rayo
-	 */
 	private void StartSimulacion(ActionEvent evt) {
 		ActionListener taskPerformer = new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
@@ -94,15 +95,14 @@ public class RayoProgreso extends JFrame {
 		Simulacion = new Timer(20, taskPerformer);
 		Simulacion.start();
 	}
-	/*
-	 * Método que para el movimiento del rayo
-	 */
+
 	public void StopSimulacion(ActionEvent evt) {
 		X = Xmax;
 		Simulacion.stop();
 		progressBar.dispose();
 	}
 
+	// TODO: Clase interna para la progressbar:
 	class BarraProgreso extends JFrame {
 
 		private static final long serialVersionUID = 1L;
@@ -123,6 +123,7 @@ public class RayoProgreso extends JFrame {
 		private void Añadir() {
 			setUndecorated(true);
 			setLayout(null);
+			//TODO: falta situarlo donde tú quieras!
 			setBounds(700, 1000, 400, 20);
 			add(progressBar);
 			setVisible(true);

@@ -14,7 +14,7 @@ import java.util.Calendar;
 import java.util.logging.Level;
 
 /*
- * Clase que guarda la conversación de chat
+ * Clase que guarda la conversación de chat en el pc
  */
 public class Log_chat {
 	
@@ -72,6 +72,7 @@ public class Log_chat {
 
 	/*
 	 * Método para leer el fichero que contiene los chats
+	 *TODO recuperar conversaciones
 	 */
 	public static void LeerFichero() throws FileNotFoundException {
 

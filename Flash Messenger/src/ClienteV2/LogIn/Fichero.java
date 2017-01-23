@@ -8,9 +8,13 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.LinkedList;
 
+/**
+ * Clase cedida por David García
+ * Guarda y carga la lista de usuarios conectados
+ */
 public class Fichero {
 
-	// TODO: ruta de cada uno_
+
 	public static String RutaAbsoluta = "C:/Users/Usuario/Desktop/Flash Messenger/resources/";
 
 	public void guardar(Object obj, String archivo) {

@@ -3,26 +3,21 @@ package ServidorV2.Hilos;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.DatagramPacket;
-import java.net.DatagramSocket;
-import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.net.SocketException;
-import java.net.UnknownHostException;
 import java.util.logging.Level;
-
-import javax.swing.JOptionPane;
 
 import ServidorV2.Ventana_Servidor;
 import ServidorV2.Logs.Log_errores;
 
 /*
- * Clase encargada de recibir los datos del LogIn
+ * Clase encargada de recibir los datos del LogIn y del registro
  */
 public class H_Comunicacion extends Thread {
 
+	/*
+	 * Método que recibe los datos del cliente
+	 */
 	public void recibirDatos() throws IOException {
 		
 		while (true) {
