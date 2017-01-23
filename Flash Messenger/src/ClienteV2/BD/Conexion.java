@@ -145,5 +145,27 @@ public class Conexion {
 	public void setIps(ArrayList<String> ips) {
 		this.ips = ips;
 	}
-
+	/**
+	 * Método que compara la versión del cliente actual con la última versión
+	 * @param st
+	 * @return true si está actualizado, false si no
+	 */
+	public boolean hayNuevaVersion(Statement st){
+		String version = "0";
+		try {
+			ResultSet rs = st.executeQuery("select * from actualizaciones");
+			while (rs.next()) {
+				version = rs.getString("vCliente");
+			}
+		} catch (SQLException e) {
+			Log_errores.log( Level.SEVERE, "Error: " + e.getMessage(), e );
+			e.printStackTrace();
+		}
+		
+		if(version.equals(datos.getProperties("resources/Flash.properties", "vCliente"))){
+			return true;
+		}else{
+			return false;
+		}
+	}
 }

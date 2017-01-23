@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 
@@ -91,6 +92,9 @@ public class Principal_Cliente {
 		if (conexion.TestInternet() == true) {
 			Connection con = conexion.initBD();
 			Statement stat = conexion.usarBD(con);
+			/*if(conexion.hayNuevaVersion(stat) == true){//TODO añadir próximamente
+				JOptionPane.showMessageDialog(null,"¡Hay un nueva versión del cliente disponible!");
+			}*/ 
 			do{
 				conexion.servidorObtener(stat);
 			}while(conexion.ips.size() == 0);

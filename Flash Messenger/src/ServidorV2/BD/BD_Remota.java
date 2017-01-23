@@ -113,14 +113,13 @@ public class BD_Remota extends BD_Padre{
 			ResultSet rs = stat.executeQuery("select * from actualizaciones");
 			while (rs.next()) {
 				version = rs.getString("vServidor");
-
 			}
 		} catch (SQLException e) {
 			Log_errores.log( Level.SEVERE, "Error: " + e.getMessage(), e );
 			e.printStackTrace();
 		}
 		
-		if(version.equals(datos.getProperties("resources/Flash.properties", "version"))){
+		if(version.equals(datos.getProperties("resources/Flash.properties", "vServidor"))){
 			return true;
 		}else{
 			return false;
