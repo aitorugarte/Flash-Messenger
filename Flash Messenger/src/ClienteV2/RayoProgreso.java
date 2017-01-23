@@ -12,7 +12,7 @@ import javax.swing.border.EmptyBorder;
 import ClienteV2.LogIn.PanelForm;
 
 /*
- * Clase de la barrade progreso con forma de rayo
+ * Clase de la barra de progreso con forma de rayo
  */
 public class RayoProgreso extends JFrame {
 

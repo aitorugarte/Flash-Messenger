@@ -23,7 +23,8 @@ import ClienteV2.Encriptado.CesarRecursivo;
 import ServidorV2.Logs.Log_chat;
 
 /*
- * Hilo del cliente encargado de los mensajes
+ * Hilo del cliente encargado de la gestión
+ * del envío de mensajes
  */
 public class H_Cliente extends Thread{
 	

@@ -16,11 +16,10 @@ import ClienteV2.LogIn.PanelForm;
 
 public class RayoProgreso extends JFrame {
 
-	/**
-	 * 
+	/*
+	 * Clase de la barra de progreso con forma de rayo
 	 */
 	private static final long serialVersionUID = 1L;
-
 	private Timer Simulacion;
 	private int X = 0; // Dimensión X del frame
 	private int Xmax = 1000; // Final del despliegue!

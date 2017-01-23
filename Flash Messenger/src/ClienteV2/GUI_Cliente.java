@@ -37,6 +37,9 @@ import ClienteV2.LogIn.Fichero;
 import ClienteV2.LogIn.PanelForm;
 import javax.swing.JToggleButton;
 
+/*
+ * Clase de la ventana gráfica del cliente
+ */
 public class GUI_Cliente extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1458864985101903804L;
@@ -75,10 +78,8 @@ public class GUI_Cliente extends JFrame implements ActionListener {
 	}
 
 	private void CargarListaUsuariosActivos() {
-		// Ini modelo:
-		modelo = new DefaultListModel<String>();
 
-		// Cargamos fichero:
+		modelo = new DefaultListModel<String>();
 		LinkedList<String> new_activos = new LinkedList<String>();
 		Fichero f = new Fichero();
 		new_activos = f.cargar("activos.obj");
@@ -329,7 +330,7 @@ public class GUI_Cliente extends JFrame implements ActionListener {
 				}
 				mostrarImagen(1, direccion);
 				String tipo = direccion.substring(direccion.length() - 3);
-				System.out.println(direccion + " " + tipo);
+		//		System.out.println(direccion + " " + tipo);
 				cliente.enviarImagen(direccion, tipo);
 			}
 		});
@@ -352,9 +353,7 @@ public class GUI_Cliente extends JFrame implements ActionListener {
 
 	/**
 	 * Método que muestra el mensaje por pantalla
-	 * 
-	 * @param num
-	 *            mensaje enviado = 1, mensaje recibido = 2
+	 * @param num mensaje enviado = 1, mensaje recibido = 2
 	 * @param mensaje
 	 */
 	public void mostrarMensaje(int num, String mensaje) {
@@ -369,15 +368,10 @@ public class GUI_Cliente extends JFrame implements ActionListener {
 	}
 
 	/**
-	 * TODO método que resize las imagenes dependiendo si son cuadradas u
-	 * horizontales Método que muestra la imagen por pantalla
-	 * 
-	 * @param num
-	 *            imagen enviada = 1, imagen recibida = 2
-	 * @param imagen
-	 *            dirección local de la imagen
-	 * @param usuario
-	 *            que envía la imagen
+	 * Método que muestra la imagen por pantalla
+	 * @param num imagen enviada = 1, imagen recibida = 2
+	 * @param imagen dirección local de la imagen
+	 * @param usuario que envía la imagen
 	 */
 	public void mostrarImagen(int num, String path) {
 
