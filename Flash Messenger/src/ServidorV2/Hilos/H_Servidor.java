@@ -250,7 +250,8 @@ public class H_Servidor extends Thread {
 					}*/
 				//if (!user.getNombre().equals(nombre)) {
 					BufferedImage imagen = ImageIO.read(new File(path));
-					out.writeObject(new ImageIcon(imagen));
+				//Con errorout.writeObject(new ImageIcon(imagen));
+				/*Solución*/user.out.writeObject(new ImageIcon(imagen));
 					System.out.println("Imagen enviada con éxito a " + user.getNombre());
 			//	}
 			} catch (IOException e) {
